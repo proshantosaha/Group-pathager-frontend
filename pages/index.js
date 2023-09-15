@@ -16,7 +16,7 @@ export default function Home() {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.description}>
-          <h2> ki khobor boss apner bosse khaice loss ki khobor boss apner bosse khaice loss</h2>
+          <h2> ki khobor boss apner bosse khaice loss ki khobor boss apner bosse khaice loss 2</h2>
           <p>
             Get started by editing&nbsp;
             <code className={styles.code}>pages/index.js</code>
