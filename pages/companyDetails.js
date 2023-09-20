@@ -114,15 +114,14 @@ const companyDetails = () => {
           <Box
             sx={{
               width: "750px",
-           
               paddingLeft: "240px",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
             }}
           >
-            <Image width="600" src={image2}></Image>
-          </Box>
+            <Image  width="600" src={image2}></Image>
+          </Box> 
         </Box>
         
       </Container>
@@ -154,6 +153,7 @@ const companyDetails = () => {
                 <CardMedia
                   sx={{
                     height: 240,
+                   
                   }}
                   image="https://img.freepik.com/free-photo/front-view-stacked-books-ladders-education-day_23-2149241046.jpg?w=1380&t=st=1694874052~exp=1694874652~hmac=439bf624dbe0964e41d134e3ce0ed2f81bd36e39f5d3e95c327f38a25120b35f"
                   title="green iguana"
@@ -203,7 +203,17 @@ const companyDetails = () => {
                     }}
                   >
                     <Button
-                      variant="contained"
+                     
+                      sx={{
+                        color:'#009F7F',
+                        border:'25px',
+                        backgroundColor:'white',
+                        boxShadow: "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px",
+                        padding:"8px 16px",
+                        borderRadius:'25px',
+                        fontWeight:'bold'
+
+                    }}
                       startIcon={<ShoppingCartIcon />}
                     >
                       Add to cart
