@@ -200,13 +200,13 @@ export default function Navbar() {
                   <Link href="/">Home</Link>
                 </li>
                 <li className={Styles.navigationMenuLi}>
-                  <Link href="/shop">Shop</Link>
+                  <Link href="/Shop">Shop</Link>
                 </li>
                 <li className={Styles.navigationMenuLi}>
                   <Link href={"/about"}>About</Link>
                 </li>
                 <li className={Styles.navigationMenuLi}>
-                  <Link href={"/contact"}>Contact</Link>
+                  <Link href={"/Contact"}>Contact</Link>
                 </li>
               </ul>
             </nav>

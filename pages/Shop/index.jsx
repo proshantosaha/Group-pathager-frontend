@@ -109,16 +109,16 @@ export default function Shop() {
   };
 
   return (
-    <Container>
-      <AppBar>
-        <Typography variant="h6" sx={{ textAlign: "center", paddingY: 2 }}>
-          Shop
-        </Typography>
-      </AppBar>
+    <Box
+      sx={{
+        maxWidth: "1654px",
+        mx: "auto",
+      }}
+    >
       <Toolbar />
       <Separator />
 
-      <Box sx={{ width: "100%" }}>
+      <Box>
         <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={12} sm={6} md={4}>
             <Box
@@ -201,8 +201,7 @@ export default function Shop() {
       <Box sx={{ width: "100%" }}>
         <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={12} sm={6} md={4}>
-          
-          {/* <Box>
+            {/* <Box>
             <Box
               style={{
                 display: "flex",
@@ -485,19 +484,16 @@ export default function Shop() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={8}>
-              <Grid
-                container
-                sx={{ flexGrow: 1 }}
-              >
-                {Array.from(Array(9)).map((_, index) => (
-                  <Grid xs={12} sm={12} md={6} lg={4} key={index}>
-                    <Box sx={{width: "390px", height: "300px"}}>xs=2</Box>
-                  </Grid>
-                ))}
-              </Grid>
+            <Grid container sx={{ flexGrow: 1 }}>
+              {Array.from(Array(9)).map((_, index) => (
+                <Grid xs={12} sm={12} md={6} lg={4} key={index}>
+                  <Box sx={{ width: "390px", height: "300px" }}>xs=2</Box>
+                </Grid>
+              ))}
+            </Grid>
           </Grid>
         </Grid>
       </Box>
-    </Container>
+    </Box>
   );
 }

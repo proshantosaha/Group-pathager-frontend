@@ -7,6 +7,7 @@ import styles from "../categoris.module.css";
 
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import Link from "next/link";
 
 const FullCard = () => {
   return (
@@ -39,7 +40,9 @@ const FullCard = () => {
             padding="10px"
           >
             <Stack direction="row" spacing={2}>
-              <Button variant="contained">Contained</Button>
+              <Link href={"/CategoryDetails"}>
+                <Button variant="contained">View all</Button>
+              </Link>
             </Stack>
           </Box>
         </Box>

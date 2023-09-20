@@ -6,6 +6,7 @@ import ManufactureCard from "@/components/manufactureCard";
 import PopularAuthorCard from "@/components/popularAuthor";
 import Advertise from "@/components/Advertise";
 import Cagoris from "@/components/categories";
+import Box from "@mui/material/Box";
 
 import BooksCart from "@/components/PopularBooks/BooksCart";
 
@@ -30,12 +31,20 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         {/* `${styles.main} ${inter.className}` */}
-        <Banner />
-        <BooksCart />
-        <Cagoris />
-        <PopularAuthorCard />
-        <ManufactureCard />
-        <Advertise />
+
+        <Box
+          sx={{
+            maxWidth: "1654px",
+            mx: "auto",
+          }}
+        >
+          <Banner />
+          <BooksCart />
+          <Cagoris />
+          <PopularAuthorCard />
+          <ManufactureCard />
+          <Advertise />
+        </Box>
       </main>
     </>
   );

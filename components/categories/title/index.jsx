@@ -7,7 +7,7 @@ import styles from "../categoris.module.css";
 
 const Title = () => {
   return (
-    <Box sx={{ width: "1654px", mx: "auto", my: 2 }}>
+    <Box sx={{ my: 2 }}>
       <h className={styles.text}>Categories of Books</h>
     </Box>
   );

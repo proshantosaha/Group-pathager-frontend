@@ -10,8 +10,6 @@ const ManufactureCard = () => {
       margin="10px 0"
       borderRadius="10px"
       sx={{
-        maxWidth: "1654px",
-        mx: "auto",
         bgcolor: "#D9D9D9",
         padding: "60px 0",
       }}

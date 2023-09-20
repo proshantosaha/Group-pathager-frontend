@@ -13,7 +13,7 @@ import AppleIcon from "@mui/icons-material/Apple";
 const Advertise = () => {
   return (
     <>
-      <Box sx={{ maxWidth: "1654px", mx: "auto" }}>
+      <Box>
         <Box
           margin="10px 0"
           borderRadius="10px"

@@ -10,7 +10,6 @@ const Banner = () => {
     // bgcolor: "#6DCEF5"
     <Box
       sx={{
-        maxWidth: "1654px",
         bgcolor: "#B9E6E5",
         padding: "100px 50px",
         margin: "50px 0px 10px 0px",

@@ -15,6 +15,7 @@ const Cagoris = () => {
     >
       <Title />
       <Box display="flex" justifyContent="center">
+        {/* <Link></Link> */}
         <FullCard />
         <FullCard />
         <FullCard />

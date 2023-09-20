@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import emailjs from "emailjs-com";
-import Container from "@mui/material/Container";
+// import Container from "@mui/material/Container";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
@@ -37,12 +37,12 @@ export default function Contact() {
   };
 
   return (
-    <Container>
-      <AppBar>
-        <Typography variant="h6" sx={{ textAlign: "center", paddingY: 2 }}>
-          Contact Us
-        </Typography>
-      </AppBar>
+    <Box
+      sx={{
+        maxWidth: "1654px",
+        mx: "auto",
+      }}
+    >
       <Toolbar />
 
       <Box sx={{ flexGrow: 1 }}>
@@ -57,7 +57,13 @@ export default function Contact() {
                 borderColor: "gray",
               }}
             >
-              <Box sx={{ marginBottom: 5, display: "flex", justifyContent: "center" }}>
+              <Box
+                sx={{
+                  marginBottom: 5,
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
                 <Image src={contuct} width={400} alt="Contact Image" />
               </Box>
               <Box sx={{ marginBottom: 5, marginLeft: 4 }}>
@@ -153,6 +159,6 @@ export default function Contact() {
           loading="lazy"
         ></iframe>
       </Box>
-    </Container>
+    </Box>
   );
 }

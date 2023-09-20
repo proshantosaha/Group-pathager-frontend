@@ -17,7 +17,7 @@ import Pagination from "@mui/material/Pagination";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 const BooksCart = () => {
   const [books, setBooks] = useState([]);
@@ -44,7 +44,6 @@ const BooksCart = () => {
   const endIndex = startIndex + cardsPerPage;
   const displayedBooks = books.slice(startIndex, endIndex);
 
-
   //wishlist
   const handleFavoriteToggle = (index) => {
     // Create a copy of the isFavorite array and toggle the value for the clicked card
@@ -54,35 +53,30 @@ const BooksCart = () => {
   };
 
   //sorting
-  const [sortOrder, setSortOrder] = useState('asc'); 
-// 'asc' bebohar kora hoy low to high, 'desc' for high to low
+  const [sortOrder, setSortOrder] = useState("asc");
+  // 'asc' bebohar kora hoy low to high, 'desc' for high to low
 
   const handleSortChange = (event) => {
     setSortOrder(event.target.value);
-
   };
   return (
-    <Box>
+    <Box bgcolor="red" p="20px" my="20px" borderRadius="20px">
       <Typography variant="h4" sx={{ fontWeight: 700, color: "#0096D1" }}>
         Popular Books
       </Typography>
-      <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
-    <Pagination
-      count={Math.ceil(books.length / cardsPerPage)}
-      page={page}
-      onChange={handlePageChange}
-    />
-    <div style={{ marginLeft: 'auto' }}>
-      <Select
-        label="Sort By"
-        value={sortOrder}
-        onChange={handleSortChange}
-      >
-        <MenuItem value="asc">Low to High</MenuItem>
-        <MenuItem value="desc">High to Low</MenuItem>
-      </Select>
-    </div>
-  </Box>
+      <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
+        <Pagination
+          count={Math.ceil(books.length / cardsPerPage)}
+          page={page}
+          onChange={handlePageChange}
+        />
+        <div style={{ marginLeft: "auto" }}>
+          <Select label="Sort By" value={sortOrder} onChange={handleSortChange}>
+            <MenuItem value="asc">Low to High</MenuItem>
+            <MenuItem value="desc">High to Low</MenuItem>
+          </Select>
+        </div>
+      </Box>
 
       <Grid container spacing={3}>
         {displayedBooks.map((book, index) => (
