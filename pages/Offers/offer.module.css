@@ -1,0 +1,14 @@
+.text{
+    font-size :12px;
+    /* font-weight: bold; */
+  }
+
+  .flexx{
+    display: flex;
+    justify-content:space-around;
+
+  }
+  
+  .align{
+    
+  }
