@@ -7,6 +7,10 @@ import PopularAuthorCard from "@/components/popularAuthor";
 import Advertise from "@/components/Advertise";
 import Cagoris from "@/components/categories";
 
+import BooksCart from "@/components/PopularBooks/BooksCart";
+
+// import BooksCart from "@/components/PopularBooks/BooksCart";
+
 // import Navbar from '@/layout/Navbar'
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,6 +31,7 @@ export default function Home() {
       <main className={styles.main}>
         {/* `${styles.main} ${inter.className}` */}
         <Banner />
+        <BooksCart />
         <Cagoris />
         <PopularAuthorCard />
         <ManufactureCard />
