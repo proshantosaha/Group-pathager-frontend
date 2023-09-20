@@ -46,8 +46,8 @@ export default function Contact() {
       <Toolbar />
 
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
+        <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid item xs={12} md={6}>
             <Box
               sx={{
                 marginRight: 2,
@@ -57,7 +57,7 @@ export default function Contact() {
                 borderColor: "gray",
               }}
             >
-              <Box sx={{ marginBottom: 5 }}>
+              <Box sx={{ marginBottom: 5, display: "flex", justifyContent: "center" }}>
                 <Image src={contuct} width={400} alt="Contact Image" />
               </Box>
               <Box sx={{ marginBottom: 5, marginLeft: 4 }}>
@@ -73,7 +73,7 @@ export default function Contact() {
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <form ref={form} onSubmit={sendEmail}>
               <Box
                 sx={{
