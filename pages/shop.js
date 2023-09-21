@@ -202,7 +202,7 @@ export default function Shop() {
         <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={12} sm={6} md={4}>
           
-          {/* <Box>
+          <Box>
             <Box
               style={{
                 display: "flex",
@@ -265,7 +265,7 @@ export default function Shop() {
               </FormControl>
             </Box>
           </Box>
-          <Separator /> */}
+          <Separator />
 
             <Box
               style={{
@@ -482,6 +482,7 @@ export default function Shop() {
               </FormControl>
             </Box>
             <Separator />
+
           </Grid>
 
           <Grid item xs={12} sm={6} md={8}>
