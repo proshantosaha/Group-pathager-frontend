@@ -11,7 +11,6 @@ import {
 import React from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import image1 from "../public/Rectangle 21.png";
 import image2 from "../public/Rectangle 101.png";
 import image3 from "../public/Ellipse 2 (2).png";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -20,7 +19,7 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import Image from "next/image";
 
-const companyDetails = () => {
+const menuFeature = () => {
   const book = [
     {
       id: 1,
@@ -236,4 +235,4 @@ const companyDetails = () => {
   );
 };
 
-export default companyDetails;
+export default menuFeature;
