@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useState, useEffect} from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -65,11 +65,35 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Navbar() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [books, setBooks] = useState([]);
+  const [navSearch, setNavSearch] = useState("")
+
+  console.log(navSearch)
+
+
+  const handleChangeNav = (e) => {
+    const searchText = e.target.value;
+    const matchedBooks = books.filter((book) =>
+      book.title.toLowerCase().includes(searchText.toLowerCase())
+      );
+    setNavSearch(matchedBooks)
+  }
+
+
+  useEffect(() => {
+    fetch("/Book.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setBooks(data);
+      });
+  }, []);
+
+
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -220,8 +244,10 @@ export default function Navbar() {
               className={Styles.search}
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              onChange={handleChangeNav}
             />
           </Search>
+
           <Box sx={{ flexGrow: 2 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
