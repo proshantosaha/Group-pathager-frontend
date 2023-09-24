@@ -70,22 +70,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const BooksCart = () => {
   const [books, setBooks] = useState([]);
+  const [navSearch, setNavSearch] = useState([]);
   const [page, setPage] = useState(1);
   const [cardsPerPage] = useState(8);
   const [isFavorite, setIsFavorite] = useState([]);
-  const [navSearch, setNavSearch] = useState("")
-
-  console.log(navSearch)
-
 
   const handleChangeNav = (e) => {
     const searchText = e.target.value;
     const matchedBooks = books.filter((book) =>
       book.title.toLowerCase().includes(searchText.toLowerCase())
-      );
-    setNavSearch(matchedBooks)
-  }
-
+    );
+    setNavSearch(matchedBooks);
+  };
 
   useEffect(() => {
     // Fetch the JSON data from your file
@@ -95,13 +91,14 @@ const BooksCart = () => {
         // Initialize the isFavorite state with false for each card
         setIsFavorite(new Array(data.length).fill(false));
         setBooks(data);
+        setNavSearch(data);
       });
   }, []);
 
   //pagination
   const endIndex = page * cardsPerPage;
   const startIndex = endIndex - cardsPerPage;
-  const displayedBooks = books.slice(startIndex, endIndex);
+  const displayedBooks = navSearch.slice(startIndex, endIndex);
 
   //pagination handle
   const handlePageChange = (pageNumber) => {
@@ -126,28 +123,21 @@ const BooksCart = () => {
 
   return (
     <Box bgcolor="red" p="20px" my="20px" borderRadius="20px">
-    <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              // className={Styles.search}
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              onChange={handleChangeNav}
-            />
-          </Search>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ "aria-label": "search" }}
+          onChange={handleChangeNav}
+        />
+      </Search>
       <Typography variant="h4" sx={{ fontWeight: 700, color: "#0096D1" }}>
         Popular Books
       </Typography>
       <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
         <PaginationStyle>
-          {/* <Pagination
-          count={Math.ceil(books.length / cardsPerPage)}
-          page={page}
-          onChange={handlePageChange}
-        /> */}
-
           <PaginationPage
             totalBooks={books?.length}
             cardsPerPage={cardsPerPage}
@@ -163,8 +153,7 @@ const BooksCart = () => {
       </Box>
 
       <Grid container spacing={3}>
-        {navSearch ? (
-          navSearch.map((book, index) => (
+        {displayedBooks.map((book, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card sx={{ background: "#F3FCFF", minHeight: "100%" }}>
               <CardMedia
@@ -236,84 +225,7 @@ const BooksCart = () => {
               </CardContent>
             </Card>
           </Grid>
-        ))
-        ) : (
-          displayedBooks.map((book, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <Card sx={{ background: "#F3FCFF", minHeight: "100%" }}>
-              <CardMedia
-                component="img"
-                height="400px" // Set height to "auto"
-                objectFit="cover" // Maintain aspect ratio and fit
-                image={book.Image}
-                alt={book.title}
-              />
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {book.title}
-                </Typography>
-                <Typography color="text.secondary">
-                  by {book.authorname}
-                </Typography>
-                <Typography>
-                  <Rating
-                    style={{ maxWidth: 180 }}
-                    value={book.rating}
-                    precision={0.5}
-                    readOnly
-                  />
-                </Typography>
-                <Typography variant="p">{book.stock}</Typography>
-                <Typography variant="h6" color="green" fontWeight="700">
-                  ${book.price}
-                </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    mt: 3,
-                    "& button": {
-                      background: "white",
-                      fontWeight: 700,
-                      border: "1px solid grey",
-                      borderRadius: 25,
-                      color: "green",
-                      transition: "background 0.3s, color 0.3s",
-                      "&:hover": {
-                        background: "green",
-                        color: "white",
-                      },
-                    },
-                  }}
-                >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<ShoppingCartIcon />}
-                    sx={{ background: "white", color: "green" }}
-                  >
-                    Add to Cart
-                  </Button>
-                  <Typography>
-                    <IconButton
-                      color={isFavorite[index] ? "secondary" : "default"}
-                      onClick={() => handleFavoriteToggle(index)}
-                    >
-                      {isFavorite[index] ? (
-                        <FavoriteIcon style={{ color: "red" }} />
-                      ) : (
-                        <FavoriteBorderIcon />
-                      )}
-                    </IconButton>
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))
-        )}
-
-      
+        ))}
       </Grid>
       <Box sx={{ display: "flex", justifyContent: "center", marginTop: 3 }}>
         <PaginationStyle>
