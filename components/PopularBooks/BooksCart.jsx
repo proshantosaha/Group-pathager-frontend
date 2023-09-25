@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { styled, alpha } from "@mui/material/styles";
 import {
   Box,
   Card,
@@ -16,20 +17,70 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useRouter } from "next/router";
-import PaginationPage from "../pagination";
+import { PaginationStyle } from "@/styles/paginationStyle";
+import InputBase from "@mui/material/InputBase";
+import PaginationPage from "../PaginationPage";
+import SearchIcon from "@mui/icons-material/Search";
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: "#B0B4B4",
+  "&:hover": {
+    backgroundColor: "#A8A8A8",
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "50%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "50ch",
+    },
+
+    [theme.breakpoints.up("xl")]: {
+      width: "80ch",
+    },
+  },
+}));
 
 const BooksCart = () => {
   const [books, setBooks] = useState([]);
-
-  const [isFavorite, setIsFavorite] = useState([]);
-
+  const [navSearch, setNavSearch] = useState([]);
   const [page, setPage] = useState(1);
   const [cardsPerPage] = useState(8);
+  const [isFavorite, setIsFavorite] = useState([]);
 
-  const endIndex = page * cardsPerPage;
-  const startIndex = endIndex - cardsPerPage;
-  const displayedBooks = books.slice(startIndex, endIndex);
+  const handleChangeNav = (e) => {
+    const searchText = e.target.value;
+    const matchedBooks = books.filter((book) =>
+      book.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setNavSearch(matchedBooks);
+  };
 
   useEffect(() => {
     // Fetch the JSON data from your file
@@ -39,8 +90,19 @@ const BooksCart = () => {
         // Initialize the isFavorite state with false for each card
         setIsFavorite(new Array(data.length).fill(false));
         setBooks(data);
+        setNavSearch(data);
       });
   }, []);
+
+  //pagination
+  const endIndex = page * cardsPerPage;
+  const startIndex = endIndex - cardsPerPage;
+  const displayedBooks = navSearch.slice(startIndex, endIndex);
+
+  //pagination handle
+  const handlePageChange = (pageNumber) => {
+    setPage(pageNumber);
+  };
 
   //wishlist
   const handleFavoriteToggle = (index) => {
@@ -52,15 +114,40 @@ const BooksCart = () => {
 
   const [sortOrder, setSortOrder] = useState("asc");
 
-  const handlePageChange = (pageNumber) => {
+  const handleSortChange = (pageNumber) => {
     setPage(pageNumber);
   };
 
   return (
     <Box bgcolor="red" p="20px" my="20px" borderRadius="20px">
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ "aria-label": "search" }}
+          onChange={handleChangeNav}
+        />
+      </Search>
       <Typography variant="h4" sx={{ fontWeight: 700, color: "#0096D1" }}>
         Popular Books
       </Typography>
+      <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
+        <PaginationStyle>
+          <PaginationPage
+            totalBooks={books?.length}
+            cardsPerPage={cardsPerPage}
+            handlePageChange={handlePageChange}
+          />
+        </PaginationStyle>
+        <div style={{ marginLeft: "auto" }}>
+          <Select label="Sort By" value={sortOrder} onChange={handleSortChange}>
+            <MenuItem value="asc">Low to High</MenuItem>
+            <MenuItem value="desc">High to Low</MenuItem>
+          </Select>
+        </div>
+      </Box>
 
       <Grid container spacing={3}>
         {displayedBooks.map((book, index) => (
@@ -137,12 +224,17 @@ const BooksCart = () => {
           </Grid>
         ))}
       </Grid>
-
-      <PaginationPage
-        totalBooks={books?.length}
-        cardsPerPage={cardsPerPage}
-        handlePageChange={handlePageChange}
-      />
+      <Box sx={{ display: "flex", justifyContent: "center", marginTop: 3 }}>
+        <PaginationStyle>
+          <PaginationPage
+            count={Math.ceil(books.length / cardsPerPage)}
+            page={page}
+            onChange={handlePageChange}
+            hidePrevButton
+            hideNextButton
+          />
+        </PaginationStyle>
+      </Box>
     </Box>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import emailjs from "emailjs-com";
-// import Container from "@mui/material/Container";
 import AppBar from "@mui/material/AppBar";
 import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
@@ -45,7 +44,7 @@ export default function Contact() {
     >
       <Toolbar />
 
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, color: "black" }}>
         <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={12} md={6}>
             <Box
