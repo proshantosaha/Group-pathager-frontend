@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -18,6 +18,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 
 import Link from "next/link";
 import Styles from "./NavbarStyles.module.css";
+import { Book } from "@mui/icons-material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -65,11 +66,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Navbar() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+
+  const [navSearch, setNavSearch] = useState("");
+  const [books, setBooks] = useState([]);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const navHandleSearch = (e) => {
+    const searchText = e.target.navSearch;
+    const matchBooks = books.filter((book) =>
+      book.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+    setNavSearch(matchBooks);
+    console.log(setNavSearch(matchBooks));
+  };
+
+  useEffect(() => {
+    fetch("/Book.json")
+      .then((res) => res.json)
+      .then((data) => {
+        setIsFavourite(new Array(data.length).fill(false));
+        setBooks(data);
+      }, []);
+  });
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -220,6 +243,7 @@ export default function Navbar() {
               className={Styles.search}
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              onChange={navHandleSearch}
             />
           </Search>
           <Box sx={{ flexGrow: 2 }} />

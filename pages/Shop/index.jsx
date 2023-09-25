@@ -16,6 +16,8 @@ import Slider from "@mui/joy/Slider";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 
+import Head from "next/head";
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -109,99 +111,105 @@ export default function Shop() {
   };
 
   return (
-    <Box
-      sx={{
-        maxWidth: "1654px",
-        mx: "auto",
-      }}
-    >
-      <Toolbar />
-      <Separator />
+    <>
+      <Head>
+        <title>Shope page</title>
+        <meta name="Shoping zone" content="Bookmark application shop page" />
+      </Head>
 
-      <Box>
-        <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={12} sm={6} md={4}>
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                border: "1px solid black",
-                borderRadius: "10px 10px 0px 0px",
-                padding: "0px 20px",
-                backgroundColor: "#c9c9c9",
-              }}
-            >
-              <p>Sort</p>
-              <p>Reset Sort</p>
-            </Box>
-            <Box
-              style={{
-                border: "1px solid black",
-                borderTop: "0px",
-                borderRadius: "0px 0px 10px 10px",
-                padding: "0px 20px",
-              }}
-            >
-              <FormControl>
-                <RadioGroup
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  value={sort}
-                  onChange={sortHandleChange}
-                >
-                  <FormControlLabel
-                    value="best-seller"
-                    control={<Radio />}
-                    label="Best Seller"
-                  />
-                  <FormControlLabel
-                    value="new-relased"
-                    control={<Radio />}
-                    label="New Released"
-                  />
-                  <FormControlLabel
-                    value="price-low-to-high"
-                    control={<Radio />}
-                    label="Price - Low to High"
-                  />
-                  <FormControlLabel
-                    value="price-high-to-low"
-                    control={<Radio />}
-                    label="Price - High to Low"
-                  />
-                  <FormControlLabel
-                    value="discount-low-to-high"
-                    control={<Radio />}
-                    label="Discount - Low to High"
-                  />
-                  <FormControlLabel
-                    value="discount-high-to-low"
-                    control={<Radio />}
-                    label="Discount - High to Low"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={6} md={8}>
-            <Box>
-              <Image
-                src={shop}
-                alt="Banner Image"
-                width={750}
-                height={300}
-                priority
-              />
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
-      <Separator />
+      <Box
+        sx={{
+          maxWidth: "1654px",
+          mx: "auto",
+        }}
+      >
+        <Toolbar />
+        <Separator />
 
-      <Box sx={{ width: "100%" }}>
-        <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={12} sm={6} md={4}>
-            {/* <Box>
+        <Box>
+          <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
+            <Grid item xs={12} sm={6} md={4}>
+              <Box
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  border: "1px solid black",
+                  borderRadius: "10px 10px 0px 0px",
+                  padding: "0px 20px",
+                  backgroundColor: "#c9c9c9",
+                }}
+              >
+                <p>Sort</p>
+                <p>Reset Sort</p>
+              </Box>
+              <Box
+                style={{
+                  border: "1px solid black",
+                  borderTop: "0px",
+                  borderRadius: "0px 0px 10px 10px",
+                  padding: "0px 20px",
+                }}
+              >
+                <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    value={sort}
+                    onChange={sortHandleChange}
+                  >
+                    <FormControlLabel
+                      value="best-seller"
+                      control={<Radio />}
+                      label="Best Seller"
+                    />
+                    <FormControlLabel
+                      value="new-relased"
+                      control={<Radio />}
+                      label="New Released"
+                    />
+                    <FormControlLabel
+                      value="price-low-to-high"
+                      control={<Radio />}
+                      label="Price - Low to High"
+                    />
+                    <FormControlLabel
+                      value="price-high-to-low"
+                      control={<Radio />}
+                      label="Price - High to Low"
+                    />
+                    <FormControlLabel
+                      value="discount-low-to-high"
+                      control={<Radio />}
+                      label="Discount - Low to High"
+                    />
+                    <FormControlLabel
+                      value="discount-high-to-low"
+                      control={<Radio />}
+                      label="Discount - High to Low"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={6} md={8}>
+              <Box>
+                <Image
+                  src={shop}
+                  alt="Banner Image"
+                  width={750}
+                  height={300}
+                  priority
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+        <Separator />
+
+        <Box sx={{ width: "100%" }}>
+          <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
+            <Grid item xs={12} sm={6} md={4}>
+              {/* <Box>
             <Box
               style={{
                 display: "flex",
@@ -266,234 +274,235 @@ export default function Shop() {
           </Box>
           <Separator /> */}
 
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                border: "1px solid black",
-                borderRadius: "10px 10px 0px 0px",
-                padding: "0px 20px",
-                backgroundColor: "#c9c9c9",
-              }}
-            >
-              <p>Filter</p>
-              <p>Reset Filter</p>
-            </Box>
-
-            <Box
-              border="1px solid black"
-              borderTop="0px"
-              borderRadius="0px 0px 10px 10px"
-              padding="0px 20px"
-            >
-              <Box>
-                <p
-                  style={{
-                    margin: "0px",
-                    paddingTop: "20px",
-                    paddingBottom: "20px",
-                  }}
-                >
-                  Author
-                </p>
+              <Box
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  border: "1px solid black",
+                  borderRadius: "10px 10px 0px 0px",
+                  padding: "0px 20px",
+                  backgroundColor: "#c9c9c9",
+                }}
+              >
+                <p>Filter</p>
+                <p>Reset Filter</p>
               </Box>
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
-              <FormControl>
-                <RadioGroup
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  value={filter}
-                  onChange={filterHandleChange}
-                >
-                  <FormControlLabel
-                    value="jafor-wazed"
-                    control={<Radio />}
-                    label="Jafor Wazid"
-                  />
-                  <FormControlLabel
-                    value="new-relased"
-                    control={<Radio />}
-                    label="New Released"
-                  />
-                  <FormControlLabel
-                    value="price-low-to-high"
-                    control={<Radio />}
-                    label="Price - Low to High"
-                  />
-                  <FormControlLabel
-                    value="price-high-to-low"
-                    control={<Radio />}
-                    label="Price - High to Low"
-                  />
-                  <FormControlLabel
-                    value="discount-low-to-high"
-                    control={<Radio />}
-                    label="Discount - Low to High"
-                  />
-                  <FormControlLabel
-                    value="discount-high-to-low"
-                    control={<Radio />}
-                    label="Discount - High to Low"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </Box>
-            <Separator />
 
-            <Box
-              border="1px solid black"
-              borderRadius="10px"
-              padding="0px 20px"
-            >
-              <Box>
-                <p
-                  style={{
-                    margin: "0px",
-                    paddingTop: "20px",
-                    paddingBottom: "20px",
-                  }}
-                >
-                  Publisher
-                </p>
+              <Box
+                border="1px solid black"
+                borderTop="0px"
+                borderRadius="0px 0px 10px 10px"
+                padding="0px 20px"
+              >
+                <Box>
+                  <p
+                    style={{
+                      margin: "0px",
+                      paddingTop: "20px",
+                      paddingBottom: "20px",
+                    }}
+                  >
+                    Author
+                  </p>
+                </Box>
+                <Search>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ "aria-label": "search" }}
+                  />
+                </Search>
+                <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    value={filter}
+                    onChange={filterHandleChange}
+                  >
+                    <FormControlLabel
+                      value="jafor-wazed"
+                      control={<Radio />}
+                      label="Jafor Wazid"
+                    />
+                    <FormControlLabel
+                      value="new-relased"
+                      control={<Radio />}
+                      label="New Released"
+                    />
+                    <FormControlLabel
+                      value="price-low-to-high"
+                      control={<Radio />}
+                      label="Price - Low to High"
+                    />
+                    <FormControlLabel
+                      value="price-high-to-low"
+                      control={<Radio />}
+                      label="Price - High to Low"
+                    />
+                    <FormControlLabel
+                      value="discount-low-to-high"
+                      control={<Radio />}
+                      label="Discount - Low to High"
+                    />
+                    <FormControlLabel
+                      value="discount-high-to-low"
+                      control={<Radio />}
+                      label="Discount - High to Low"
+                    />
+                  </RadioGroup>
+                </FormControl>
               </Box>
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
-              <FormControl>
-                <RadioGroup
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  value={publisher}
-                  onChange={publisherHandleChange}
-                >
-                  <FormControlLabel
-                    value="bangla-akademi"
-                    control={<Radio />}
-                    label="Bangla Akademi"
-                  />
-                  <FormControlLabel
-                    value="new-relased"
-                    control={<Radio />}
-                    label="New Released"
-                  />
-                  <FormControlLabel
-                    value="price-low-to-high"
-                    control={<Radio />}
-                    label="Price - Low to High"
-                  />
-                  <FormControlLabel
-                    value="price-high-to-low"
-                    control={<Radio />}
-                    label="Price - High to Low"
-                  />
-                  <FormControlLabel
-                    value="discount-low-to-high"
-                    control={<Radio />}
-                    label="Discount - Low to High"
-                  />
-                  <FormControlLabel
-                    value="discount-high-to-low"
-                    control={<Radio />}
-                    label="Discount - High to Low"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </Box>
-            <Separator />
+              <Separator />
 
-            <Box sx={{ padding: 3, border: 1, borderRadius: 2 }}>
-              <Slider
-                getAriaLabel={() => "Price Range"}
-                value={price}
-                onChange={priceHandleChange}
-                valueLabelDisplay="auto"
-                getAriaValueText={priceValue}
-                marks={marks}
-                step={10}
-                min={0}
-                max={2600}
-              />
-            </Box>
-            <Separator />
-
-            <Box
-              border="1px solid black"
-              borderRadius="10px"
-              padding="0px 20px"
-            >
-              <Box>
-                <p
-                  style={{
-                    margin: "0px",
-                    paddingTop: "20px",
-                    paddingBottom: "20px",
-                  }}
-                >
-                  Language
-                </p>
+              <Box
+                border="1px solid black"
+                borderRadius="10px"
+                padding="0px 20px"
+              >
+                <Box>
+                  <p
+                    style={{
+                      margin: "0px",
+                      paddingTop: "20px",
+                      paddingBottom: "20px",
+                    }}
+                  >
+                    Publisher
+                  </p>
+                </Box>
+                <Search>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ "aria-label": "search" }}
+                  />
+                </Search>
+                <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    value={publisher}
+                    onChange={publisherHandleChange}
+                  >
+                    <FormControlLabel
+                      value="bangla-akademi"
+                      control={<Radio />}
+                      label="Bangla Akademi"
+                    />
+                    <FormControlLabel
+                      value="new-relased"
+                      control={<Radio />}
+                      label="New Released"
+                    />
+                    <FormControlLabel
+                      value="price-low-to-high"
+                      control={<Radio />}
+                      label="Price - Low to High"
+                    />
+                    <FormControlLabel
+                      value="price-high-to-low"
+                      control={<Radio />}
+                      label="Price - High to Low"
+                    />
+                    <FormControlLabel
+                      value="discount-low-to-high"
+                      control={<Radio />}
+                      label="Discount - Low to High"
+                    />
+                    <FormControlLabel
+                      value="discount-high-to-low"
+                      control={<Radio />}
+                      label="Discount - High to Low"
+                    />
+                  </RadioGroup>
+                </FormControl>
               </Box>
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
-              <FormControl>
-                <RadioGroup
-                  aria-labelledby="demo-controlled-radio-buttons-group"
-                  name="controlled-radio-buttons-group"
-                  value={language}
-                  onChange={languageHandleChange}
-                >
-                  <FormControlLabel
-                    value="bengoli"
-                    control={<Radio />}
-                    label="Bengoli"
-                  />
-                  <FormControlLabel
-                    value="english"
-                    control={<Radio />}
-                    label="English"
-                  />
-                  <FormControlLabel
-                    value="outhers-language"
-                    control={<Radio />}
-                    label="Outhers Language"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </Box>
-            <Separator />
-          </Grid>
+              <Separator />
 
-          <Grid item xs={12} sm={6} md={8}>
-            <Grid container sx={{ flexGrow: 1 }}>
-              {Array.from(Array(9)).map((_, index) => (
-                <Grid xs={12} sm={12} md={6} lg={4} key={index}>
-                  <Box sx={{ width: "390px", height: "300px" }}>xs=2</Box>
-                </Grid>
-              ))}
+              <Box sx={{ padding: 3, border: 1, borderRadius: 2 }}>
+                <Slider
+                  getAriaLabel={() => "Price Range"}
+                  value={price}
+                  onChange={priceHandleChange}
+                  valueLabelDisplay="auto"
+                  getAriaValueText={priceValue}
+                  marks={marks}
+                  step={10}
+                  min={0}
+                  max={2600}
+                />
+              </Box>
+              <Separator />
+
+              <Box
+                border="1px solid black"
+                borderRadius="10px"
+                padding="0px 20px"
+              >
+                <Box>
+                  <p
+                    style={{
+                      margin: "0px",
+                      paddingTop: "20px",
+                      paddingBottom: "20px",
+                    }}
+                  >
+                    Language
+                  </p>
+                </Box>
+                <Search>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ "aria-label": "search" }}
+                  />
+                </Search>
+                <FormControl>
+                  <RadioGroup
+                    aria-labelledby="demo-controlled-radio-buttons-group"
+                    name="controlled-radio-buttons-group"
+                    value={language}
+                    onChange={languageHandleChange}
+                  >
+                    <FormControlLabel
+                      value="bengoli"
+                      control={<Radio />}
+                      label="Bengoli"
+                    />
+                    <FormControlLabel
+                      value="english"
+                      control={<Radio />}
+                      label="English"
+                    />
+                    <FormControlLabel
+                      value="outhers-language"
+                      control={<Radio />}
+                      label="Outhers Language"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Box>
+              <Separator />
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={8}>
+              <Grid container sx={{ flexGrow: 1 }}>
+                {Array.from(Array(9)).map((_, index) => (
+                  <Grid xs={12} sm={12} md={6} lg={4} key={index}>
+                    <Box sx={{ width: "390px", height: "300px" }}>xs=2</Box>
+                  </Grid>
+                ))}
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 }
