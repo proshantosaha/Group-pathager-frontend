@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useContext, useEffect, useState } from "react";
+import CartContext from "@/contex/CartContext";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import PaginationPage from "../PaginationPage";
+import SearchIcon from "@mui/icons-material/Search";
+import { PaginationStyle } from "@/styles/paginationStyle";
 import {
   Box,
   Card,
   CardContent,
   CardMedia,
-  Container,
   Grid,
   Rating,
   Typography,
@@ -14,14 +19,6 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { PaginationStyle } from "@/styles/paginationStyle";
-import InputBase from "@mui/material/InputBase";
-import PaginationPage from "../PaginationPage";
-import SearchIcon from "@mui/icons-material/Search";
-import useBookCard from "@/hooks/useBookCart";
 import {
   Search,
   SearchIconWrapper,
@@ -30,17 +27,35 @@ import {
 } from "@/styles/cardStyle";
 
 const BooksCart = () => {
+  const [books, setBooks] = useState([]);
+  const [navSearch, setNavSearch] = useState([]);
+  const [isFavorite, setIsFavorite] = useState([]);
   const [page, setPage] = useState(1);
   const [cardsPerPage] = useState(8);
-  const {
-    books,
-    navSearch,
-    setNavSearch,
-    isFavorite,
-    setIsFavorite,
-    addToCart,
-  } = useBookCard();
 
+  const { addItemToCart } = useContext(CartContext);
+
+  useEffect(() => {
+    fetch("/Book.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setIsFavorite(new Array(data.length).fill(false));
+        setBooks(data);
+        setNavSearch(data);
+      });
+  }, []);
+
+  const addToCartHandler = (book) => {
+    addItemToCart({
+      id: book.id,
+      image: book.image,
+      title: book.title,
+      authorname: book.authorname,
+      rating: book.rating,
+      stock: book.stock,
+      price: book.price,
+    });
+  };
 
   const handleChangeNav = (e) => {
     const searchText = e.target.value;
@@ -62,18 +77,9 @@ const BooksCart = () => {
 
   //wishlist
   const handleFavoriteToggle = (index) => {
-    // Create a copy of the isFavorite array and toggle the value for the clicked card
     const updatedFavorites = [...isFavorite];
     updatedFavorites[index] = !updatedFavorites[index];
     setIsFavorite(updatedFavorites);
-  };
-
-  //sorting
-  const [sortOrder, setSortOrder] = useState("asc");
-  // 'asc' bebohar kora hoy low to high, 'desc' for high to low
-
-  const handleSortChange = (event) => {
-    setSortOrder(event.target.value);
   };
 
   return (
@@ -100,7 +106,7 @@ const BooksCart = () => {
           />
         </PaginationStyle>
         <div style={{ marginLeft: "auto" }}>
-          <Select label="Sort By" value={sortOrder} onChange={handleSortChange}>
+          <Select label="Sort By">
             <MenuItem value="asc">Low to High</MenuItem>
             <MenuItem value="desc">High to Low</MenuItem>
           </Select>
@@ -110,62 +116,65 @@ const BooksCart = () => {
       <Grid container spacing={3}>
         {displayedBooks.map((book, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
-          <Card sx={{ background: "#F3FCFF", minHeight: "100%" }}>
-                      <CardMedia
-                        component="img"
-                        height="300" // Set height to "auto"
-                        objectFit="cover" // Maintain aspect ratio and fit
-                        image={book.Image}
-                        alt={book.title}
-                      />
-                      <CardContent>
-                        <Typography variant="h5" component="div">
-                          {book.title}
-                        </Typography>
-                        <Typography color="text.secondary">
-                          by {book.authorname}
-                        </Typography>
-                        <Typography>
-                          <Rating
-                            style={{ maxWidth: 180 }}
-                            value={book.rating}
-                            precision={0.5}
-                            readOnly
-                          />
-                        </Typography>
-                        <Box sx={{display: "flex",
-                  justifyContent: "space-between"}}>
-                        <Typography variant="p">{book.stock}</Typography>
-                        <Typography variant="h6" color="green" fontWeight="700">
-                          ${book.price}
-                        </Typography>
-                        </Box>
-                        <WraperButton>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            startIcon={<ShoppingCartIcon />}
-                            sx={{ background: "white", color: "green" }}
-                          >
-                            Add to Cart
-                          </Button>
-                          <Typography>
-                            <IconButton
-                              color={
-                                isFavorite[index] ? "secondary" : "default"
-                              }
-                              onClick={() => handleFavoriteToggle(index)}
-                            >
-                              {isFavorite[index] ? (
-                                <FavoriteIcon style={{ color: "red" }} />
-                              ) : (
-                                <FavoriteBorderIcon />
-                              )}
-                            </IconButton>
-                          </Typography>
-                        </WraperButton>
-                      </CardContent>
-                    </Card>
+            <Card sx={{ background: "#F3FCFF", minHeight: "100%" }}>
+              <CardMedia
+                component="img"
+                height="300" // Set height to "auto"
+                objectFit="cover" // Maintain aspect ratio and fit
+                image={book.image}
+                alt={book.title}
+              />
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  {book.title}
+                </Typography>
+                <Typography color="text.secondary">
+                  by {book.authorname}
+                </Typography>
+                <Typography>
+                  <Rating
+                    style={{ maxWidth: 180 }}
+                    value={book.rating}
+                    precision={0.5}
+                    readOnly
+                  />
+                </Typography>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                  {true ? (
+                    <Typography variant="p">{book.stock}</Typography>
+                  ) : (
+                    <Typography variant="p">{book.outStock}</Typography>
+                  )}
+                  <Typography variant="h6" color="green" fontWeight="700">
+                    ${book.price}
+                  </Typography>
+                </Box>
+                <WraperButton>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<ShoppingCartIcon />}
+                    sx={{ background: "white", color: "green" }}
+                    onClick={() => addToCartHandler(book)} 
+                    // disabled={!inStock}
+                  >
+                    Add to Cart
+                  </Button>
+                  <Typography>
+                    <IconButton
+                      color={isFavorite[index] ? "secondary" : "default"}
+                      onClick={() => handleFavoriteToggle(index)}
+                    >
+                      {isFavorite[index] ? (
+                        <FavoriteIcon style={{ color: "red" }} />
+                      ) : (
+                        <FavoriteBorderIcon />
+                      )}
+                    </IconButton>
+                  </Typography>
+                </WraperButton>
+              </CardContent>
+            </Card>
           </Grid>
         ))}
       </Grid>

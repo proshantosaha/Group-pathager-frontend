@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { styled } from "@mui/material/styles";
+import React, { useState, useContext } from "react";
+import CartContext from "@/contex/CartContext";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
@@ -17,7 +15,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Link from "next/link";
 import Styles from "./NavbarStyles.module.css";
-import useBookCart from "@/hooks/useBookCart";
 import {
   Search,
   SearchIconWrapper,
@@ -29,7 +26,7 @@ export default function Navbar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const { cart } = useBookCart();
+  const { cart } = useContext(CartContext);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -185,15 +182,19 @@ export default function Navbar() {
 
           <Box sx={{ flexGrow: 2 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Link href={"/AddCart"}>
             <IconButton
               size="large"
               aria-label="show 4 new mails"
               color="inherit"
             >
-              <Badge badgeContent={cart.length} color="error">
+             {
+              <Badge badgeContent={cart.cartItems?.length || "0"} color="error">
                 <LocalMallIcon />
-              </Badge>
+              </Badge> 
+                }
             </IconButton>
+            </Link>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"

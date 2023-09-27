@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "Image": "book2.jpg",
+    "image": "book2.jpg",
     "image1": "book2_cover.jpg",
     "image2": "book2_back.jpg",
     "title": "Book 2",
@@ -16,7 +16,7 @@
   },
   {
     "id": "2",
-    "Image": "https://s3-ap-southeast-1.amazonaws.com/rokomari110/ProductNew20190903/260X372/Hridita-Anisul_Hoque-4cc35-7019.jpg",
+    "image": "https://s3-ap-southeast-1.amazonaws.com/rokomari110/ProductNew20190903/260X372/Hridita-Anisul_Hoque-4cc35-7019.jpg",
     "image1": "book1_cover.jpg",
     "image2": "book1_back.jpg",
     "title": "হৃদিতা ",
@@ -31,7 +31,7 @@
   },
   {
     "id": "3",
-    "Image": "https://ds.rokomari.store/rokomari110/ProductNew20190903/260X372/Perahin_2-Antik_Mahmud-acaea-247673.png",
+    "image": "https://ds.rokomari.store/rokomari110/ProductNew20190903/260X372/Perahin_2-Antik_Mahmud-acaea-247673.png",
     "image1": "book2_cover.jpg",
     "image2": "book2_back.jpg",
     "title": "প্যারাহীন ২",
@@ -46,7 +46,7 @@
   },
   {
     "id": "4",
-    "Image": "book2.jpg",
+    "image": "book2.jpg",
     "image1": "book2_cover.jpg",
     "image2": "book2_back.jpg",
     "title": "Book 2",
@@ -61,7 +61,7 @@
   },
   {
     "id": "5",
-    "Image": "book2.jpg",
+    "image": "book2.jpg",
     "image1": "book2_cover.jpg",
     "image2": "book2_back.jpg",
     "title": "Book 2",
@@ -76,7 +76,7 @@
   },
   {
     "id": "6",
-    "Image": "book2.jpg",
+    "image": "book2.jpg",
     "image1": "book2_cover.jpg",
     "image2": "book2_back.jpg",
     "title": "Book 2",
@@ -91,7 +91,7 @@
   },
   {
     "id": "7",
-    "Image": "book3.jpg",
+    "image": "book3.jpg",
     "image1": "book3_cover.jpg",
     "image2": "book3_back.jpg",
     "title": "Book 3",
@@ -106,7 +106,7 @@
   },
   {
     "id": "8",
-    "Image": "book2.jpg",
+    "image": "book2.jpg",
     "image1": "book2_cover.jpg",
     "image2": "book2_back.jpg",
     "title": "Book 2",
@@ -121,7 +121,7 @@
   },
   {
     "id": "9",
-    "Image": "book2.jpg",
+    "image": "book2.jpg",
     "image1": "book2_cover.jpg",
     "image2": "book2_back.jpg",
     "title": "Book 2",
@@ -136,7 +136,7 @@
   },
   {
     "id": "10",
-    "Image": "book2.jpg",
+    "image": "book2.jpg",
     "image1": "book2_cover.jpg",
     "image2": "book2_back.jpg",
     "title": "Book 2",
@@ -151,7 +151,7 @@
   },
   {
     "id": "11",
-    "Image": "book3.jpg",
+    "image": "book3.jpg",
     "image1": "book3_cover.jpg",
     "image2": "book3_back.jpg",
     "title": "Book 3",
@@ -166,7 +166,7 @@
   },
   {
     "id": "12",
-    "Image": "https://s3-ap-southeast-1.amazonaws.com/rokomari110/ProductNew20190903/260X372/Hridita-Anisul_Hoque-4cc35-7019.jpg",
+    "image": "https://s3-ap-southeast-1.amazonaws.com/rokomari110/ProductNew20190903/260X372/Hridita-Anisul_Hoque-4cc35-7019.jpg",
     "image1": "book1_cover.jpg",
     "image2": "book1_back.jpg",
     "title": "হৃদিতা ",
@@ -181,7 +181,7 @@
   },
   {
     "id": "13",
-    "Image": "book2.jpg",
+    "image": "book2.jpg",
     "image1": "book2_cover.jpg",
     "image2": "book2_back.jpg",
     "title": "Book 2",
@@ -196,7 +196,7 @@
   },
   {
     "id": "14",
-    "Image": "book2.jpg",
+    "image": "book2.jpg",
     "image1": "book2_cover.jpg",
     "image2": "book2_back.jpg",
     "title": "Book 2",
