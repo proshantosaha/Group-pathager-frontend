@@ -18,6 +18,10 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 
 import Link from "next/link";
 import Styles from "./NavbarStyles.module.css";
+import Cart from "./cart";
+// import { authContext } from "@/context/authProvider";
+import useAuth from "@/context/globalProvider";
+import BooksCart from "@/components/PopularBooks/BooksCart";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -70,8 +74,19 @@ export default function Navbar() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const { cart } = useAuth();
+
+  const { warning } = useAuth();
+  const { show, setShow } = useAuth();
+
+  // nava search state
   const [books, setBooks] = useState([]);
   const [navSearch, setNavSearch] = useState("");
+
+  // nava search state
+
+  // nava search function
 
   console.log(navSearch);
 
@@ -82,7 +97,6 @@ export default function Navbar() {
     );
     setNavSearch(matchedBooks);
   };
-
   useEffect(() => {
     fetch("/Book.json")
       .then((response) => response.json())
@@ -90,6 +104,8 @@ export default function Navbar() {
         setBooks(data);
       });
   }, []);
+
+  // nava search function
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -149,7 +165,7 @@ export default function Navbar() {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+          <Badge badgeContent={cart.length} color="error">
             <LocalMallIcon />
           </Badge>
         </IconButton>
@@ -183,18 +199,20 @@ export default function Navbar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        sx={{
-          maxWidth: "1654px",
-          bgcolor: "#6DCEF5",
-          mx: "auto",
-          borderRadius: "5px",
-        }}
-      >
-        <Toolbar>
-          {/* <IconButton
+    <>
+      {" "}
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar
+          position="static"
+          sx={{
+            maxWidth: "1654px",
+            bgcolor: "#6DCEF5",
+            mx: "auto",
+            borderRadius: "5px",
+          }}
+        >
+          <Toolbar>
+            {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -203,95 +221,93 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            Pathagar
-          </Typography>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" } }}
+            >
+              Pathagar
+            </Typography>
 
-          <Box>
-            {/* sx={{ display: { xs: "none", sm: "block" } }} */}
-            <nav>
-              <ul className={Styles.navigationMenu}>
-                <li className={Styles.navigationMenuLi}>
-                  <Link href="/">Home</Link>
-                </li>
-                <li className={Styles.navigationMenuLi}>
-                  <Link href="/Shop">Shop</Link>
-                </li>
-                <li className={Styles.navigationMenuLi}>
-                  <Link href={"/about"}>About</Link>
-                </li>
-                <li className={Styles.navigationMenuLi}>
-                  <Link href={"/Contact"}>Contact</Link>
-                </li>
-              </ul>
-            </nav>
-          </Box>
+            <Box>
+              {/* sx={{ display: { xs: "none", sm: "block" } }} */}
+              <nav>
+                <ul className={Styles.navigationMenu}>
+                  <li className={Styles.navigationMenuLi}>
+                    <Link href="/">Home</Link>
+                  </li>
+                  <li className={Styles.navigationMenuLi}>
+                    <Link href="/Shop">Shop</Link>
+                  </li>
+                  <li className={Styles.navigationMenuLi}>
+                    <Link href={"/about"}>About</Link>
+                  </li>
+                  <li className={Styles.navigationMenuLi}>
+                    <Link href={"/Contact"}>Contact</Link>
+                  </li>
+                </ul>
+              </nav>
+            </Box>
+            {/* nav search function */}
 
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              className={Styles.search}
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              onChange={handleChangeNav}
-            />
-          </Search>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                className={Styles.search}
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+                onChange={handleChangeNav}
+              />
+            </Search>
 
-          <Box sx={{ flexGrow: 2 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <LocalMallIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <FavoriteIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      {/* {renderMobileMenu}
+            <Box sx={{ flexGrow: 2 }} />
+
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Cart badgeContent={cart.length || "0"} />
+
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                color="inherit"
+              >
+                <Badge badgeContent={17} color="error">
+                  <FavoriteIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </Box>
+
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+
+        {/* {renderMobileMenu}
       {renderMenu} */}
-    </Box>
+      </Box>
+    </>
   );
 }

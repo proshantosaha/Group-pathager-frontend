@@ -18,7 +18,10 @@ import TopPagination from "@/components/pagination/TopPagination";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({}) {
+  const bookhandleClick = (item) => {
+    console.log(item);
+  };
   return (
     <>
       <Head>
@@ -44,7 +47,9 @@ export default function Home() {
           }}
         >
           <Banner />
-          <BooksCart />
+          {/* handle clicl call in props book card  */}
+          <BooksCart bookhandleClick={bookhandleClick} />
+          {/* handle clicl call in props book card  */}
           <Cagoris />
           <PopularAuthorCard />
           <ManufactureCard />
