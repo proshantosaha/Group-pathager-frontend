@@ -4,6 +4,9 @@ import React, { useContext } from "react";
 import CartContext from "@/contex/CartContext";
 import Link from "next/link";
 import Box from "@mui/material/Box";
+import Image from "next/image";
+import { Button } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Cart = () => {
   const { addItemToCart, deleteItemFromCart, cart } = useContext(CartContext);
@@ -35,53 +38,73 @@ const Cart = () => {
   const totalAmount = (Number(amountWithoutTax) + Number(taxAmount)).toFixed(2);
 
   return (
-    <>
-        <Box>
-          <h2>
-            {cart?.cartItems?.length || 0} Item(s) in Cart
-          </h2>
-        </Box>
+    <Box sx={{ color: "#000000" }}>
+      <Box>
+        <h2>{cart?.cartItems?.length || 0} Item(s) in Cart</h2>
+      </Box>
 
       {cart?.cartItems?.length > 0 && (
         <Box>
           {cart?.cartItems?.map((cartItem) => (
             <Box>
-              <Box>
-                <Box>
-                  <img src={cartItem.image} alt={cartItem.title} />
+              <Box sx={{ paddingY: 5, display: "flex" }}>
+                <Box sx={{ display: "flex", gap: 1 }}>
+                  <Image
+                    src={cartItem.image}
+                    alt={cartItem.title}
+                    width={100}
+                    height={80}
+                  />
                   <p>
                     <Link href="#">{cartItem.title}</Link>
                   </p>
                 </Box>
                 <Box>
-                  <Box>
-                    <button onClick={() => decreaseQty(cartItem)}>
-                      <span>−</span>
-                    </button>
-                    <input
-                      type="number"
-                      value={cartItem.quantity}
-                      readOnly
-                    ></input>
-                    <button
-                      data-action="increment"
+                  <Box sx={{ marginLeft: 4 }}>
+                    {/* <button onClick={() => decreaseQty(cartItem)}>
+                    <span>−</span>
+                  </button>
+                  <input
+                    type="number"
+                    value={cartItem.quantity}
+                    readOnly
+                  ></input>
+                  <button
+                    data-action="increment"
+                    onClick={() => increaseQty(cartItem)}
+                  >
+                    <span>+</span>
+                  </button> */}
+
+                    <Button
+                      variant="contained"
+                      onClick={() => decreaseQty(cartItem)}
+                    >
+                      -
+                    </Button>
+                    <Button variant="contained">{cartItem.quantity}</Button>
+                    <Button
+                      variant="contained"
                       onClick={() => increaseQty(cartItem)}
                     >
-                      <span>+</span>
-                    </button>
+                      +
+                    </Button>
                   </Box>
                 </Box>
-                <Box>
-                  <Box>
-                    <p>${(cartItem.price * cartItem.quantity).toFixed(2)}</p>{" "}
-                    <p>${cartItem.price} / per item </p>
-                  </Box>
+                <Box sx={{ marginLeft: 4 }}>
+                  <p>${(cartItem.price * cartItem.quantity).toFixed(2)}</p>{" "}
+                  <p>${cartItem.price} / per item </p>
                 </Box>
                 <Box>
-                  <Box>
-                    <button onClick={() => deleteItemFromCart(cartItem?.id)}>
+                  <Box sx={{ marginLeft: 4 }}>
+                    <Button
+                      variant="contained"
+                      sx={{ marginLeft: "40px" }}
+                      startIcon={<DeleteIcon />}
+                      onClick={() => deleteItemFromCart(cartItem?.id)}
+                    >
                       Remove
-                    </button>
+                    </Button>
                   </Box>
                 </Box>
               </Box>
@@ -114,7 +137,7 @@ const Cart = () => {
           <Link href="/">Back</Link>
         </Box>
       )}
-    </>
+    </Box>
   );
 };
 

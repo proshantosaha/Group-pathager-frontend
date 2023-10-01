@@ -1,24 +1,16 @@
-
-  
-
-.navigationMenu{
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 50px;
-  
+.navigationMenu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 50px;
 }
 
-
-.navigationMenuLi{
-    margin: 0px 10px;
-    text-decoration: none;
+.navigationMenuLi {
+  margin: 0px 10px;
+  text-decoration: none;
 }
 
-
-.search{
-    color: aliceblue;
+.search {
+  color: aliceblue;
 }
-
-

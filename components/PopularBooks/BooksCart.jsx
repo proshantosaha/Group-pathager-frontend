@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import CartContext from "@/contex/CartContext";
+import React, { useEffect, useState } from "react";
+import Link from 'next/link'
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -33,8 +33,6 @@ const BooksCart = () => {
   const [page, setPage] = useState(1);
   const [cardsPerPage] = useState(8);
 
-  const { addItemToCart } = useContext(CartContext);
-
   useEffect(() => {
     fetch("/Book.json")
       .then((response) => response.json())
@@ -45,17 +43,6 @@ const BooksCart = () => {
       });
   }, []);
 
-  const addToCartHandler = (book) => {
-    addItemToCart({
-      id: book.id,
-      image: book.image,
-      title: book.title,
-      authorname: book.authorname,
-      rating: book.rating,
-      stock: book.stock,
-      price: book.price,
-    });
-  };
 
   const handleChangeNav = (e) => {
     const searchText = e.target.value;
@@ -114,7 +101,7 @@ const BooksCart = () => {
       </Box>
 
       <Grid container spacing={3}>
-        {displayedBooks.map((book, index) => (
+        {displayedBooks?.map((book, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card sx={{ background: "#F3FCFF", minHeight: "100%" }}>
               <CardMedia
@@ -150,27 +137,26 @@ const BooksCart = () => {
                   </Typography>
                 </Box>
                 <WraperButton>
+                  <Link href={`${book?.id}`} >
                   <Button
                     variant="contained"
                     color="primary"
                     startIcon={<ShoppingCartIcon />}
                     sx={{ background: "white", color: "green" }}
-                    onClick={() => addToCartHandler(book)} 
-                    // disabled={!inStock}
                   >
-                    Add to Cart
+                    Detail
                   </Button>
+                  </Link>
                   <Typography>
-                    <IconButton
-                      color={isFavorite[index] ? "secondary" : "default"}
-                      onClick={() => handleFavoriteToggle(index)}
-                    >
+
+                    <IconButton onClick={() => handleFavoriteToggle(index)}>
                       {isFavorite[index] ? (
                         <FavoriteIcon style={{ color: "red" }} />
                       ) : (
                         <FavoriteBorderIcon />
                       )}
                     </IconButton>
+                    
                   </Typography>
                 </WraperButton>
               </CardContent>

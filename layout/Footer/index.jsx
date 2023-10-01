@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./footer.module.css";
 import FooterTop from "./footerTop";
 import { Box } from "@mui/material";
 
@@ -16,7 +15,6 @@ const Footer = () => {
         padding: "80px 0",
       }}
     >
-      {/* className={styles.footerBg} */}
       <h2>
         <FooterTop />
       </h2>
