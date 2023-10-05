@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Link from 'next/link'
+import React, { useState } from "react";
+import { useFetchData } from "@/hooks/useFetchData";
+import Link from "next/link";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -33,21 +34,15 @@ const BooksCart = () => {
   const [page, setPage] = useState(1);
   const [cardsPerPage] = useState(8);
 
-  useEffect(() => {
-    fetch("/Book.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setIsFavorite(new Array(data.length).fill(false));
-        setBooks(data);
-        setNavSearch(data);
-      });
-  }, []);
-
+  useFetchData("http://localhost:1337/api/products?populate=*", (data) => {
+  setBooks(data?.data) 
+  setNavSearch(data?.data)
+  });
 
   const handleChangeNav = (e) => {
     const searchText = e.target.value;
-    const matchedBooks = books.filter((book) =>
-      book.title.toLowerCase().includes(searchText.toLowerCase())
+    const matchedBooks = books?.filter((book) =>
+    book?.attributes?.name?.toLowerCase().includes(searchText.toLowerCase())
     );
     setNavSearch(matchedBooks);
   };
@@ -55,7 +50,7 @@ const BooksCart = () => {
   //pagination
   const endIndex = page * cardsPerPage;
   const startIndex = endIndex - cardsPerPage;
-  const displayedBooks = navSearch.slice(startIndex, endIndex);
+  const displayedBooks = navSearch?.slice(startIndex, endIndex);
 
   //pagination handle
   const handlePageChange = (pageNumber) => {
@@ -106,49 +101,44 @@ const BooksCart = () => {
             <Card sx={{ background: "#F3FCFF", minHeight: "100%" }}>
               <CardMedia
                 component="img"
-                height="300" // Set height to "auto"
-                objectFit="cover" // Maintain aspect ratio and fit
-                image={book.image}
-                alt={book.title}
+                height="300" 
+                objectFit="cover" 
+                image={book.attributes.images.data.attributes.url}
+                alt={book.attributes.images.data.attributes.name}
               />
               <CardContent>
                 <Typography variant="h5" component="div">
-                  {book.title}
+                  {book.attributes.name}
                 </Typography>
                 <Typography color="text.secondary">
-                  by {book.authorname}
+                  by {book.attributes.authorname}
                 </Typography>
                 <Typography>
                   <Rating
                     style={{ maxWidth: 180 }}
-                    value={book.rating}
+                    value={book.attributes.rating}
                     precision={0.5}
                     readOnly
                   />
                 </Typography>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                  {true ? (
-                    <Typography variant="p">{book.stock}</Typography>
-                  ) : (
-                    <Typography variant="p">{book.outStock}</Typography>
-                  )}
+                <Typography variant="p">{book.attributes.stock}</Typography>
                   <Typography variant="h6" color="green" fontWeight="700">
-                    ${book.price}
+                    ${book.attributes.price}
                   </Typography>
                 </Box>
                 <WraperButton>
-                  <Link href={`${book?.id}`} >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<ShoppingCartIcon />}
-                    sx={{ background: "white", color: "green" }}
-                  >
-                    Detail
-                  </Button>
+                  <Link href={`${book?.id}`}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      startIcon={<ShoppingCartIcon />}
+                      sx={{ background: "white", color: "green" }}
+                    >
+                      Detail
+                    </Button>
                   </Link>
                   <Typography>
-
                     <IconButton onClick={() => handleFavoriteToggle(index)}>
                       {isFavorite[index] ? (
                         <FavoriteIcon style={{ color: "red" }} />
@@ -156,7 +146,6 @@ const BooksCart = () => {
                         <FavoriteBorderIcon />
                       )}
                     </IconButton>
-                    
                   </Typography>
                 </WraperButton>
               </CardContent>

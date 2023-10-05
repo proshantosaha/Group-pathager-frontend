@@ -23,7 +23,7 @@ export const CartProvider = ({ children }) => {
   const addItemToCart = async ({
     id,
     image,
-    title,
+    name,
     authorname,
     rating,
     stock,
@@ -33,7 +33,7 @@ export const CartProvider = ({ children }) => {
     const item = {
       id,
       image,
-      title,
+      name,
       authorname,
       rating,
       stock,

@@ -51,30 +51,16 @@ const Cart = () => {
                 <Box sx={{ display: "flex", gap: 1 }}>
                   <Image
                     src={cartItem.image}
-                    alt={cartItem.title}
+                    alt={cartItem.name}
                     width={100}
                     height={80}
                   />
                   <p>
-                    <Link href="#">{cartItem.title}</Link>
+                    <Link href="#">{cartItem.name}</Link>
                   </p>
                 </Box>
                 <Box>
                   <Box sx={{ marginLeft: 4 }}>
-                    {/* <button onClick={() => decreaseQty(cartItem)}>
-                    <span>−</span>
-                  </button>
-                  <input
-                    type="number"
-                    value={cartItem.quantity}
-                    readOnly
-                  ></input>
-                  <button
-                    data-action="increment"
-                    onClick={() => increaseQty(cartItem)}
-                  >
-                    <span>+</span>
-                  </button> */}
 
                     <Button
                       variant="contained"

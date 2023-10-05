@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Avatar,
   Button,
@@ -30,14 +30,38 @@ const Login = () => {
     boxShadow: "0px 0px 10px 5px rgba(0, 0, 0, 0.1)",
   };
   const btnStyle = { margin: "10px 0", backgroundColor: "#E04F9D" ,fontWeight:600};
+  
+  const [login, setLogin] = useState({
+    identifier: "",
+    password: ""
+  })
+
+const handleSubmit = async (e) => {
+  e.preventDefault()
+
+const data = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local`, {
+  method: "POST",
+  header: {"Content-Type" : "application/json"},
+  body: JSON.stringify({
+    identifier: login.identifier,
+    password: login.password
+  })
+})
+console.log(data)
+}
+
+  const handleChange = (e) => {
+    setLogin({...login, [e.target.name] : e.target.value})
+  }
 
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={6} md={6} style={{ width: "100%", margin: "0 auto" }}>
-        <Box
+        <form
           style={{
             ...loginStyle,
           }}
+          onSubmit={handleSubmit}
         >
           <Box align="center">
             <Typography variant="h5" sx={{ fontWeight: 700 }}>
@@ -47,6 +71,8 @@ const Login = () => {
           <Box sx={{ "& > :not(style)": { m:1 } }}>
             <FormControl fullWidth={true}>
               <TextField
+              name="identifier"
+              onChange={handleChange}
                 variant="standard"
                 label="UserName"
                 InputLabelProps={{
@@ -72,6 +98,8 @@ const Login = () => {
           <Box sx={{ "& > :not(style)": { m: 1 } }}>
             <FormControl variant="standard" fullWidth={true}>
               <TextField
+              name="password"
+              onChange={handleChange}
                 label="Password"
                 InputLabelProps={{
                   style: { fontWeight: 700 }, 
@@ -96,7 +124,11 @@ const Login = () => {
             label="Remember me"
             sx={{ marginLeft: "2px" }}
           />
-          <Button type="submit" variant="contained" style={btnStyle} fullWidth>
+          <Button 
+          type="submit" 
+          variant="contained" 
+          style={btnStyle} 
+          fullWidth >
             Login
           </Button>
           <Typography
@@ -123,7 +155,7 @@ const Login = () => {
           <Typography variant="body2" sx={{textAlign:"center"}} >
             New here? <Link href="Register" style={{color:"#E04F9D",fontWeight:700,textDecoration:"none"}}>Sign Up</Link>
           </Typography>
-        </Box>
+        </form>
       </Grid>
 
       <Grid item xs={12} sm={6} md={6}>

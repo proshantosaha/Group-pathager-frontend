@@ -4,10 +4,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: "ds.rokomari.store",
-      },
-      {
-        hostname: "s3-ap-southeast-1.amazonaws.com",
+        protocol: "https",
+        hostname: "s3.amazonaws.com",
+        port: "",
+        pathname: "/my-bucket/**",
       },
     ],
   },
