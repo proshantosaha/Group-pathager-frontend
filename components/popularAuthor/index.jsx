@@ -17,10 +17,6 @@ const PopularAuthorCard = () => {
       <ManufactButton />
       <div className={styles.grid}>
         <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
-        <AuthorCard />
       </div>
     </Box>
   );

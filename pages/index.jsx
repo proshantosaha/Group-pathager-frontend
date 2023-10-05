@@ -8,6 +8,8 @@ import Advertise from "@/components/Advertise";
 import Cagoris from "@/components/categories";
 import Box from "@mui/material/Box";
 
+import Slider from "@/components/slider";
+
 import BooksCart from "@/components/PopularBooks/BooksCart";
 // import PaginationPage from "@/components/pagination";
 import TopPagination from "@/components/pagination/TopPagination";
@@ -55,6 +57,7 @@ export default function Home({}) {
           <ManufactureCard />
           <Advertise />
           <TopPagination />
+          <Slider />
         </Box>
       </main>
     </>

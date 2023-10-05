@@ -19,10 +19,10 @@ import {
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-const Cards = ({ item, bookhandleClick }) => {
+const Cards = ({ book, addToCartHandler }) => {
   const [isFavorite, setIsFavorite] = useState([]);
 
-  const { Image, index, title, price, authorname, stock, rating } = item;
+  const { Image, index, title, price, authorname, stock, rating } = book;
 
   const handleFavoriteToggle = (index) => {
     // Create a copy of the isFavorite array and toggle the value for the clicked card
@@ -85,7 +85,7 @@ const Cards = ({ item, bookhandleClick }) => {
                 color="primary"
                 startIcon={<ShoppingCartIcon />}
                 // sx={{ background: "white", color: "green" }}
-                onClick={() => bookhandleClick(item)}
+                onClick={() => addToCartHandler(book)}
               >
                 Add to Cart
               </Button>

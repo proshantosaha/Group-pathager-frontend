@@ -1,111 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { styled, alpha } from "@mui/material/styles";
+import React, { useState, useContext } from "react";
+import CartContext from "@/context/CartContext";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreIcon from "@mui/icons-material/MoreVert";
-
 import Link from "next/link";
 import Styles from "./NavbarStyles.module.css";
-import Cart from "./cart";
-// import { authContext } from "@/context/authProvider";
-import useAuth from "@/context/globalProvider";
-import BooksCart from "@/components/PopularBooks/BooksCart";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: "#B0B4B4",
-  "&:hover": {
-    backgroundColor: "#A8A8A8",
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "50%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "50ch",
-    },
-
-    [theme.breakpoints.up("xl")]: {
-      width: "80ch",
-    },
-  },
-}));
+import { Search, SearchIconWrapper, StyledInputBase } from "@/styles/cardStyle";
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const { cart } = useAuth();
-
-  const { warning } = useAuth();
-  const { show, setShow } = useAuth();
-
-  // nava search state
-  const [books, setBooks] = useState([]);
-  const [navSearch, setNavSearch] = useState("");
-
-  // nava search state
-
-  // nava search function
-
-  console.log(navSearch);
-
-  const handleChangeNav = (e) => {
-    const searchText = e.target.value;
-    const matchedBooks = books.filter((book) =>
-      book.title.toLowerCase().includes(searchText.toLowerCase())
-    );
-    setNavSearch(matchedBooks);
-  };
-  useEffect(() => {
-    fetch("/Book.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setBooks(data);
-      });
-  }, []);
-
-  // nava search function
+  const { cart } = useContext(CartContext);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -165,7 +82,7 @@ export default function Navbar() {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={cart.length} color="error">
+          <Badge badgeContent={4} color="error">
             <LocalMallIcon />
           </Badge>
         </IconButton>
@@ -199,20 +116,18 @@ export default function Navbar() {
   );
 
   return (
-    <>
-      {" "}
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar
-          position="static"
-          sx={{
-            maxWidth: "1654px",
-            bgcolor: "#6DCEF5",
-            mx: "auto",
-            borderRadius: "5px",
-          }}
-        >
-          <Toolbar>
-            {/* <IconButton
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar
+        position="static"
+        sx={{
+          maxWidth: "1654px",
+          bgcolor: "#6DCEF5",
+          mx: "auto",
+          borderRadius: "5px",
+        }}
+      >
+        <Toolbar>
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -221,93 +136,101 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton> */}
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            Pathagar
+          </Typography>
+
+          <Box>
+            {/* sx={{ display: { xs: "none", sm: "block" } }} */}
+            <nav>
+              <ul className={Styles.navigationMenu}>
+                <li className={Styles.navigationMenuLi}>
+                  <Link href="/">Home</Link>
+                </li>
+                <li className={Styles.navigationMenuLi}>
+                  <Link href="/Shop">Shop</Link>
+                </li>
+                <li className={Styles.navigationMenuLi}>
+                  <Link href={"/about"}>About</Link>
+                </li>
+                <li className={Styles.navigationMenuLi}>
+                  <Link href={"/Contact"}>Contact</Link>
+                </li>
+              </ul>
+            </nav>
+          </Box>
+
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              className={Styles.search}
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
+
+          <Box sx={{ flexGrow: 2 }} />
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Link href={"/AddCart"}>
+              <IconButton
+                size="large"
+                aria-label="show 4 new mails"
+                color="inherit"
+              >
+                {
+                  <Badge
+                    badgeContent={cart.cartItems?.length || "0"}
+                    color="error"
+                  >
+                    <LocalMallIcon />
+                  </Badge>
+                }
+              </IconButton>
+            </Link>
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              color="inherit"
             >
-              Pathagar
-            </Typography>
-
-            <Box>
-              {/* sx={{ display: { xs: "none", sm: "block" } }} */}
-              <nav>
-                <ul className={Styles.navigationMenu}>
-                  <li className={Styles.navigationMenuLi}>
-                    <Link href="/">Home</Link>
-                  </li>
-                  <li className={Styles.navigationMenuLi}>
-                    <Link href="/Shop">Shop</Link>
-                  </li>
-                  <li className={Styles.navigationMenuLi}>
-                    <Link href={"/about"}>About</Link>
-                  </li>
-                  <li className={Styles.navigationMenuLi}>
-                    <Link href={"/Contact"}>Contact</Link>
-                  </li>
-                </ul>
-              </nav>
-            </Box>
-            {/* nav search function */}
-
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                className={Styles.search}
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-                onChange={handleChangeNav}
-              />
-            </Search>
-
-            <Box sx={{ flexGrow: 2 }} />
-
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <Cart badgeContent={cart.length || "0"} />
-
-              <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge badgeContent={17} color="error">
-                  <FavoriteIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-            </Box>
-
-            <Box sx={{ display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
-                color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
-            </Box>
-          </Toolbar>
-        </AppBar>
-
-        {/* {renderMobileMenu}
+              <Badge badgeContent={17} color="error">
+                <FavoriteIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          </Box>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      {/* {renderMobileMenu}
       {renderMenu} */}
-      </Box>
-    </>
+    </Box>
   );
 }

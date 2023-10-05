@@ -4,6 +4,29 @@ import styles from "./categoris.module.css";
 import Box from "@mui/material/Box";
 import Title from "./title";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+// import './styles.css';
+
+// import required modules
+import { Pagination } from "swiper/modules";
+
+// Import Swiper React components
+// import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+// import "swiper/css";
+// import "swiper/css/pagination";
+
+// import "./styles.css";
+
+// import required modules
+// import { Pagination } from "swiper/modules";
+
 const Cagoris = () => {
   return (
     <Box
@@ -16,9 +39,83 @@ const Cagoris = () => {
       <Title />
       <Box display="flex" justifyContent="center">
         {/* <Link></Link> */}
-        <FullCard />
-        <FullCard />
-        <FullCard />
+        {/* <Swiper
+          slidesPerView={1}
+          spaceBetween={10}
+          pagination={{
+            clickable: true,
+          }}
+          // breakpoints={{
+          //   '@0.00': {
+          //     slidesPerView: 1,
+          //     spaceBetween: 10,
+          //   },
+          //   '@0.75': {
+          //     slidesPerView: 2,
+          //     spaceBetween: 20,
+          //   },
+          //   '@1.00': {
+          //     slidesPerView: 3,
+          //     spaceBetween: 40,
+          //   },
+          //   '@1.50': {
+          //     slidesPerView: 4,
+          //     spaceBetween: 50,
+          //   },
+          // }}
+          modules={[Pagination]}
+          className="mySwiper"
+        >
+          <FullCard />
+          <FullCard />
+          <FullCard />
+        </Swiper> */}
+
+        <Swiper
+          slidesPerView={3}
+          spaceBetween={30}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            {" "}
+            <FullCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            <FullCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            {" "}
+            <FullCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            {" "}
+            <FullCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            {" "}
+            <FullCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            {" "}
+            <FullCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            {" "}
+            <FullCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            {" "}
+            <FullCard />
+          </SwiperSlide>
+          <SwiperSlide>
+            {" "}
+            <FullCard />
+          </SwiperSlide>
+        </Swiper>
       </Box>
     </Box>
   );

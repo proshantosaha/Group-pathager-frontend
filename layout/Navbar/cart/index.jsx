@@ -28,6 +28,11 @@ const Cart = ({ badgeContent, cart, setCart }) => {
               </div>
             </div>
           ))}
+
+          <div>
+            <span>Total price of your cart</span>
+            <span>Rs -</span>
+          </div>
         </IconButton>
       </Box>
     </>
