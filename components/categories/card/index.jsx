@@ -147,8 +147,8 @@ export default function CagorisSingleCard() {
         modules={[Scrollbar]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          {categoryData.map((item) => (
+        {categoryData.map((item) => (
+          <SwiperSlide>
             <Box
               sx={{
                 bgcolor: "background.paper",
@@ -180,8 +180,8 @@ export default function CagorisSingleCard() {
                 </Stack>
               </Box>
             </Box>
-          ))}
-        </SwiperSlide>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </>
   );

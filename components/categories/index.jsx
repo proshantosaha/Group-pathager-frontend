@@ -6,26 +6,10 @@ import Title from "./title";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
-// import './styles.css';
-
-// import required modules
 import { Pagination } from "swiper/modules";
-
-// Import Swiper React components
-// import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-// import "swiper/css";
-// import "swiper/css/pagination";
-
-// import "./styles.css";
-
-// import required modules
-// import { Pagination } from "swiper/modules";
 
 const Cagoris = () => {
   return (
@@ -84,6 +68,7 @@ const Cagoris = () => {
             {" "}
             <FullCard />
           </SwiperSlide>
+
           <SwiperSlide>
             <FullCard />
           </SwiperSlide>
