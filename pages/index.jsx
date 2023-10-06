@@ -9,6 +9,7 @@ import Cagoris from "@/components/categories";
 import Box from "@mui/material/Box";
 
 import BooksCart from "@/components/PopularBooks/BooksCart";
+import BookCategori from "@/components/bookCategoris";
 
 // import BooksCart from "@/components/PopularBooks/BooksCart";
 
@@ -41,6 +42,7 @@ export default function Home() {
           <Banner />
           <BooksCart />
           <Cagoris />
+          <BookCategori />
           <PopularAuthorCard />
           <ManufactureCard />
           <Advertise />
