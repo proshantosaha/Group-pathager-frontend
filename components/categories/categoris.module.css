@@ -1,0 +1,32 @@
+.grid {
+  
+    display: flex;
+    justify-content: center;
+  }
+
+
+.marginbottom{
+    margin-bottom: 3px;
+}
+
+
+.flexx{
+  display: flex;
+  justify-content: space-around;
+}
+
+
+
+.hcolor{
+  color:#fff
+}
+
+
+.mleft{
+  margin-left: 10px;
+}
+
+.text{
+  font-size:1.5rem;
+  font-weight: bold;
+}

@@ -11,15 +11,24 @@ import {
 import React from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+<<<<<<<< HEAD:pages/menuFeature.js
 import image2 from "../public/Rectangle 101.png";
 import image3 from "../public/Ellipse 2 (2).png";
+========
+// import image1 from "../public/Rectangle 21.png";
+// import image2 from "../public/Rectangle101.png"
+>>>>>>>> e79024090bfc0b04fa3605629637daeb92e5c80a:pages/CompanyDetails/index.jsx
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import Image from "next/image";
 
+<<<<<<<< HEAD:pages/menuFeature.js
 const menuFeature = () => {
+========
+const CompanyDetails = () => {
+>>>>>>>> e79024090bfc0b04fa3605629637daeb92e5c80a:pages/CompanyDetails/index.jsx
   const book = [
     {
       id: 1,
@@ -82,12 +91,10 @@ const menuFeature = () => {
           >
             Menu Feature Details
           </Typography>
-          
         </Container>
       </Box>
       <Container>
         <Box
-        
           sx={{
             display: "flex",
             alignItems: "center",
@@ -100,11 +107,11 @@ const menuFeature = () => {
         >
           <Box
             sx={{
-             padding:'20px 0'
+              padding: "20px 0",
             }}
           >
             <Box>
-              <Image width="200" height="200" src={image3}></Image>
+              <Image width="200" height="200" src="/Rectangle101.png"></Image>
               <Typography fontWeight="bold" variant="h6">
                 Too cool publication
               </Typography>
@@ -119,10 +126,9 @@ const menuFeature = () => {
               justifyContent: "space-between",
             }}
           >
-            <Image  width="600" src={image2}></Image>
-          </Box> 
+            {/* <Image width="600" src="/Ellipse2(2).png"></Image> */}
+          </Box>
         </Box>
-        
       </Container>
 
       <Container
@@ -133,14 +139,14 @@ const menuFeature = () => {
         <Typography variant="h6" sx={{ paddingBottom: 5, fontWeight: "bold" }}>
           Total Products: 8
         </Typography>
-        <Box sx={{
-          backgroundColor:"#EAEAEA",
-          height:'40px',
-          borderRadius:'5px',
-          marginBottom:'30px'
-        }}>
-
-        </Box>
+        <Box
+          sx={{
+            backgroundColor: "#EAEAEA",
+            height: "40px",
+            borderRadius: "5px",
+            marginBottom: "30px",
+          }}
+        ></Box>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
@@ -152,7 +158,6 @@ const menuFeature = () => {
                 <CardMedia
                   sx={{
                     height: 240,
-                   
                   }}
                   image="https://img.freepik.com/free-photo/front-view-stacked-books-ladders-education-day_23-2149241046.jpg?w=1380&t=st=1694874052~exp=1694874652~hmac=439bf624dbe0964e41d134e3ce0ed2f81bd36e39f5d3e95c327f38a25120b35f"
                   title="green iguana"
@@ -202,17 +207,16 @@ const menuFeature = () => {
                     }}
                   >
                     <Button
-                     
                       sx={{
-                        color:'#009F7F',
-                        border:'25px',
-                        backgroundColor:'white',
-                        boxShadow: "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px",
-                        padding:"8px 16px",
-                        borderRadius:'25px',
-                        fontWeight:'bold'
-
-                    }}
+                        color: "#009F7F",
+                        border: "25px",
+                        backgroundColor: "white",
+                        boxShadow:
+                          "rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px",
+                        padding: "8px 16px",
+                        borderRadius: "25px",
+                        fontWeight: "bold",
+                      }}
                       startIcon={<ShoppingCartIcon />}
                     >
                       Add to cart
@@ -224,15 +228,21 @@ const menuFeature = () => {
             </Grid>
           ))}
         </Grid>
-        <Stack marginY='30px'  spacing={2}>
-      <Pagination sx={{display:'flex',
-      justifyContent:'center',
-      
-     }} count={2} variant="outlined" shape="rounded" />
-    </Stack>
+        <Stack marginY="30px" spacing={2}>
+          <Pagination
+            sx={{ display: "flex", justifyContent: "center" }}
+            count={2}
+            variant="outlined"
+            shape="rounded"
+          />
+        </Stack>
       </Container>
     </Box>
   );
 };
 
+<<<<<<<< HEAD:pages/menuFeature.js
 export default menuFeature;
+========
+export default CompanyDetails;
+>>>>>>>> e79024090bfc0b04fa3605629637daeb92e5c80a:pages/CompanyDetails/index.jsx
