@@ -49,3 +49,14 @@
   padding:10px;
  justify-content: center;
 }
+
+
+/* .fullCard{
+  display: flex ;
+} */
+
+.cards{
+  border-bottom: 6;
+  background-color: #DADCE0;
+  padding: 2;
+}

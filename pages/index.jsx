@@ -13,6 +13,7 @@ import Slider from "@/components/slider";
 import BooksCart from "@/components/PopularBooks/BooksCart";
 // import PaginationPage from "@/components/pagination";
 import TopPagination from "@/components/pagination/TopPagination";
+import BookCategori from "@/components/bookCategoris";
 
 // import BooksCart from "@/components/PopularBooks/BooksCart";
 
@@ -53,6 +54,8 @@ export default function Home({}) {
           <BooksCart bookhandleClick={bookhandleClick} />
           {/* handle clicl call in props book card  */}
           <Cagoris />
+
+          <BookCategori />
           <PopularAuthorCard />
           <ManufactureCard />
           <Advertise />

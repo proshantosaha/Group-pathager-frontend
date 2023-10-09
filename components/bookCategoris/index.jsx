@@ -1,16 +1,7 @@
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-
-import CagorisSingleCard from "../card";
-import { Box, Typography } from "@mui/material";
-import styles from "../categoris.module.css";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 import Link from "next/link";
-
-import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+import { Box, Typography, Button, Grid } from "@mui/material";
+import BookCart from "./BookCart";
 
 const bookCategoris = [
   {
@@ -141,49 +132,7 @@ const bookCategoris = [
   },
   {
     id: "4",
-    bookCategori: "Story",
-    allBook: "/CategoryDetails",
-    categoriBook: [
-      {
-        id: "1",
-        image: "/Rectangle37.png",
-        bookName: "Baiser Bonna",
-        authorName: "Tasrif khan",
-        rating: 5,
-      },
-      {
-        id: "2",
-        image: "/Rectangle37.png",
-        bookName: "Baiser Bonna",
-        authorName: "Tasrif khan",
-        rating: 5,
-      },
-      {
-        id: "3",
-        image: "/Rectangle37.png",
-        bookName: "Baiser Bonna",
-        authorName: "Tasrif khan",
-        rating: 5,
-      },
-      {
-        id: "4",
-        image: "/Rectangle37.png",
-        bookName: "Baiser Bonna",
-        authorName: "Tasrif khan",
-        rating: 5,
-      },
-      {
-        id: "5",
-        image: "/Rectangle37.png",
-        bookName: "Baiser Bonna",
-        authorName: "Tasrif khan",
-        rating: 5,
-      },
-    ],
-  },
-  {
-    id: "5",
-    bookCategori: "Story",
+    bookCategori: "Fridom Fiter",
     allBook: "/CategoryDetails",
     categoriBook: [
       {
@@ -225,57 +174,37 @@ const bookCategoris = [
   },
 ];
 
-const FullCard = () => {
+export default function BookCategori() {
   return (
-    <>
-      <Swiper
-        slidesPerView={3}
-        navigation={true}
-        modules={[Navigation]}
-        className="mySwiper"
-      >
-        <Box className={styles.fullCard}>
-          {bookCategoris?.map((categori) => (
-            <SwiperSlide key={categori.id}>
-              <Box
-                sx={{
-                  bgcolor: "#072470",
-                  marginRight: 2,
-                  p: 2,
-                  paddingTop: 0,
-                }}
-              >
+    <Box sx={{ bgcolor: "#94B9FE", padding: 3, borderRadius: 3, mt: 2 }}>
+      <Typography variant="h5" sx={{ paddingY: 2, fontWeight: "bold" }}>
+        Categories of Books
+      </Typography>
+
+      <Box sx={{ bgcolor: "#072470", padding: 3 }}>
+        <Grid container spacing={3}>
+          {bookCategoris.map((categori) => (
+            <Grid item xs={12} sm={6} md={3} key={categori.id}>
+              <Box sx={{}}>
                 <Typography
-                  width="300px"
-                  padding="10px"
-                  sx={{}}
-                  textAlign="center"
-                  className={styles.hcolor}
+                  variant="h5"
+                  sx={{ display: "flex", justifyContent: "center", pb: 2 }}
                 >
                   {categori.bookCategori}
                 </Typography>
 
-                <CagorisSingleCard bookCard={categori.categoriBook} />
+                <BookCart bookCarts={categori.categoriBook} />
 
-                <Box
-                  bgcolor="#fff"
-                  display="flex"
-                  justifyContent="center"
-                  padding="10px"
-                >
-                  <Stack direction="row" spacing={2}>
-                    <Link href={"/CategoryDetails"}>
-                      <Button variant="contained">View all</Button>
-                    </Link>
-                  </Stack>
+                <Box sx={{ display: "flex", justifyContent: "center", pt: 2 }}>
+                  <Link href={categori.allBook}>
+                    <Button variant="contained">View all</Button>
+                  </Link>
                 </Box>
               </Box>
-            </SwiperSlide>
+            </Grid>
           ))}
-        </Box>
-      </Swiper>
-    </>
+        </Grid>
+      </Box>
+    </Box>
   );
-};
-
-export default FullCard;
+}

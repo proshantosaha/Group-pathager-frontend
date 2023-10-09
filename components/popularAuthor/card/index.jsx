@@ -6,172 +6,80 @@ import styles from "../card.module.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css/autoplay";
-// import "swiper/css/navigation";
-// import "swiper/css/pagination";
-// import "swiper/css/scrollbar";
-// import "swiper/css";
 
-// import "./styles.css";
-
-// import required modules
 import { Autoplay, Scrollbar, Navigation } from "swiper/modules";
 
 const authorData = [
   {
     id: 1,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 2,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 3,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 4,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 5,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 6,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 7,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 8,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 9,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 10,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 11,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 12,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 13,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
   {
     id: 14,
     title: "vs. last week",
-    // title2: "Favourite Books",
-    // descount: "Sale up to 20% off",
-    // shopButon: " Shop Now",
-    // rating: "⭐⭐⭐⭐⭐",
-    // review: "100 review",
     authorImg: "/Ellipse 1.png",
-    // priceTag: 97,
   },
 ];
 
@@ -214,16 +122,11 @@ export default function AuthorCard() {
         // className={classes.mySwiper}
       >
         {authorData.map((item) => (
-          <SwiperSlide className={styles.swiperSlide}>
+          <SwiperSlide>
             <Box
               sx={{
-                // bgcolor: "background.paper",
                 boxShadow: 1,
-                // borderRadius: "50%",
-                // p: 2,
                 minWidth: 200,
-                // border: 1,
-                // alignItems: "center",
                 mx: 2,
               }}
             >
@@ -235,7 +138,6 @@ export default function AuthorCard() {
                 }}
               >
                 <Image src={item.authorImg} width={200} height={200} />
-                {/* <Image src={image} /> */}
               </Box>
 
               <Box
