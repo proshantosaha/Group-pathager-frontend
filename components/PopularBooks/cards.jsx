@@ -19,7 +19,8 @@ import {
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-const Cards = ({ book, addToCartHandler }) => {
+const Cards = ({ book, addToCartHandler, booksData }) => {
+  // console.log(booksData);
   const [isFavorite, setIsFavorite] = useState([]);
 
   const { Image, index, title, price, authorname, stock, rating } = book;
@@ -110,3 +111,13 @@ const Cards = ({ book, addToCartHandler }) => {
 };
 
 export default Cards;
+
+// export const getServerSideProps = async () => {
+//   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+//   const booksResponse = await res.json();
+//   return {
+//     props: {
+//       booksData: booksResponse,
+//     },
+//   };
+// };

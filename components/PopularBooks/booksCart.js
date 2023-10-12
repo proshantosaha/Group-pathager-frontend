@@ -26,8 +26,12 @@ import {
   WraperButton,
 } from "@/styles/cardStyle";
 import Cards from "./cards";
+// import { fetcher } from "@/lib/api";
 
-const BooksCart = () => {
+const BooksCart = ({ bookCart }) => {
+  // { strapiData }
+  // console.log(bookCart);
+
   const [books, setBooks] = useState([]);
   const [navSearch, setNavSearch] = useState([]);
   const [isFavorite, setIsFavorite] = useState([]);
@@ -137,3 +141,26 @@ const BooksCart = () => {
 };
 
 export default BooksCart;
+
+// export const getServerSideProps = async () => {
+//   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+//   const booksResponse = await res.json();
+//   console.log(booksResponse);
+//   return {
+//     props: {
+//       booksData: booksResponse,
+//     },
+//   };
+// };
+
+// export async function getServerSideProps() {
+//   const res = await fetch("http://localhost:1337/api/products");
+//   const strapiData = await res.json();
+//   console.log(data);
+
+//   return {
+//     props: {
+//       strapiData,
+//     },
+//   };
+// };

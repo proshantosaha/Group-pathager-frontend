@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 
 import Slider from "@/components/slider";
 
-import BooksCart from "@/components/PopularBooks/BooksCart";
+import BooksCart from "@/components/PopularBooks/booksCart";
 // import PaginationPage from "@/components/pagination";
 import TopPagination from "@/components/pagination/TopPagination";
 import BookCategori from "@/components/bookCategoris";
@@ -55,7 +55,7 @@ export default function Home({}) {
           {/* handle clicl call in props book card  */}
           <Cagoris />
 
-          <BookCategori />
+          {/* <BookCategori /> */}
           <PopularAuthorCard />
           <ManufactureCard />
           <Advertise />

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Container from "@mui/material/Container";
-import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -10,20 +8,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import Slider from "@mui/joy/Slider";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  IconButton,
-  Rating,
-  Typography,
-} from "@mui/material";
+
+import { Box, Grid } from "@mui/material";
+
+import Image from "next/image";
 
 import Head from "next/head";
 
@@ -221,7 +209,7 @@ export default function Shop() {
             <Grid item xs={12} sm={6} md={8}>
               <Box>
                 <Image
-                  src={shop}
+                  src=""
                   alt="Banner Image"
                   width={750}
                   height={300}
