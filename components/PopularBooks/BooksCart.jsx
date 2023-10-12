@@ -103,8 +103,8 @@ const BooksCart = () => {
                 component="img"
                 height="300" 
                 objectFit="cover" 
-                image={book.attributes.images.data.attributes.url}
-                alt={book.attributes.images.data.attributes.name}
+                image={book.attributes.images.data?.attributes.url}
+                alt={book.attributes.images.data?.attributes.name}
               />
               <CardContent>
                 <Typography variant="h5" component="div">

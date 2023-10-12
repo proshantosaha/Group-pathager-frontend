@@ -171,7 +171,7 @@ const bookCategoris = [
         rating: 5,
       },
     ],
-  }
+  },
 ];
 
 export default function BookCategori() {
@@ -182,22 +182,27 @@ export default function BookCategori() {
       </Typography>
 
       <Box sx={{ bgcolor: "#072470", padding: 3 }}>
-      <Grid container spacing={3}>
-        {bookCategoris.map((categori) => (
+        <Grid container spacing={3}>
+          {bookCategoris.map((categori) => (
             <Grid item xs={12} sm={6} md={3} key={categori.id}>
-          <Box sx={{}}>
-            <Typography variant="h5" sx={{display: "flex", justifyContent: "center", pb: 2}}>{categori.bookCategori}</Typography>
+              <Box sx={{}}>
+                <Typography
+                  variant="h5"
+                  sx={{ display: "flex", justifyContent: "center", pb: 2 }}
+                >
+                  {categori.bookCategori}
+                </Typography>
 
-            <BookCart bookCarts={categori.categoriBook} />
+                <BookCart bookCarts={categori.categoriBook} />
 
-            <Box sx={{display: "flex", justifyContent: "center", pt: 2}}>
-            <Link href={categori.allBook}>
-              <Button variant="contained">View all</Button>
-            </Link>
-            </Box>
-          </Box>
-          </Grid>
-        ))}
+                <Box sx={{ display: "flex", justifyContent: "center", pt: 2 }}>
+                  <Link href={categori.allBook}>
+                    <Button variant="contained">View all</Button>
+                  </Link>
+                </Box>
+              </Box>
+            </Grid>
+          ))}
         </Grid>
       </Box>
     </Box>

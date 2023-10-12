@@ -12,7 +12,10 @@
     "des2": "Additional description 2 for Book 2",
     "categories": ["Category 2", "Category 3"],
     "publisher": "Publisher 2",
-    "stock": "In_Stock"
+    "stock": "In_Stock",
+    "bestSeller": 15,
+    "newRelease": "old",
+    "discountPrice": 30
   },
   {
     "id": "2",
@@ -27,7 +30,10 @@
     "des2": "Additional description 2 for Book 1",
     "categories": ["Category 1", "Category 2"],
     "publisher": "Publisher 1",
-    "stock": "In_Stock"
+    "stock": "In_Stock",
+    "bestSeller": 10,
+    "newRelease": "new",
+    "discountPrice": 20
   },
   {
     "id": "3",
@@ -42,7 +48,10 @@
     "des2": "Additional description 2 for Book 2",
     "categories": ["Category 2", "Category 3"],
     "publisher": "Publisher 2",
-    "stock": "In_Stock"
+    "stock": "In_Stock",
+    "bestSeller": 5,
+    "newRelease": "new",
+    "discountPrice": 7
   },
   {
     "id": "4",
@@ -57,7 +66,10 @@
     "des2": "Additional description 2 for Book 2",
     "categories": ["Category 2", "Category 3"],
     "publisher": "Publisher 2",
-    "stock": "Out of_Stock"
+    "stock": "Out of_Stock",
+    "bestSeller": 6,
+    "newRelease": "new",
+    "discountPrice": 0
   },
   {
     "id": "5",
@@ -72,7 +84,10 @@
     "des2": "Additional description 2 for Book 2",
     "categories": ["Category 2", "Category 3"],
     "publisher": "Publisher 2",
-    "stock": "In_Stock"
+    "stock": "In_Stock",
+    "bestSeller": 12,
+    "newRelease": "new",
+    "discountPrice": 15
   },
   {
     "id": "6",
@@ -87,7 +102,10 @@
     "des2": "Additional description 2 for Book 2",
     "categories": ["Category 2", "Category 3"],
     "publisher": "Publisher 2",
-    "stock": "Out of_Stock"
+    "stock": "Out of_Stock",
+    "bestSeller": 20,
+    "newRelease": "old",
+    "discountPrice": 25
   },
   {
     "id": "7",
@@ -102,7 +120,10 @@
     "des2": "Additional description 2 for Book 3",
     "categories": ["Category 1", "Category 3"],
     "publisher": "Publisher 3",
-    "stock": "Out of_Stock"
+    "stock": "Out of_Stock",
+    "bestSeller": 8,
+    "newRelease": "new",
+    "discountPrice": 18
   },
   {
     "id": "8",
@@ -117,7 +138,10 @@
     "des2": "Additional description 2 for Book 2",
     "categories": ["Category 2", "Category 3"],
     "publisher": "Publisher 2",
-    "stock": "Out of_Stock"
+    "stock": "Out of_Stock",
+    "bestSeller": 25,
+    "newRelease": "old",
+    "discountPrice": 5
   },
   {
     "id": "9",
@@ -132,7 +156,10 @@
     "des2": "Additional description 2 for Book 2",
     "categories": ["Category 2", "Category 3"],
     "publisher": "Publisher 2",
-    "stock": "In_Stock"
+    "stock": "In_Stock",
+    "bestSeller": 16,
+    "newRelease": "new",
+    "discountPrice": 10
   },
   {
     "id": "10",
@@ -147,7 +174,10 @@
     "des2": "Additional description 2 for Book 2",
     "categories": ["Category 2", "Category 3"],
     "publisher": "Publisher 2",
-    "stock": "Out of_Stock"
+    "stock": "Out of_Stock",
+    "bestSeller": 16,
+    "newRelease": "new",
+    "discountPrice": 3
   },
   {
     "id": "11",
@@ -162,7 +192,10 @@
     "des2": "Additional description 2 for Book 3",
     "categories": ["Category 1", "Category 3"],
     "publisher": "Publisher 3",
-    "stock": "In_Stock"
+    "stock": "In_Stock",
+    "bestSeller": 4,
+    "newRelease": "new",
+    "discountPrice": 6
   },
   {
     "id": "12",
@@ -177,7 +210,10 @@
     "des2": "Additional description 2 for Book 1",
     "categories": ["Category 1", "Category 2"],
     "publisher": "Publisher 1",
-    "stock": "In_Stock"
+    "stock": "In_Stock",
+    "bestSeller": 32,
+    "newRelease": "old",
+    "discountPrice": 0
   },
   {
     "id": "13",
@@ -192,7 +228,10 @@
     "des2": "Additional description 2 for Book 2",
     "categories": ["Category 2", "Category 3"],
     "publisher": "Publisher 2",
-    "stock": "In_Stock"
+    "stock": "In_Stock",
+    "bestSeller": 24,
+    "newRelease": "new",
+    "discountPrice": 20
   },
   {
     "id": "14",
@@ -207,6 +246,9 @@
     "des2": "Additional description 2 for Book 2",
     "categories": ["Category 2", "Category 3"],
     "publisher": "Publisher 2",
-    "stock": "Out of_Stock"
+    "stock": "Out of_Stock",
+    "bestSeller": 35,
+    "newRelease": "new",
+    "discountPrice": 12
   }
 ]

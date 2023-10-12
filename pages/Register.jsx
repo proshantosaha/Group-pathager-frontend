@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import EmailIcon from "@mui/icons-material/Email";
@@ -31,6 +31,41 @@ const Register = () => {
     backgroundColor: "#E04F9D",
     fontWeight: "semiBold",
   };
+
+  const [register, setRegister] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [registerError, setRegisterError] = useState("");
+
+  const handleChange = (e) => {
+    setRegister({ ...register, [e.target.name]: e.target.value });
+  };
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/auth/local/register`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: register.username,
+            email: register.email,
+            password: register.password,
+          }),
+        }
+      );
+      const data = await response.json();
+      location.reload();
+    } catch (error) {
+      console.error("Registration error:", error);
+      setRegisterError("An error occurred during register. Please try again later.");
+    }
+  };
+
   return (
     <Grid container spacing={2}>
       <Grid
@@ -48,9 +83,12 @@ const Register = () => {
           >
             Register
           </Typography>
-          <Box sx={{ "& > :not(style)": { m: 1 } }}>
+         <form onSubmit={handleRegister}>
+         <Box sx={{ "& > :not(style)": { m: 1 } }}>
             <FormControl variant="standard" fullWidth={true}>
               <TextField
+                name="username"
+                onChange={handleChange}
                 label="UserName"
                 InputLabelProps={{
                   style: { fontWeight: 700 },
@@ -74,6 +112,8 @@ const Register = () => {
           <Box sx={{ "& > :not(style)": { m: 1 } }}>
             <FormControl variant="standard" fullWidth={true}>
               <TextField
+                name="email"
+                onChange={handleChange}
                 label="Email"
                 InputLabelProps={{
                   style: { fontWeight: 700 },
@@ -96,6 +136,8 @@ const Register = () => {
           <Box sx={{ "& > :not(style)": { m: 1 } }}>
             <FormControl variant="standard" fullWidth={true}>
               <TextField
+                name="password"
+                onChange={handleChange}
                 label="Password"
                 InputLabelProps={{
                   style: { fontWeight: 700 },
@@ -116,28 +158,7 @@ const Register = () => {
               />
             </FormControl>
           </Box>
-          <Box sx={{ "& > :not(style)": { m: 1 } }}>
-            <FormControl variant="standard" fullWidth={true}>
-              <TextField
-                label="Confirm Password"
-                InputLabelProps={{
-                  style: { fontWeight: 700 },
-                }}
-                placeholder="Confirm your password"
-                sx={{
-                  fontSize: "9px",
-                  padding: "4px",
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <LockIcon sx={{ fontSize: 17 }} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </FormControl>
-          </Box>
+         {registerError && <p style={{ color: 'red' }}>{registerError}</p>}
           <Button type="submit" variant="contained" style={btnStyle} fullWidth>
             Register
           </Button>
@@ -178,6 +199,7 @@ const Register = () => {
               </Link>
             </Typography>
           </Box>
+          </form>
         </Box>
       </Grid>
       <Grid

@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Container from "@mui/material/Container";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
+import React, { useState } from "react";
+import Link from "next/link";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -24,6 +22,10 @@ import {
   Rating,
   Typography,
 } from "@mui/material";
+import { useFetchData } from "@/hooks/useFetchData";
+import PaginationPage from "@/components/PaginationPage";
+import { PaginationStyle } from "@/styles/paginationStyle";
+import { WraperButton } from "@/styles/cardStyle";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -33,7 +35,7 @@ const Search = styled("div")(({ theme }) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginTop: 20,
-  marginBottom: 20,
+  marginBottom: 20
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -92,42 +94,43 @@ const Separator = styled("div")(
 );
 
 export default function Shop() {
-  const [sort, setSort] = useState("best-seller");
-  const [filter, setFilter] = useState("jafor-wazed");
-  const [publisher, setPublisher] = useState("bangla-akademi");
+  const [sort, setSort] = useState("");
+  const [filter, setFilter] = useState("");
+  const [publisher, setPublisher] = useState("");
   const [price, setPrice] = useState([0, 650]);
-  const [language, setLanguage] = useState("bengoli");
-  const [books, setBooks] = useState([]);
+  const [language, setLanguage] = useState("");
   const [isFavorite, setIsFavorite] = useState([]);
+  const [books, setBooks] = useState([]);
+  const [navSearch, setNavSearch] = useState([]);
+  const [page, setPage] = useState(1);
+  const [cardsPerPage] = useState(8);
+// console.log(sort,filter,publisher,price,language)
 
-  const sortHandleChange = (event) => {
-    setSort(event.target.value);
-  };
 
-  const filterHandleChange = (event) => {
-    setFilter(event.target.value);
-  };
+  useFetchData("http://localhost:1337/api/products?populate=*", (data) => {
+    setBooks(data?.data) 
+    setNavSearch(data?.data)
+    setIsFavorite(new Array(data.length).fill(false));
+    });
 
-  const publisherHandleChange = (event) => {
-    setPublisher(event.target.value);
-  };
+    const handleChangeNav = (e) => {
+      const searchText = e.target.value;
+      const matchedBooks = books?.filter((book) => 
+        book?.authorname?.toLowerCase().includes(searchText.toLowerCase())
+      );
 
-  const priceHandleChange = (event, newValue) => {
-    setPrice(newValue);
-  };
-
-  const languageHandleChange = (event, newValue) => {
-    setLanguage(newValue);
-  };
-
-  useEffect(() => {
-    fetch("/Book.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setIsFavorite(new Array(data.length).fill(false));
-        setBooks(data);
-      });
-  }, []);
+      setNavSearch(matchedBooks);
+    };
+  
+    //pagination
+    const endIndex = page * cardsPerPage;
+    const startIndex = endIndex - cardsPerPage;
+    const displayedBooks = navSearch?.slice(startIndex, endIndex);
+  
+    //pagination handle
+    const handlePageChange = (pageNumber) => {
+      setPage(pageNumber);
+    };
 
   const handleFavoriteToggle = (index) => {
     const updatedFavorites = [...isFavorite];
@@ -175,7 +178,7 @@ export default function Shop() {
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
                   value={sort}
-                  onChange={sortHandleChange}
+                  onChange={(e) => setSort(e.target.value)}
                 >
                   <FormControlLabel
                     value="best-seller"
@@ -257,6 +260,7 @@ export default function Shop() {
                   <StyledInputBase
                     placeholder="Search…"
                     inputProps={{ "aria-label": "search" }}
+                    onChange={handleChangeNav}
                   />
                 </Search>
                 <FormControl>
@@ -264,7 +268,7 @@ export default function Shop() {
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="controlled-radio-buttons-group"
                     value={filter}
-                    onChange={filterHandleChange}
+                    onChange={(e) => setFilter(e.target.value)}
                   >
                     <FormControlLabel
                       value="jafor-wazed"
@@ -321,7 +325,7 @@ export default function Shop() {
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="controlled-radio-buttons-group"
                     value={publisher}
-                    onChange={publisherHandleChange}
+                    onChange={(e) => setPublisher(e.target.value)}
                   >
                     <FormControlLabel
                       value="bangla-akademi"
@@ -362,7 +366,7 @@ export default function Shop() {
                 <Slider
                   getAriaLabel={() => "Price Range"}
                   value={price}
-                  onChange={priceHandleChange}
+                  onChange={(e, newValue) => setPrice(newValue)}
                   valueLabelDisplay="auto"
                   getAriaValueText={priceValue}
                   marks={marks}
@@ -395,7 +399,7 @@ export default function Shop() {
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="controlled-radio-buttons-group"
                     value={language}
-                    onChange={languageHandleChange}
+                    onChange={(e, newValue) => setLanguage(newValue)}
                   >
                     <FormControlLabel
                       value="bengoli"
@@ -421,85 +425,70 @@ export default function Shop() {
 
           <Grid item xs={12} sm={6} md={9}>
             <Grid container sx={{ flexGrow: 1 }}>
-              {books.map((book, index) => (
+              {displayedBooks.map((book, index) => (
                 <Grid xs={12} md={6} lg={4} key={index} sx={{ padding: 2}}>
                     <Card sx={{ background: "#F3FCFF", minHeight: "100%" }}>
                       <CardMedia
                         component="img"
                         height="300" // Set height to "auto"
                         objectFit="cover" // Maintain aspect ratio and fit
-                        image={book.Image}
-                        alt={book.title}
+                        image={book.attributes.images.data?.attributes.url}
+                        alt={book.attributes.images.data?.attributes.name}
                       />
                       <CardContent>
                         <Typography variant="h5" component="div">
-                          {book.title}
+                          {book.attributes.name}
                         </Typography>
                         <Typography color="text.secondary">
-                          by {book.authorname}
+                          by {book.attributes.authorname}
                         </Typography>
                         <Typography>
                           <Rating
                             style={{ maxWidth: 180 }}
-                            value={book.rating}
+                            value={book.attributes.rating}
                             precision={0.5}
                             readOnly
                           />
                         </Typography>
-                        <Box sx={{display: "flex",
-                  justifyContent: "space-between"}}>
-                        <Typography variant="p">{book.stock}</Typography>
+                        <Box sx={{display: "flex", justifyContent: "space-between"}}>
+                        <Typography variant="p">{book.attributes.stock}</Typography>
                         <Typography variant="h6" color="green" fontWeight="700">
-                          ${book.price}
+                          ${book.attributes.price}
                         </Typography>
                         </Box>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            mt: 3,
-                            "& button": {
-                              background: "white",
-                              fontWeight: 700,
-                              border: "1px solid grey",
-                              borderRadius: 25,
-                              color: "green",
-                              transition: "background 0.3s, color 0.3s",
-                              "&:hover": {
-                                background: "green",
-                                color: "white",
-                              },
-                            },
-                          }}
-                        >
+                        <WraperButton>
+                        <Link href={`${book?.id}`}>
                           <Button
                             variant="contained"
                             color="primary"
                             startIcon={<ShoppingCartIcon />}
                             sx={{ background: "white", color: "green" }}
                           >
-                            Add to Cart
+                            Detail
                           </Button>
-                          <Typography>
-                            <IconButton
-                              color={
-                                isFavorite[index] ? "secondary" : "default"
-                              }
-                              onClick={() => handleFavoriteToggle(index)}
-                            >
-                              {isFavorite[index] ? (
-                                <FavoriteIcon style={{ color: "red" }} />
-                              ) : (
-                                <FavoriteBorderIcon />
-                              )}
-                            </IconButton>
-                          </Typography>
-                        </Box>
+                        </Link>
+                        <Typography>
+                          <IconButton onClick={() => handleFavoriteToggle(index)}>
+                            {isFavorite[index] ? (
+                              <FavoriteIcon style={{ color: "red" }} />
+                            ) : (
+                              <FavoriteBorderIcon />
+                            )}
+                          </IconButton>
+                        </Typography>
+                      </WraperButton>
                       </CardContent>
                     </Card>
                 </Grid>
               ))}
             </Grid>
+            <PaginationStyle>
+          <PaginationPage
+            totalBooks={books?.length}
+            cardsPerPage={cardsPerPage}
+            handlePageChange={handlePageChange}
+          />
+        </PaginationStyle>
           </Grid>
         </Grid>
       </Box>
