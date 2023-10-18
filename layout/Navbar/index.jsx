@@ -150,7 +150,7 @@ export default function Navbar() {
                   <Link href="/Shop">Shop</Link>
                 </li>
                 <li className={Styles.navigationMenuLi}>
-                  <Link href={"/about"}>About</Link>
+                  <Link href={"/About"}>About</Link>
                 </li>
                 <li className={Styles.navigationMenuLi}>
                   <Link href={"/Contact"}>Contact</Link>

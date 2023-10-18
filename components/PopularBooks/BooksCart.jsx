@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useReducer } from "react";
 import { useFetchData } from "@/hooks/useFetchData";
 import Link from "next/link";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -13,7 +14,6 @@ import {
   CardContent,
   CardMedia,
   Grid,
-  Rating,
   Typography,
   Button,
   IconButton,
@@ -26,6 +26,7 @@ import {
   StyledInputBase,
   WraperButton,
 } from "@/styles/cardStyle";
+import Rating from "./Rating";
 
 const BooksCart = () => {
   const [books, setBooks] = useState([]);
@@ -114,12 +115,7 @@ const BooksCart = () => {
                   by {book.attributes.authorname}
                 </Typography>
                 <Typography>
-                  <Rating
-                    style={{ maxWidth: 180 }}
-                    value={book.attributes.rating}
-                    precision={0.5}
-                    readOnly
-                  />
+                  <Rating stars={book.attributes.rating} />
                 </Typography>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                 <Typography variant="p">{book.attributes.stock}</Typography>

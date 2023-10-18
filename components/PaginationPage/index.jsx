@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PaginationUlStyle, PaginationLiStyle, StyledNavLink } from "../../styles/paginationStyle";
+import { PaginationUlStyle, PaginationLiStyle } from "../../styles/paginationStyle";
 
 export default function PaginationPage({
   handlePageChange,
@@ -16,7 +16,7 @@ export default function PaginationPage({
     <PaginationUlStyle>
         {pageNumber.map((number) => (
           <PaginationLiStyle key={number} onClick={() => handlePageChange(number)}>
-            <Link href="#! activeClassName='any'">
+            <Link href="#!">
               {number}
             </Link>
             </PaginationLiStyle>

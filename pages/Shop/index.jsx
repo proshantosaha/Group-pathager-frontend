@@ -19,13 +19,13 @@ import {
   CardMedia,
   Grid,
   IconButton,
-  Rating,
   Typography,
 } from "@mui/material";
 import { useFetchData } from "@/hooks/useFetchData";
 import PaginationPage from "@/components/PaginationPage";
 import { PaginationStyle } from "@/styles/paginationStyle";
 import { WraperButton } from "@/styles/cardStyle";
+import Rating from "@/components/PopularBooks/Rating";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -116,7 +116,7 @@ export default function Shop() {
     const handleChangeNav = (e) => {
       const searchText = e.target.value;
       const matchedBooks = books?.filter((book) => 
-        book?.authorname?.toLowerCase().includes(searchText.toLowerCase())
+        book?.attributes?.authorname?.toLowerCase().includes(searchText.toLowerCase())
       );
 
       setNavSearch(matchedBooks);
@@ -137,6 +137,10 @@ export default function Shop() {
     updatedFavorites[index] = !updatedFavorites[index];
     setIsFavorite(updatedFavorites);
   };
+
+  const shortHandaler = (e) => {
+    setSort(e.target.value)
+  }
 
   return (
     <Box
@@ -178,7 +182,7 @@ export default function Shop() {
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
                   value={sort}
-                  onChange={(e) => setSort(e.target.value)}
+                  onChange={shortHandaler}
                 >
                   <FormControlLabel
                     value="best-seller"
@@ -186,7 +190,7 @@ export default function Shop() {
                     label="Best Seller"
                   />
                   <FormControlLabel
-                    value="new-relased"
+                    value="new-released"
                     control={<Radio />}
                     label="New Released"
                   />
@@ -443,12 +447,7 @@ export default function Shop() {
                           by {book.attributes.authorname}
                         </Typography>
                         <Typography>
-                          <Rating
-                            style={{ maxWidth: 180 }}
-                            value={book.attributes.rating}
-                            precision={0.5}
-                            readOnly
-                          />
+                          <Rating stars={book.attributes.rating} />
                         </Typography>
                         <Box sx={{display: "flex", justifyContent: "space-between"}}>
                         <Typography variant="p">{book.attributes.stock}</Typography>
