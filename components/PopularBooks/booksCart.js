@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useProductContext } from "@/context/productContext";
+
 import CartContext from "@/context/CartContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -26,11 +28,16 @@ import {
   WraperButton,
 } from "@/styles/cardStyle";
 import Cards from "./cards";
-// import { fetcher } from "@/lib/api";
+import Link from "next/link";
+import TopPagination from "../pagination/TopPagination";
 
-const BooksCart = ({ bookCart }) => {
+const BooksCart = () => {
   // { strapiData }
   // console.log(bookCart);
+  const { data } = useProductContext();
+  {
+    console.log(data);
+  }
 
   const [books, setBooks] = useState([]);
   const [navSearch, setNavSearch] = useState([]);
@@ -38,29 +45,40 @@ const BooksCart = ({ bookCart }) => {
   const [page, setPage] = useState(1);
   const [cardsPerPage] = useState(8);
 
-  const { addItemToCart } = useContext(CartContext);
+  // const { addItemToCart, addItemDetail } = useContext(CartContext);
 
-  useEffect(() => {
-    fetch("/Book.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setIsFavorite(new Array(data.length).fill(false));
-        setBooks(data);
-        setNavSearch(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/Book.json")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setIsFavorite(new Array(data.length).fill(false));
+  //       setBooks(data);
+  //       setNavSearch(data);
+  //     });
+  // }, []);
 
-  const addToCartHandler = (e) => {
-    addItemToCart({
-      id: e.id,
-      image: e.image,
-      title: e.title,
-      authorname: e.authorname,
-      rating: e.rating,
-      stock: e.stock,
-      price: e.price,
-    });
-  };
+  // const addItemDetailhandler = (e) => {
+  //   addItemDetail({
+  //     id: e.id,
+  //     image: e.image,
+  //     title: e.title,
+  //     authorname: e.authorname,
+  //     rating: e.rating,
+  //     stock: e.stock,
+  //     price: e.price,
+  //   });
+  // };
+  // const addToCartHandler = (e) => {
+  //   addItemToCart({
+  //     id: e.id,
+  //     image: e.image,
+  //     title: e.title,
+  //     authorname: e.authorname,
+  //     rating: e.rating,
+  //     stock: e.stock,
+  //     price: e.price,
+  //   });
+  // };
 
   const handleChangeNav = (e) => {
     const searchText = e.target.value;
@@ -99,6 +117,7 @@ const BooksCart = ({ bookCart }) => {
           onChange={handleChangeNav}
         />
       </Search>
+      <TopPagination />
       <Typography variant="h4" sx={{ fontWeight: 700, color: "#0096D1" }}>
         Popular Books
       </Typography>
@@ -117,12 +136,113 @@ const BooksCart = ({ bookCart }) => {
           </Select>
         </div>
       </Box>
-
       <Grid container spacing={3}>
-        {displayedBooks.map((book, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <Cards book={book} addToCartHandler={addToCartHandler} />
+        {console.log(data)}
+
+        {data?.map((item) => (
+          <Grid item xs={12} sm={6} md={3}>
+            <Link href={`/productdetailpage/${item.id}`}>
+              <Cards
+                index={item.index}
+                // {...item}
+                title={item.attributes.name}
+                price={item.attributes.price}
+                authorname={item.attributes.authorname}
+                stock={item.attributes.stock}
+                rating={item.attributes.rating}
+                book={item}
+              />
+            </Link>
           </Grid>
+          // <Grid item>
+          //   <Card
+          //     // onClick={() => addToCartHandler(book)}
+          //     sx={{ background: "#F3FCFF", minHeight: "100%" }}
+          //   >
+          //     <Box height="400px">
+          //       <img
+          //         component="img"
+          //         // Set height to "auto"
+          //         objectFit="cover" // Maintain aspect ratio and fit
+          //         src={Image}
+          //         alt={item.attributes.name}
+          //       />
+          //     </Box>
+          //     <CardContent>
+          //       <Typography variant="h5" component="div">
+          //         {item.attributes.name}
+          //       </Typography>
+          //       <Typography color="text.secondary">
+          //         by {item.attributes.name}
+          //       </Typography>
+          //       <Typography>
+          //         <Rating
+          //           style={{ maxWidth: 180 }}
+          //           rating={item.attributes.name}
+          //           precision={0.5}
+          //           readOnly
+          //         />
+          //       </Typography>
+          //       <Typography variant="p">{item.attributes.name}</Typography>
+          //       <Typography variant="h6" color="green" fontWeight="700">
+          //         ${item.attributes.name}
+          //       </Typography>
+          //       <Box
+          //         sx={{
+          //           display: "flex",
+          //           justifyContent: "space-between",
+          //           mt: 3,
+          //           "& button": {
+          //             background: "white",
+          //             fontWeight: 700,
+          //             border: "1px solid grey",
+          //             borderRadius: 25,
+          //             color: "green",
+          //             transition: "background 0.3s, color 0.3s",
+          //             "&:hover": {
+          //               background: "green",
+          //               color: "white",
+          //             },
+          //           },
+          //         }}
+          //       >
+          //         {/* <Button
+          //         variant="contained"
+          //         color="primary"
+          //         startIcon={<ShoppingCartIcon />}
+          //         // sx={{ background: "white", color: "green" }}
+          //         onClick={() => addItemDetailPage(book)}
+          //       >
+          //         detail page
+          //       </Button> */}
+
+          //         <Button
+          //           variant="contained"
+          //           color="primary"
+          //           startIcon={<ShoppingCartIcon />}
+          //           // sx={{ background: "white", color: "green" }}
+          //           onClick={() => addToCartHandler(item)}
+          //         >
+
+          //           Add to Cart
+          //         </Button>
+
+          //         <Typography>
+          //           <IconButton
+          //             color={isFavorite ? "secondary" : "default"}
+          //             onClick={() => handleFavoriteToggle(index)}
+          //           >
+          //             {isFavorite ? (
+          //               <FavoriteIcon style={{ color: "red" }} />
+          //             ) : (
+          //               <FavoriteBorderIcon />
+          //             )}
+          //           </IconButton>
+          //         </Typography>
+          //       </Box>
+          //     </CardContent>
+          //   </Card>
+          // </Grid>
         ))}
       </Grid>
       <Box sx={{ display: "flex", justifyContent: "center", marginTop: 3 }}>
@@ -163,4 +283,4 @@ export default BooksCart;
 //       strapiData,
 //     },
 //   };
-// };
+// }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Toolbar from "@mui/material/Toolbar";
+import Link from "next/link";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -8,12 +8,24 @@ import SearchIcon from "@mui/icons-material/Search";
 import Slider from "@mui/joy/Slider";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-
-import { Box, Grid } from "@mui/material";
-
-import Image from "next/image";
-
-import Head from "next/head";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid,
+  IconButton,
+  Rating,
+  Typography,
+} from "@mui/material";
+// import { useFetchData } from "@/hooks/useFetchData";
+import PaginationPage from "@/components/PaginationPage";
+import { PaginationStyle } from "@/styles/paginationStyle";
+import { WraperButton } from "@/styles/cardStyle";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,6 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+// price reange scle
 const marks = [
   {
     value: 0,
@@ -82,42 +95,52 @@ const Separator = styled("div")(
 );
 
 export default function Shop() {
-  const [sort, setSort] = useState("best-seller");
-  const [filter, setFilter] = useState("jafor-wazed");
-  const [publisher, setPublisher] = useState("bangla-akademi");
+  const [sort, setSort] = useState("");
+  const [filter, setFilter] = useState("");
+  const [publisher, setPublisher] = useState("");
   const [price, setPrice] = useState([0, 650]);
-  const [language, setLanguage] = useState("bengoli");
-  const [books, setBooks] = useState([]);
+  const [language, setLanguage] = useState("");
   const [isFavorite, setIsFavorite] = useState([]);
-
-  const sortHandleChange = (event) => {
-    setSort(event.target.value);
-  };
-
-  const filterHandleChange = (event) => {
-    setFilter(event.target.value);
-  };
-
-  const publisherHandleChange = (event) => {
-    setPublisher(event.target.value);
-  };
-
-  const priceHandleChange = (event, newValue) => {
-    setPrice(newValue);
-  };
-
-  const languageHandleChange = (event, newValue) => {
-    setLanguage(newValue);
-  };
+  const [books, setBooks] = useState([]);
+  const [navSearch, setNavSearch] = useState([]);
+  const [page, setPage] = useState(1);
+  const [cardsPerPage] = useState(8);
+  // console.log(sort,filter,publisher,price,language)
 
   useEffect(() => {
-    fetch("/Book.json")
+    fetch("http://localhost:1337/api/products?populate=*")
       .then((response) => response.json())
       .then((data) => {
+        setBooks(data?.data);
+        setNavSearch(data?.data);
         setIsFavorite(new Array(data.length).fill(false));
-        setBooks(data);
       });
   }, []);
+
+  // useFetchData("http://localhost:1337/api/products?populate=*", (data) => {
+  //   setBooks(data?.data)
+  //   setNavSearch(data?.data)
+  //   setIsFavorite(new Array(data.length).fill(false));
+  //   });
+
+  const handleChangeNav = (e) => {
+    const searchText = e.target.value;
+    const matchedBooks = books?.filter((book) =>
+      book?.authorname?.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+    setNavSearch(matchedBooks);
+  };
+
+  //pagination
+  const endIndex = page * cardsPerPage;
+  const startIndex = endIndex - cardsPerPage;
+  const displayedBooks = navSearch?.slice(startIndex, endIndex);
+
+  //pagination handle
+  const handlePageChange = (pageNumber) => {
+    setPage(pageNumber);
+  };
 
   const handleFavoriteToggle = (index) => {
     const updatedFavorites = [...isFavorite];
@@ -126,124 +149,38 @@ export default function Shop() {
   };
 
   return (
-    <>
-      <Head>
-        <title>Shope page</title>
-        <meta name="Shoping zone" content="Bookmark application shop page" />
-      </Head>
-
-      <Box
-        sx={{
-          maxWidth: "1654px",
-          mx: "auto",
-        }}
-      >
-        <Toolbar />
-        <Separator />
-
-        <Box>
-          <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid item xs={12} sm={6} md={4}>
-              <Box
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  border: "1px solid black",
-                  borderRadius: "10px 10px 0px 0px",
-                  padding: "0px 20px",
-                  backgroundColor: "#c9c9c9",
-                }}
-              >
-                <p>Sort</p>
-                <p>Reset Sort</p>
-              </Box>
-              <Box
-                style={{
-                  border: "1px solid black",
-                  borderTop: "0px",
-                  borderRadius: "0px 0px 10px 10px",
-                  padding: "0px 20px",
-                }}
-              >
-                <FormControl>
-                  <RadioGroup
-                    aria-labelledby="demo-controlled-radio-buttons-group"
-                    name="controlled-radio-buttons-group"
-                    value={sort}
-                    onChange={sortHandleChange}
-                  >
-                    <FormControlLabel
-                      value="best-seller"
-                      control={<Radio />}
-                      label="Best Seller"
-                    />
-                    <FormControlLabel
-                      value="new-relased"
-                      control={<Radio />}
-                      label="New Released"
-                    />
-                    <FormControlLabel
-                      value="price-low-to-high"
-                      control={<Radio />}
-                      label="Price - Low to High"
-                    />
-                    <FormControlLabel
-                      value="price-high-to-low"
-                      control={<Radio />}
-                      label="Price - High to Low"
-                    />
-                    <FormControlLabel
-                      value="discount-low-to-high"
-                      control={<Radio />}
-                      label="Discount - Low to High"
-                    />
-                    <FormControlLabel
-                      value="discount-high-to-low"
-                      control={<Radio />}
-                      label="Discount - High to Low"
-                    />
-                  </RadioGroup>
-                </FormControl>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6} md={8}>
-              <Box>
-                <Image
-                  src=""
-                  alt="Banner Image"
-                  width={750}
-                  height={300}
-                  priority
-                />
-              </Box>
-            </Grid>
-          </Grid>
-        </Box>
-        <Separator />
-
-        <Box sx={{ width: "100%" }}>
-          <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid item xs={12} sm={6} md={4}>
-              {/* <Box>
+    <Box
+      sx={{
+        maxWidth: "1654px",
+        mx: "auto",
+      }}
+    >
+      <Separator />
+      <Box>
+        <Grid container>
+          <Grid item xs={12} sm={6} md={3} sx={{ padding: 2 }}>
             <Box
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 border: "1px solid black",
                 borderRadius: "10px 10px 0px 0px",
-                padding: "0px 20px",
+                padding: "10px 20px",
+                color: "#000000",
                 backgroundColor: "#c9c9c9",
               }}
             >
               <p>Sort</p>
               <p>Reset Sort</p>
             </Box>
+
             <Box
               style={{
                 border: "1px solid black",
                 borderTop: "0px",
                 borderRadius: "0px 0px 10px 10px",
-                padding: "0px 20px",
+                padding: "20px 20px",
+                color: "#000000",
               }}
             >
               <FormControl>
@@ -251,7 +188,7 @@ export default function Shop() {
                   aria-labelledby="demo-controlled-radio-buttons-group"
                   name="controlled-radio-buttons-group"
                   value={sort}
-                  onChange={sortHandleChange}
+                  onChange={(e) => setSort(e.target.value)}
                 >
                   <FormControlLabel
                     value="best-seller"
@@ -286,16 +223,32 @@ export default function Shop() {
                 </RadioGroup>
               </FormControl>
             </Box>
-          </Box>
-          <Separator /> */}
+          </Grid>
+          <Grid item xs={12} sm={6} md={9} sx={{ padding: 2 }}>
+            <Card>
+              <CardMedia
+                component="img"
+                height="340px"
+                objectFit="cover"
+                image="https://ds.rokomari.store/rokomari110/ProductNew20190903/260X372/Perahin_2-Antik_Mahmud-acaea-247673.png"
+                alt="Banner Image"
+              />
+            </Card>
+          </Grid>
+        </Grid>
+      </Box>
 
+      <Box sx={{ width: "100%" }}>
+        <Grid container>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box sx={{ color: "#000000", padding: 2 }}>
               <Box
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
                   border: "1px solid black",
                   borderRadius: "10px 10px 0px 0px",
-                  padding: "0px 20px",
+                  padding: "10px 20px",
                   backgroundColor: "#c9c9c9",
                 }}
               >
@@ -307,19 +260,9 @@ export default function Shop() {
                 border="1px solid black"
                 borderTop="0px"
                 borderRadius="0px 0px 10px 10px"
-                padding="0px 20px"
+                padding="20px 20px"
               >
-                <Box>
-                  <p
-                    style={{
-                      margin: "0px",
-                      paddingTop: "20px",
-                      paddingBottom: "20px",
-                    }}
-                  >
-                    Author
-                  </p>
-                </Box>
+                <p>Author</p>
                 <Search>
                   <SearchIconWrapper>
                     <SearchIcon />
@@ -327,6 +270,7 @@ export default function Shop() {
                   <StyledInputBase
                     placeholder="Search…"
                     inputProps={{ "aria-label": "search" }}
+                    onChange={handleChangeNav}
                   />
                 </Search>
                 <FormControl>
@@ -334,7 +278,7 @@ export default function Shop() {
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="controlled-radio-buttons-group"
                     value={filter}
-                    onChange={filterHandleChange}
+                    onChange={(e) => setFilter(e.target.value)}
                   >
                     <FormControlLabel
                       value="jafor-wazed"
@@ -374,19 +318,9 @@ export default function Shop() {
               <Box
                 border="1px solid black"
                 borderRadius="10px"
-                padding="0px 20px"
+                padding="20px 20px"
               >
-                <Box>
-                  <p
-                    style={{
-                      margin: "0px",
-                      paddingTop: "20px",
-                      paddingBottom: "20px",
-                    }}
-                  >
-                    Publisher
-                  </p>
-                </Box>
+                <p>Publisher</p>
                 <Search>
                   <SearchIconWrapper>
                     <SearchIcon />
@@ -401,7 +335,7 @@ export default function Shop() {
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="controlled-radio-buttons-group"
                     value={publisher}
-                    onChange={publisherHandleChange}
+                    onChange={(e) => setPublisher(e.target.value)}
                   >
                     <FormControlLabel
                       value="bangla-akademi"
@@ -442,7 +376,7 @@ export default function Shop() {
                 <Slider
                   getAriaLabel={() => "Price Range"}
                   value={price}
-                  onChange={priceHandleChange}
+                  onChange={(e, newValue) => setPrice(newValue)}
                   valueLabelDisplay="auto"
                   getAriaValueText={priceValue}
                   marks={marks}
@@ -456,18 +390,10 @@ export default function Shop() {
               <Box
                 border="1px solid black"
                 borderRadius="10px"
-                padding="0px 20px"
+                padding="20px 20px"
               >
                 <Box>
-                  <p
-                    style={{
-                      margin: "0px",
-                      paddingTop: "20px",
-                      paddingBottom: "20px",
-                    }}
-                  >
-                    Language
-                  </p>
+                  <p>Language</p>
                 </Box>
                 <Search>
                   <SearchIconWrapper>
@@ -483,7 +409,7 @@ export default function Shop() {
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name="controlled-radio-buttons-group"
                     value={language}
-                    onChange={languageHandleChange}
+                    onChange={(e, newValue) => setLanguage(newValue)}
                   >
                     <FormControlLabel
                       value="bengoli"
@@ -504,20 +430,87 @@ export default function Shop() {
                 </FormControl>
               </Box>
               <Separator />
-            </Grid>
-
-            <Grid item xs={12} sm={6} md={8}>
-              <Grid container sx={{ flexGrow: 1 }}>
-                {Array.from(Array(9)).map((_, index) => (
-                  <Grid xs={12} sm={12} md={6} lg={4} key={index}>
-                    <Box sx={{ width: "390px", height: "300px" }}>xs=2</Box>
-                  </Grid>
-                ))}
-              </Grid>
-            </Grid>
+            </Box>
           </Grid>
-        </Box>
+
+          <Grid item xs={12} sm={6} md={9}>
+            <Grid container sx={{ flexGrow: 1 }}>
+              {displayedBooks.map((book, index) => (
+                <Grid xs={12} md={6} lg={4} key={index} sx={{ padding: 2 }}>
+                  <Card sx={{ background: "#F3FCFF", minHeight: "100%" }}>
+                    <CardMedia
+                      component="img"
+                      height="300" // Set height to "auto"
+                      objectFit="cover" // Maintain aspect ratio and fit
+                      image={book.attributes.images?.data?.attributes.url}
+                      alt={book.attributes.images?.data?.attributes.name}
+                    />
+                    <CardContent>
+                      <Typography variant="h5" component="div">
+                        {book.attributes.name}
+                      </Typography>
+                      <Typography color="text.secondary">
+                        by {book.attributes.authorname}
+                      </Typography>
+                      <Typography>
+                        <Rating
+                          style={{ maxWidth: 180 }}
+                          value={book.attributes.rating}
+                          precision={0.5}
+                          readOnly
+                        />
+                      </Typography>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Typography variant="p">
+                          {book.attributes.stock}
+                        </Typography>
+                        <Typography variant="h6" color="green" fontWeight="700">
+                          ${book.attributes.price}
+                        </Typography>
+                      </Box>
+                      <WraperButton>
+                        <Link href={`${book?.id}`}>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<ShoppingCartIcon />}
+                            sx={{ background: "white", color: "green" }}
+                          >
+                            Detail
+                          </Button>
+                        </Link>
+                        <Typography>
+                          <IconButton
+                            onClick={() => handleFavoriteToggle(index)}
+                          >
+                            {isFavorite[index] ? (
+                              <FavoriteIcon style={{ color: "red" }} />
+                            ) : (
+                              <FavoriteBorderIcon />
+                            )}
+                          </IconButton>
+                        </Typography>
+                      </WraperButton>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+            <PaginationStyle>
+              <PaginationPage
+                totalBooks={books?.length}
+                cardsPerPage={cardsPerPage}
+                handlePageChange={handlePageChange}
+              />
+            </PaginationStyle>
+          </Grid>
+        </Grid>
       </Box>
-    </>
+    </Box>
   );
 }

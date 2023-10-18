@@ -8,16 +8,7 @@ import Advertise from "@/components/Advertise";
 import Cagoris from "@/components/categories";
 import Box from "@mui/material/Box";
 
-import Slider from "@/components/slider";
-
 import BooksCart from "@/components/PopularBooks/booksCart";
-// import PaginationPage from "@/components/pagination";
-import TopPagination from "@/components/pagination/TopPagination";
-import BookCategori from "@/components/bookCategoris";
-
-// import BooksCart from "@/components/PopularBooks/BooksCart";
-
-// import Navbar from '@/layout/Navbar'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -59,8 +50,6 @@ export default function Home({}) {
           <PopularAuthorCard />
           <ManufactureCard />
           <Advertise />
-          <TopPagination />
-          <Slider />
         </Box>
       </main>
     </>

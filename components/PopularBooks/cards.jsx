@@ -19,11 +19,21 @@ import {
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-const Cards = ({ book, addToCartHandler, booksData }) => {
+const Cards = ({
+  index,
+  title,
+  price,
+  authorname,
+  stock,
+  rating,
+  addToCartHandler,
+  addItemDetailPage,
+  booksData,
+}) => {
   // console.log(booksData);
   const [isFavorite, setIsFavorite] = useState([]);
 
-  const { Image, index, title, price, authorname, stock, rating } = book;
+  // const { index, title, price, authorname, stock, rating }
 
   const handleFavoriteToggle = (index) => {
     // Create a copy of the isFavorite array and toggle the value for the clicked card
@@ -35,7 +45,10 @@ const Cards = ({ book, addToCartHandler, booksData }) => {
   return (
     <Box>
       <Grid item>
-        <Card sx={{ background: "#F3FCFF", minHeight: "100%" }}>
+        <Card
+          // onClick={() => addToCartHandler(book)}
+          sx={{ background: "#F3FCFF", minHeight: "100%" }}
+        >
           <Box height="400px">
             <img
               component="img"
@@ -81,6 +94,16 @@ const Cards = ({ book, addToCartHandler, booksData }) => {
                 },
               }}
             >
+              {/* <Button
+                variant="contained"
+                color="primary"
+                startIcon={<ShoppingCartIcon />}
+                // sx={{ background: "white", color: "green" }}
+                onClick={() => addItemDetailPage(book)}
+              >
+                detail page
+              </Button> */}
+
               <Button
                 variant="contained"
                 color="primary"
@@ -90,6 +113,7 @@ const Cards = ({ book, addToCartHandler, booksData }) => {
               >
                 Add to Cart
               </Button>
+
               <Typography>
                 <IconButton
                   color={isFavorite[index] ? "secondary" : "default"}

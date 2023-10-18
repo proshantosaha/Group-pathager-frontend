@@ -18,11 +18,11 @@ import Styles from "./NavbarStyles.module.css";
 import { Search, SearchIconWrapper, StyledInputBase } from "@/styles/cardStyle";
 
 export default function Navbar() {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const { cart } = useContext(CartContext);
+  // const [anchorEl, setAnchorEl] = useState(null);
+  // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  // const isMenuOpen = Boolean(anchorEl);
+  // const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  // const { cart } = useContext(CartContext);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -44,7 +44,7 @@ export default function Navbar() {
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
-      anchorEl={anchorEl}
+      // anchorEl={anchorEl}
       anchorOrigin={{
         vertical: "top",
         horizontal: "right",
@@ -55,18 +55,18 @@ export default function Navbar() {
         vertical: "top",
         horizontal: "right",
       }}
-      open={isMenuOpen}
+      // open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>login</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Register</MenuItem>
     </Menu>
   );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
-      anchorEl={mobileMoreAnchorEl}
+      // anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: "top",
         horizontal: "right",
@@ -77,7 +77,7 @@ export default function Navbar() {
         vertical: "top",
         horizontal: "right",
       }}
-      open={isMobileMenuOpen}
+      // open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
@@ -186,7 +186,7 @@ export default function Navbar() {
               >
                 {
                   <Badge
-                    badgeContent={cart.cartItems?.length || "0"}
+                    // badgeContent={cart.cartItems?.length || "0"}
                     color="error"
                   >
                     <LocalMallIcon />

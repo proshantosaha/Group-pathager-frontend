@@ -5,7 +5,7 @@ import CartContext from "@/context/CartContext";
 import Link from "next/link";
 import Box from "@mui/material/Box";
 
-const Cart = () => {
+const DeatilCart = () => {
   const { addItemToCart, deleteItemFromCart, cart } = useContext(CartContext);
 
   const increaseQty = (cartItem) => {
@@ -110,4 +110,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default DeatilCart;

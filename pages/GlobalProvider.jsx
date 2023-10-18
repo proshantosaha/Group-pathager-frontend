@@ -1,5 +1,7 @@
 import { CartProvider } from "@/context/CartContext";
+import AppProvider from "@/context/productContext";
 
 export function GlobalProvider({ children }) {
-  return <CartProvider>{children}</CartProvider>;
+  return <AppProvider>{children}</AppProvider>;
 }
+// </CartProvider>;
