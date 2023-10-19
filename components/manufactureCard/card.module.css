@@ -1,0 +1,24 @@
+.grid {
+  
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+   }
+
+
+.marginbottom{
+    margin-bottom: 1rem;
+}
+
+
+.flexx{
+  display: flex;
+  justify-content:space-between;
+
+}
+
+
+.text{
+  font-size:1.5rem;
+  font-weight: bold;
+}

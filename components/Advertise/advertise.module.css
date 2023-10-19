@@ -1,0 +1,89 @@
+/* .description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+    font-size: 0.85rem;
+    max-width: var(--max-width);
+    width: 90%; 
+   z-index: 2;
+    font-family: var(--font-mono);
+  } */
+
+
+  .grid {
+    display: flex;
+    justify-content:center;
+  }
+
+
+  .texth4{
+    margin-top: 4rem;
+    font-size:2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+  }
+  
+  
+  .texth2{
+    /* margin-top: .2rem; */
+    margin-top: 1rem;
+    font-size:50px;
+    color:#fff;
+    margin-bottom: 20px;
+    display: block;
+
+    /* font-weight:bolder; */
+  }
+
+
+  .texth5{
+    font-size: 1.2rem;
+    margin-left: 1.5rem;
+    margin-bottom: .5rem;
+  }
+
+  .texth6{
+    font-size: 1rem;
+    margin-left: 1.5rem;
+  }
+
+  .margintop{
+    margin-top: 4rem;
+  }
+
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+    padding-left: 20px !important;
+  }
+
+  .logo{
+    padding-left: 60px;
+  }
+
+  .addBtn{
+    /* margin-top: 20px; */
+    margin-left: 10px;
+    padding: 13px;
+  }
+
+
+  .texthA{
+    display: flex;
+    /* margin-top: 1rem; */
+    font-weight: bold;
+    font-size: .8rem;
+    background-color: rgb(1, 1, 16);
+    padding: 6px;
+    color: #fff;
+    display: inline-block;
+    line-height: 15px;
+    margin-left: 20px;
+    border-radius: 5px;
+    
+  }
+
+  .picon{
+    margin-top: 5px;
+    margin-right: 5px;
+  
+  }
