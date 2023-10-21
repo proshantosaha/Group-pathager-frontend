@@ -29,7 +29,6 @@ import {
 } from "@/styles/cardStyle";
 import Cards from "./cards";
 import Link from "next/link";
-import TopPagination from "../pagination/TopPagination";
 
 const BooksCart = () => {
   // { strapiData }
@@ -117,7 +116,6 @@ const BooksCart = () => {
           onChange={handleChangeNav}
         />
       </Search>
-      <TopPagination />
       <Typography variant="h4" sx={{ fontWeight: 700, color: "#0096D1" }}>
         Popular Books
       </Typography>
@@ -154,95 +152,6 @@ const BooksCart = () => {
               />
             </Link>
           </Grid>
-          // <Grid item>
-          //   <Card
-          //     // onClick={() => addToCartHandler(book)}
-          //     sx={{ background: "#F3FCFF", minHeight: "100%" }}
-          //   >
-          //     <Box height="400px">
-          //       <img
-          //         component="img"
-          //         // Set height to "auto"
-          //         objectFit="cover" // Maintain aspect ratio and fit
-          //         src={Image}
-          //         alt={item.attributes.name}
-          //       />
-          //     </Box>
-          //     <CardContent>
-          //       <Typography variant="h5" component="div">
-          //         {item.attributes.name}
-          //       </Typography>
-          //       <Typography color="text.secondary">
-          //         by {item.attributes.name}
-          //       </Typography>
-          //       <Typography>
-          //         <Rating
-          //           style={{ maxWidth: 180 }}
-          //           rating={item.attributes.name}
-          //           precision={0.5}
-          //           readOnly
-          //         />
-          //       </Typography>
-          //       <Typography variant="p">{item.attributes.name}</Typography>
-          //       <Typography variant="h6" color="green" fontWeight="700">
-          //         ${item.attributes.name}
-          //       </Typography>
-          //       <Box
-          //         sx={{
-          //           display: "flex",
-          //           justifyContent: "space-between",
-          //           mt: 3,
-          //           "& button": {
-          //             background: "white",
-          //             fontWeight: 700,
-          //             border: "1px solid grey",
-          //             borderRadius: 25,
-          //             color: "green",
-          //             transition: "background 0.3s, color 0.3s",
-          //             "&:hover": {
-          //               background: "green",
-          //               color: "white",
-          //             },
-          //           },
-          //         }}
-          //       >
-          //         {/* <Button
-          //         variant="contained"
-          //         color="primary"
-          //         startIcon={<ShoppingCartIcon />}
-          //         // sx={{ background: "white", color: "green" }}
-          //         onClick={() => addItemDetailPage(book)}
-          //       >
-          //         detail page
-          //       </Button> */}
-
-          //         <Button
-          //           variant="contained"
-          //           color="primary"
-          //           startIcon={<ShoppingCartIcon />}
-          //           // sx={{ background: "white", color: "green" }}
-          //           onClick={() => addToCartHandler(item)}
-          //         >
-
-          //           Add to Cart
-          //         </Button>
-
-          //         <Typography>
-          //           <IconButton
-          //             color={isFavorite ? "secondary" : "default"}
-          //             onClick={() => handleFavoriteToggle(index)}
-          //           >
-          //             {isFavorite ? (
-          //               <FavoriteIcon style={{ color: "red" }} />
-          //             ) : (
-          //               <FavoriteBorderIcon />
-          //             )}
-          //           </IconButton>
-          //         </Typography>
-          //       </Box>
-          //     </CardContent>
-          //   </Card>
-          // </Grid>
         ))}
       </Grid>
       <Box sx={{ display: "flex", justifyContent: "center", marginTop: 3 }}>
@@ -284,3 +193,93 @@ export default BooksCart;
 //     },
 //   };
 // }
+
+// <Grid item>
+//   <Card
+//     // onClick={() => addToCartHandler(book)}
+//     sx={{ background: "#F3FCFF", minHeight: "100%" }}
+//   >
+//     <Box height="400px">
+//       <img
+//         component="img"
+//         // Set height to "auto"
+//         objectFit="cover" // Maintain aspect ratio and fit
+//         src={Image}
+//         alt={item.attributes.name}
+//       />
+//     </Box>
+//     <CardContent>
+//       <Typography variant="h5" component="div">
+//         {item.attributes.name}
+//       </Typography>
+//       <Typography color="text.secondary">
+//         by {item.attributes.name}
+//       </Typography>
+//       <Typography>
+//         <Rating
+//           style={{ maxWidth: 180 }}
+//           rating={item.attributes.name}
+//           precision={0.5}
+//           readOnly
+//         />
+//       </Typography>
+//       <Typography variant="p">{item.attributes.name}</Typography>
+//       <Typography variant="h6" color="green" fontWeight="700">
+//         ${item.attributes.name}
+//       </Typography>
+//       <Box
+//         sx={{
+//           display: "flex",
+//           justifyContent: "space-between",
+//           mt: 3,
+//           "& button": {
+//             background: "white",
+//             fontWeight: 700,
+//             border: "1px solid grey",
+//             borderRadius: 25,
+//             color: "green",
+//             transition: "background 0.3s, color 0.3s",
+//             "&:hover": {
+//               background: "green",
+//               color: "white",
+//             },
+//           },
+//         }}
+//       >
+//         {/* <Button
+//         variant="contained"
+//         color="primary"
+//         startIcon={<ShoppingCartIcon />}
+//         // sx={{ background: "white", color: "green" }}
+//         onClick={() => addItemDetailPage(book)}
+//       >
+//         detail page
+//       </Button> */}
+
+//         <Button
+//           variant="contained"
+//           color="primary"
+//           startIcon={<ShoppingCartIcon />}
+//           // sx={{ background: "white", color: "green" }}
+//           onClick={() => addToCartHandler(item)}
+//         >
+
+//           Add to Cart
+//         </Button>
+
+//         <Typography>
+//           <IconButton
+//             color={isFavorite ? "secondary" : "default"}
+//             onClick={() => handleFavoriteToggle(index)}
+//           >
+//             {isFavorite ? (
+//               <FavoriteIcon style={{ color: "red" }} />
+//             ) : (
+//               <FavoriteBorderIcon />
+//             )}
+//           </IconButton>
+//         </Typography>
+//       </Box>
+//     </CardContent>
+//   </Card>
+// </Grid>

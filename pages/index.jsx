@@ -9,6 +9,7 @@ import Cagoris from "@/components/categories";
 import Box from "@mui/material/Box";
 
 import BooksCart from "@/components/PopularBooks/booksCart";
+import ListView from "./Shop/listView";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -50,6 +51,7 @@ export default function Home({}) {
           <PopularAuthorCard />
           <ManufactureCard />
           <Advertise />
+          {/* <ListView /> */}
         </Box>
       </main>
     </>

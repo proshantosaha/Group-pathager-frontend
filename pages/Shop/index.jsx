@@ -11,6 +11,12 @@ import InputBase from "@mui/material/InputBase";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import GridViewIcon from "@mui/icons-material/GridView";
+import DehazeIcon from "@mui/icons-material/Dehaze";
+
 import {
   Box,
   Button,
@@ -26,6 +32,9 @@ import {
 import PaginationPage from "@/components/PaginationPage";
 import { PaginationStyle } from "@/styles/paginationStyle";
 import { WraperButton } from "@/styles/cardStyle";
+import Image from "next/image";
+import Cards from "@/components/PopularBooks/cards";
+import ListView from "./listView";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -94,6 +103,11 @@ const Separator = styled("div")(
 `
 );
 
+const initialValue = {
+  grid_view: true,
+  list_view: false,
+};
+
 export default function Shop() {
   const [sort, setSort] = useState("");
   const [filter, setFilter] = useState("");
@@ -107,12 +121,23 @@ export default function Shop() {
   const [cardsPerPage] = useState(8);
   // console.log(sort,filter,publisher,price,language)
 
+  const [view, setView] = useState(false);
+
+  const [age, setAge] = React.useState("");
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
   useEffect(() => {
     fetch("http://localhost:1337/api/products?populate=*")
       .then((response) => response.json())
       .then((data) => {
         setBooks(data?.data);
         setNavSearch(data?.data);
+        // setGridView(data?.data);
+        // setListView(data?.data);
+
         setIsFavorite(new Array(data.length).fill(false));
       });
   }, []);
@@ -434,73 +459,72 @@ export default function Shop() {
           </Grid>
 
           <Grid item xs={12} sm={6} md={9}>
-            <Grid container sx={{ flexGrow: 1 }}>
-              {displayedBooks.map((book, index) => (
-                <Grid xs={12} md={6} lg={4} key={index} sx={{ padding: 2 }}>
-                  <Card sx={{ background: "#F3FCFF", minHeight: "100%" }}>
-                    <CardMedia
-                      component="img"
-                      height="300" // Set height to "auto"
-                      objectFit="cover" // Maintain aspect ratio and fit
-                      image={book.attributes.images?.data?.attributes.url}
-                      alt={book.attributes.images?.data?.attributes.name}
+            <Box display="flex" justifyContent="space-between">
+              <Box>
+                {view === true ? (
+                  <>
+                    {" "}
+                    <button onClick={() => setView(false)}>
+                      {" "}
+                      <GridViewIcon />
+                      <DehazeIcon />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <button onClick={() => setView(true)}>
+                      {" "}
+                      <GridViewIcon />
+                      <DehazeIcon />
+                    </button>
+                  </>
+                )}
+              </Box>
+              <Box>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={age}
+                    label="Age"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={10}>Price - Low to High</MenuItem>
+                    <MenuItem value={20}>Price - High to Low</MenuItem>
+                    <MenuItem value={30}>Discount - Low to High</MenuItem>
+                    <MenuItem value={30}>Discount - High to Low</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </Box>
+
+            {view === true ? (
+              <>
+                {" "}
+                <ListView />
+              </>
+            ) : (
+              <>
+                {" "}
+                <Grid container sx={{ flexGrow: 1 }}>
+                  {displayedBooks.map((item) => (
+                    <Cards
+                      index={item.index}
+                      // {...item}
+                      title={item.attributes.name}
+                      price={item.attributes.price}
+                      authorname={item.attributes.authorname}
+                      stock={item.attributes.stock}
+                      rating={item.attributes.rating}
+                      book={item}
                     />
-                    <CardContent>
-                      <Typography variant="h5" component="div">
-                        {book.attributes.name}
-                      </Typography>
-                      <Typography color="text.secondary">
-                        by {book.attributes.authorname}
-                      </Typography>
-                      <Typography>
-                        <Rating
-                          style={{ maxWidth: 180 }}
-                          value={book.attributes.rating}
-                          precision={0.5}
-                          readOnly
-                        />
-                      </Typography>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Typography variant="p">
-                          {book.attributes.stock}
-                        </Typography>
-                        <Typography variant="h6" color="green" fontWeight="700">
-                          ${book.attributes.price}
-                        </Typography>
-                      </Box>
-                      <WraperButton>
-                        <Link href={`${book?.id}`}>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            startIcon={<ShoppingCartIcon />}
-                            sx={{ background: "white", color: "green" }}
-                          >
-                            Detail
-                          </Button>
-                        </Link>
-                        <Typography>
-                          <IconButton
-                            onClick={() => handleFavoriteToggle(index)}
-                          >
-                            {isFavorite[index] ? (
-                              <FavoriteIcon style={{ color: "red" }} />
-                            ) : (
-                              <FavoriteBorderIcon />
-                            )}
-                          </IconButton>
-                        </Typography>
-                      </WraperButton>
-                    </CardContent>
-                  </Card>
+                  ))}
                 </Grid>
-              ))}
-            </Grid>
+              </>
+            )}
+
             <PaginationStyle>
               <PaginationPage
                 totalBooks={books?.length}
@@ -514,3 +538,92 @@ export default function Shop() {
     </Box>
   );
 }
+
+// <Cards
+// index={item.index}
+// // {...item}
+// title={item.attributes.name}
+// price={item.attributes.price}
+// authorname={item.attributes.authorname}
+// stock={item.attributes.stock}
+// rating={item.attributes.rating}
+// book={item}
+// />
+
+// <Grid
+// xs={12}
+// md={6}
+// lg={4}
+// key={index}
+// sx={{ padding: 2 }}
+// width="600px"
+// >
+// <Box
+//   sx={{
+//     background: "#F3FCFF",
+//     minHeight: "100%",
+//   }}
+//   // className={isMobileMenuOpen ? { view } : { view2 }}
+// >
+//   <Image
+//     src="/img"
+//     height="300" // Set height to "auto"
+//     width="200"
+//     objectFit="cover" // Maintain aspect ratio and fit
+//     image={item.attributes.images?.data?.attributes.url}
+//     alt={item.attributes.images?.data?.attributes.name}
+//   />
+
+//   {/* <CardContent> */}
+//   <Typography variant="h5" component="div">
+//     {item.attributes.name}
+//   </Typography>
+//   <Typography color="text.secondary">
+//     by {item.attributes.authorname}
+//   </Typography>
+//   <Typography>
+//     <Rating
+//       style={{ maxWidth: 180 }}
+//       value={item.attributes.rating}
+//       precision={0.5}
+//       readOnly
+//     />
+//   </Typography>
+//   <Box
+//     sx={{
+//       display: "flex",
+//       justifyContent: "space-between",
+//     }}
+//   >
+//     <Typography variant="p">
+//       {item.attributes.stock}
+//     </Typography>
+//     <Typography variant="h6" color="green" fontWeight="700">
+//       ${item.attributes.price}
+//     </Typography>
+//   </Box>
+//   <WraperButton>
+//     <Link href={`${item?.id}`}>
+//       <Button
+//         variant="contained"
+//         color="primary"
+//         startIcon={<ShoppingCartIcon />}
+//         sx={{ background: "white", color: "green" }}
+//       >
+//         Detail
+//       </Button>
+//     </Link>
+//     <Typography>
+//       <IconButton onClick={() => handleFavoriteToggle(index)}>
+//         {isFavorite ? (
+//           <FavoriteIcon style={{ color: "red" }} />
+//         ) : (
+//           <FavoriteBorderIcon />
+//         )}
+//       </IconButton>
+//     </Typography>
+//   </WraperButton>
+//   {/* </CardContent> */}
+// </Box>
+
+// </Grid>

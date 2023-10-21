@@ -137,7 +137,7 @@ export default function AuthorCard() {
                   fontWeight: "medium",
                 }}
               >
-                <Image src={item.authorImg} width={200} height={200} />
+                <Image src={item?.authorImg} width={200} height={200} />
               </Box>
 
               <Box
