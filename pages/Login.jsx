@@ -19,27 +19,15 @@ import LockIcon from "@mui/icons-material/Lock";
 import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import Cookies from "js-cookie";
 
 const Login = () => {
-  const loginStyle = {
-    padding: 20,
-    height: "auto",
-    width: "45%",
-    margin: "50px auto",
-    borderRadius: "20px",
-    backgroundColor: "#E2F8FF",
-    boxShadow: "0px 0px 10px 5px rgba(0, 0, 0, 0.1)",
-  };
-  const btnStyle = {
-    margin: "10px 0",
-    backgroundColor: "#E04F9D",
-    fontWeight: 600,
-  };
 
   const [login, setLogin] = useState({
     identifier: "",
     password: "",
   });
+
   const [loginError, setLoginError] = useState("");
   const [userData, setUserData] = useState(null);
 

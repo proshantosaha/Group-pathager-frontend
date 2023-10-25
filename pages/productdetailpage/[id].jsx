@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Box,
   Button,
@@ -9,33 +11,47 @@ import {
   Rating,
   IconButton,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState, useContext } from "react";
+
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import CartContext from "@/context/CartContext";
+import { useProductContext } from "@/context/productContext";
+import { useRouter } from "next/router";
+import { HandymanOutlined } from "@mui/icons-material";
+import Link from "next/link";
 
 const ProductDetails = () => {
   const [books, setBooks] = useState([]);
   const [isFavorite, setIsFavorite] = useState([]);
+  const { data } = useProductContext();
 
-  useEffect(() => {
-    // Fetch the JSON data from your file
-    fetch("/Book.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setIsFavorite(new Array(data.length).fill(false));
-        setBooks(data);
-      });
-  }, []);
+  const router = useRouter();
+
+  // console.log(cart);
+
+  const detail = data?.find((e) => e.id === Number(router?.query.id));
+
+  // useEffect(() => {
+  //   // Fetch the JSON data from your file
+  //   fetch("/Book.json")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setIsFavorite(new Array(data.length).fill(false));
+  //       setBooks(data);
+  //     });
+  // }, []);
+
   const handleFavoriteToggle = (index) => {
     // Create a copy of the isFavorite array and toggle the value for the clicked card
     const updatedFavorites = [...isFavorite];
     updatedFavorites[index] = !updatedFavorites[index];
     setIsFavorite(updatedFavorites);
   };
-
 
   const [count, setCount] = useState(0);
 
@@ -49,30 +65,34 @@ const ProductDetails = () => {
     }
   };
   return (
-    <Box sx={{ width: "80%", margin: "0 auto" }}>
+    <Box maxWidth="1654px" mx="auto" sx={{}}>
       {/* Upper section  */}
-      <Grid container spacing={5} sx={{ marginBottom: 10 }}>
+      {/* {books?.cartItems?.map((cartItem) => ( */}
+      <Grid container spacing={5} sx={{ marginTop: 5 }}>
         <Grid item xs={12} sm={6} md={6}>
-          <CardMedia
-            sx={{
-              border: "1px solid grey",
-              padding: "50px",
-              background: "#D9D9D9",
-              borderRadius: "20px",
-              width: "80%",
-              height: "500px",
-            }}
-          >
-            <img
-              src="https://img.freepik.com/premium-vector/tom-sawyer-paints-fence-open-book-illustration_135176-9.jpg?size=626&ext=jpg&ga=GA1.1.1747484890.1694422252&semt=ais"
-              alt="Image"
-              style={{
-                width: "100%",
-                height: "100%",
-                boxShadow: "4px 4px 4px rgba(0 , 0 , 0 , 0.2)",
+          <CardMedia>
+            <Box
+              width={400}
+              height={400}
+              mx="auto"
+              sx={{
+                border: "1px solid grey",
+                padding: "50px",
+                background: "#D9D9D9",
                 borderRadius: "20px",
               }}
-            />
+            >
+              <img
+                src=""
+                alt="Image"
+                style={{
+                  width: "60%",
+                  height: "60%",
+                  boxShadow: "4px 4px 4px rgba(0 , 0 , 0 , 0.2)",
+                  borderRadius: "20px",
+                }}
+              />
+            </Box>
           </CardMedia>
         </Grid>
 
@@ -81,23 +101,45 @@ const ProductDetails = () => {
             sx={{
               position: "relative",
               top: "50%",
-              left: "50%",
+              left: "35%",
               transform: "translate(-50%,-50%)",
             }}
           >
             <Box>
               <Typography variant="h4" fontWeight={700}>
-                Name of the Book
+                {detail?.attributes.name}
               </Typography>
               <Box sx={{ marginTop: 2, marginBottom: 2 }}>
-                <Typography variant="p">By author name</Typography>
-              </Box>
-              <Box>
-                <Typography variant="h4" fontWeight={700} marginBottom={2}>
-                  $800
+                <Typography variant="p">
+                  {detail?.attributes.authorname}
                 </Typography>
               </Box>
-              <Typography variant="p">Description of the book</Typography>
+              <Box>
+                <Typography variant="p" fontWeight={700} marginBottom={2}>
+                  {detail?.attributes.createdAt}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography variant="p" fontWeight={700} marginBottom={2}>
+                  {detail?.attributes.rating}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography variant="p" fontWeight={700} marginBottom={2}>
+                  {detail?.attributes.price}
+                </Typography>
+              </Box>
+
+              <Typography variant="p" width={50}>
+                {" "}
+                {detail?.attributes.description}
+              </Typography>
+
+              <Box>
+                <Typography variant="p" fontWeight={700} marginBottom={2}>
+                  {detail?.attributes.stock}
+                </Typography>
+              </Box>
             </Box>
 
             {/* Cart Section */}
@@ -130,21 +172,24 @@ const ProductDetails = () => {
                 </Button>
               </Box>
               <Box>
-                <Button
-                  variant="contained"
-                  startIcon={<ShoppingCartIcon />}
-                  sx={{
-                    background: "white",
-                    color: "green",
-                    borderRadius: "30px",
-                    "&:hover": {
-                      background: "green",
-                      color: "white",
-                    },
-                  }}
-                >
-                  Add to Cart
-                </Button>
+                <Link href={`../../components/PopularBooks/cart.jsx`}>
+                  <Button
+                    variant="contained"
+                    startIcon={<ShoppingCartIcon />}
+                    onClick={() => addToCart(id, amount, product)}
+                    sx={{
+                      background: "white",
+                      color: "green",
+                      borderRadius: "30px",
+                      "&:hover": {
+                        background: "green",
+                        color: "white",
+                      },
+                    }}
+                  >
+                    Add to Cart
+                  </Button>
+                </Link>
               </Box>
             </Box>
             <hr
@@ -183,7 +228,7 @@ const ProductDetails = () => {
           </Box>
         </Grid>
       </Grid>
-
+      {/* // ))} */}
       {/* lower section  */}
       <Box>
         <Box>
@@ -211,9 +256,7 @@ const ProductDetails = () => {
           <span style={{ color: "grey" }}> Publisher will be here</span>
         </Box>
       </Box>
-
       {/* Related Product section  */}
-
       <Box sx={{ marginTop: 4 }}>
         <Box>
           <Typography variant="h4" sx={{ textAlign: "center" }}>
@@ -221,7 +264,8 @@ const ProductDetails = () => {
           </Typography>
         </Box>
       </Box>
-      <Grid container spacing={3}>
+      {/* nicher related card egula */}
+      {/* <Grid container spacing={3}>
         {books.map((book, index) => (
           <Grid item xs={12} sm={6} md={3} key={index}>
             <Card sx={{ background: "#F3FCFF", minHeight: "100%" }}>
@@ -295,7 +339,7 @@ const ProductDetails = () => {
             </Card>
           </Grid>
         ))}
-      </Grid>
+      </Grid> */}
     </Box>
   );
 };

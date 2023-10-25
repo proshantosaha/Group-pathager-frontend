@@ -6,7 +6,7 @@ import Image from "next/image";
 const ShippingOffer = () => {
   return (
     <>
-      <Box>
+      <Box bgcolor="#D9D9D9" padding="40px 0px">
         <Box
           display="flex"
           justifyContent="center "
@@ -24,11 +24,13 @@ const ShippingOffer = () => {
                 fontSize: 34,
                 fontWeight: "medium",
               }}
-              mx="auto"
+              display="flex"
+              justifyContent="space-around"
+              // mx="auto"
             >
               <Image
                 className={styles.align}
-                src="/Ellipse2.png"
+                src="/streamline.png"
                 width={60}
                 height={60}
               />
@@ -42,8 +44,10 @@ const ShippingOffer = () => {
           <Box>
             <Box
               sx={{ color: "text.primary", fontSize: 34, fontWeight: "medium" }}
+              display="flex"
+              justifyContent="space-around"
             >
-              <Image src="/Ellipse2.png" width={60} height={60} />
+              <Image src="/clock.png" width={60} height={60} />
             </Box>
             <Box>
               <h className={styles.text}>

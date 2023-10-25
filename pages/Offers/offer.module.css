@@ -2,7 +2,20 @@
     font-size :12px;
     /* font-weight: bold; */
   }
-
+  .texthA{
+    display: flex;
+    /* margin-top: 1rem; */
+    font-weight: bold;
+    font-size: .8rem;
+    background-color: rgb(1, 1, 16);
+    padding: 6px;
+    color: #fff;
+    display: inline-block;
+    line-height: 15px;
+    margin-left: 20px;
+    border-radius: 5px;
+    
+  }
   .flexx{
     display: flex;
     justify-content:space-around;
@@ -11,4 +24,18 @@
   
   .align{
     
+  }
+
+
+  .grid {
+  
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+   }
+
+  .picon{
+    margin-top: 5px;
+    margin-right: 5px;
+  
   }

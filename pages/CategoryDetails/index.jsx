@@ -18,7 +18,7 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import Image from "next/image";
 
-const CompanyDetails = () => {
+const CategoriDetails = () => {
   const book = [
     {
       id: 1,
@@ -162,4 +162,4 @@ const CompanyDetails = () => {
   );
 };
 
-export default CompanyDetails;
+export default CategoriDetails;

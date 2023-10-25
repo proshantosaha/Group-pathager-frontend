@@ -18,7 +18,7 @@
 
 
 .hcolor{
-  color:#fff
+  color:#fff;text-align: center;
 }
 
 
@@ -29,4 +29,34 @@
 .text{
   font-size:1.5rem;
   font-weight: bold;
+}
+
+
+.cateCard{
+  display:flex;
+  background-color: #7997CE;
+  border-bottom: 6px;
+  border-color: #DADCE0;
+  padding: 2
+}
+
+
+
+.cateButton{
+ background-color: #fff;
+  display:flex;
+  justify-content: center;
+  padding:10px;
+ justify-content: center;
+}
+
+
+/* .fullCard{
+  display: flex ;
+} */
+
+.cards{
+  border-bottom: 6;
+  background-color: #DADCE0;
+  padding: 2;
 }

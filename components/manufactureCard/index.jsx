@@ -17,10 +17,6 @@ const ManufactureCard = () => {
       <ManufactButton />
       <div className={styles.grid}>
         <CardManufact />
-        <CardManufact />
-        <CardManufact />
-        <CardManufact />
-        <CardManufact />
       </div>
     </Box>
   );

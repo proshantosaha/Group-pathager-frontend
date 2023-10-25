@@ -70,7 +70,7 @@ export default function Navbar() {
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
-      anchorEl={mobileMoreAnchorEl}
+      // anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right',
@@ -81,7 +81,7 @@ export default function Navbar() {
         vertical: 'top',
         horizontal: 'right',
       }}
-      open={isMobileMenuOpen}
+      // open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
       <MenuItem>

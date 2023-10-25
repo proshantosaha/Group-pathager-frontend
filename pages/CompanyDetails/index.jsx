@@ -71,7 +71,12 @@ const CompanyDetails = () => {
     },
   ];
   return (
-    <Box>
+    <Box
+      sx={{
+        maxWidth: "1654px",
+        mx: "auto",
+      }}
+    >
       <Box sx={{ backgroundColor: "#0081FE", padding: "20px 0" }}>
         <Container>
           <Typography

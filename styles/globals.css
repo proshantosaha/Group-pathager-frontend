@@ -82,7 +82,7 @@
   html,
   body {
     max-width: 100vw;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     font-family: 'Inter', sans-serif;
     background: rgba(230, 246, 246, 0.96);
   }

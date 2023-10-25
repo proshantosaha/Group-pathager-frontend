@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useReducer } from "react";
 import { useFetchData } from "@/hooks/useFetchData";
 import Link from "next/link";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";

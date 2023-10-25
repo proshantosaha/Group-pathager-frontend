@@ -9,17 +9,15 @@ const Cagoris = () => {
     <Box
       maxWidth="1654px"
       mx="auto"
-      bgcolor="#94B9FE"
+      bgcolor="#fff"
       padding="50px 50px"
       borderRadius="20px"
     >
       <Title />
-      <Box display="flex" justifyContent="center">
-        {/* <Link></Link> */}
-        <FullCard />
-        <FullCard />
-        <FullCard />
-      </Box>
+      {/* <Box display="flex" justifyContent="center"> */}
+      {/* <Link></Link> */}
+      <FullCard />
+      {/* </Box> */}
     </Box>
   );
 };
