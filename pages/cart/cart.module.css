@@ -1,0 +1,19 @@
+.cartContent{
+    display: flex;
+    justify-content: space-between;
+}
+
+.sumaryprice{
+    display: flex;
+    justify-content: space-between;
+}
+
+.cartContentwidth{
+    width: 30%;
+}
+
+.cartContentCheckOut{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

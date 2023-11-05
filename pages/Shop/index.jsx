@@ -35,6 +35,8 @@ import { WraperButton } from "@/styles/cardStyle";
 import Image from "next/image";
 import Cards from "@/components/PopularBooks/cards";
 import ListView from "./listView";
+import { useFilterContext } from "@/context/filterContext";
+// import { productionBrowserSourceMaps } from "@/next.config";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -123,11 +125,7 @@ export default function Shop() {
 
   const [view, setView] = useState(false);
 
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  const { sorting } = useFilterContext();
 
   useEffect(() => {
     fetch("http://localhost:1337/api/products?populate=*")
@@ -141,6 +139,8 @@ export default function Shop() {
         setIsFavorite(new Array(data.length).fill(false));
       });
   }, []);
+
+  // price sorting
 
   // useFetchData("http://localhost:1337/api/products?populate=*", (data) => {
   //   setBooks(data?.data)
@@ -215,16 +215,6 @@ export default function Shop() {
                   value={sort}
                   onChange={(e) => setSort(e.target.value)}
                 >
-                  <FormControlLabel
-                    value="best-seller"
-                    control={<Radio />}
-                    label="Best Seller"
-                  />
-                  <FormControlLabel
-                    value="new-relased"
-                    control={<Radio />}
-                    label="New Released"
-                  />
                   <FormControlLabel
                     value="price-low-to-high"
                     control={<Radio />}
@@ -310,31 +300,6 @@ export default function Shop() {
                       control={<Radio />}
                       label="Jafor Wazid"
                     />
-                    <FormControlLabel
-                      value="new-relased"
-                      control={<Radio />}
-                      label="New Released"
-                    />
-                    <FormControlLabel
-                      value="price-low-to-high"
-                      control={<Radio />}
-                      label="Price - Low to High"
-                    />
-                    <FormControlLabel
-                      value="price-high-to-low"
-                      control={<Radio />}
-                      label="Price - High to Low"
-                    />
-                    <FormControlLabel
-                      value="discount-low-to-high"
-                      control={<Radio />}
-                      label="Discount - Low to High"
-                    />
-                    <FormControlLabel
-                      value="discount-high-to-low"
-                      control={<Radio />}
-                      label="Discount - High to Low"
-                    />
                   </RadioGroup>
                 </FormControl>
               </Box>
@@ -366,31 +331,6 @@ export default function Shop() {
                       value="bangla-akademi"
                       control={<Radio />}
                       label="Bangla Akademi"
-                    />
-                    <FormControlLabel
-                      value="new-relased"
-                      control={<Radio />}
-                      label="New Released"
-                    />
-                    <FormControlLabel
-                      value="price-low-to-high"
-                      control={<Radio />}
-                      label="Price - Low to High"
-                    />
-                    <FormControlLabel
-                      value="price-high-to-low"
-                      control={<Radio />}
-                      label="Price - High to Low"
-                    />
-                    <FormControlLabel
-                      value="discount-low-to-high"
-                      control={<Radio />}
-                      label="Discount - Low to High"
-                    />
-                    <FormControlLabel
-                      value="discount-high-to-low"
-                      control={<Radio />}
-                      label="Discount - High to Low"
                     />
                   </RadioGroup>
                 </FormControl>
@@ -485,16 +425,20 @@ export default function Shop() {
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Age</InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Age"
-                    onChange={handleChange}
+                    // labelId="demo-simple-select-label"
+                    name="sort"
+                    id="sort"
+                    onClick={sorting}
                   >
-                    <MenuItem value={10}>Price - Low to High</MenuItem>
-                    <MenuItem value={20}>Price - High to Low</MenuItem>
-                    <MenuItem value={30}>Discount - Low to High</MenuItem>
-                    <MenuItem value={30}>Discount - High to Low</MenuItem>
+                    <MenuItem value={" "}>select Sorting type</MenuItem>
+                    <MenuItem value={"low"}>Price - Low to High</MenuItem>
+                    <MenuItem value={"high"}>Price - High to Low</MenuItem>
+                    <MenuItem value={"disLowTOhigh"}>
+                      Discount - Low to High
+                    </MenuItem>
+                    <MenuItem value={"disHighToLow"}>
+                      Discount - High to Low
+                    </MenuItem>
                   </Select>
                 </FormControl>
               </Box>

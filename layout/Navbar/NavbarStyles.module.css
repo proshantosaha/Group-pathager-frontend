@@ -21,4 +21,41 @@
     color: aliceblue;
 }
 
+.subMenuUl{
+    background-color: #fff;
+    position: absolute;
+    top: 3.5rem;
+    left: 0;
+    min-width: 180px;
+ height: 150px;
+    padding-right: 9px;
+    padding-left: 8px;
+    margin-left: 350px;
+    color: black;
+
+
+
+
+}
+
+.subcatmenu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    padding-right: 3px;
+    padding-left: 3px;
+    opacity: 0.03;
+    border-radius: 25px;
+    overflow: hidden;
+   
+}
+.subcatmenu li{
+    color: black;
+}
+.subcatmenu:hover{
+    background-color: black;
+}
+
+
 

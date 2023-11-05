@@ -4,7 +4,7 @@
     "Image": "book2.jpg",
     "image1": "book2_cover.jpg",
     "image2": "book2_back.jpg",
-    "title": "Book 2",
+    "name": "Book 2",
     "authorname": "Author 2",
     "rating": 4.0,
     "price": 14.99,

@@ -71,10 +71,10 @@ const Banner = () => {
         modules={[Pagination, Scrollbar, Autoplay, Navigation]}
         spaceBetween={0}
         slidesPerView={1}
-        pagination={{ clickable: true }}
+        // pagination={{ clickable: true }}
         speed={500}
         loop={true}
-        navigation={true}
+        // navigation={true}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,

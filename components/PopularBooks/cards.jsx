@@ -104,16 +104,6 @@ const Cards = ({
                 detail page
               </Button> */}
 
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={<ShoppingCartIcon />}
-                // sx={{ background: "white", color: "green" }}
-                onClick={() => addToCartHandler(book)}
-              >
-                Add to Cart
-              </Button>
-
               <Typography>
                 <IconButton
                   color={isFavorite[index] ? "secondary" : "default"}

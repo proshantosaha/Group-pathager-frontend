@@ -16,12 +16,17 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import Link from "next/link";
 import Styles from "./NavbarStyles.module.css";
 import { Search, SearchIconWrapper, StyledInputBase } from "@/styles/cardStyle";
+import MenuBar from "./Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import ArticleIcon from "@mui/icons-material/Article";
 
 export default function Navbar() {
-  // const [anchorEl, setAnchorEl] = useState(null);
-  // const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  // const isMenuOpen = Boolean(anchorEl);
-  // const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const [showCatMenu, setShowCatMenu] = useState(false);
   // const { cart } = useContext(CartContext);
 
   const handleProfileMenuOpen = (event) => {
@@ -44,7 +49,7 @@ export default function Navbar() {
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
-      // anchorEl={anchorEl}
+      anchorEl={anchorEl}
       anchorOrigin={{
         vertical: "top",
         horizontal: "right",
@@ -55,7 +60,7 @@ export default function Navbar() {
         vertical: "top",
         horizontal: "right",
       }}
-      // open={isMenuOpen}
+      open={isMenuOpen}
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>login</MenuItem>
@@ -66,7 +71,7 @@ export default function Navbar() {
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
-      // anchorEl={mobileMoreAnchorEl}
+      anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
         vertical: "top",
         horizontal: "right",
@@ -77,7 +82,7 @@ export default function Navbar() {
         vertical: "top",
         horizontal: "right",
       }}
-      // open={isMobileMenuOpen}
+      open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
@@ -147,8 +152,17 @@ export default function Navbar() {
 
           <Box>
             {/* sx={{ display: { xs: "none", sm: "block" } }} */}
+
+            {/* <MenuBar
+              showCatMenu={showCatMenu}
+              setShowCatMenu={setShowCatMenu}
+            /> */}
             <nav>
-              <ul className={Styles.navigationMenu}>
+              <MenuBar
+                showCatMenu={showCatMenu}
+                setShowCatMenu={setShowCatMenu}
+              />
+              {/* <ul className={Styles.navigationMenu}>
                 <li className={Styles.navigationMenuLi}>
                   <Link href="/">Home</Link>
                 </li>
@@ -161,7 +175,7 @@ export default function Navbar() {
                 <li className={Styles.navigationMenuLi}>
                   <Link href={"/Contact"}>Contact</Link>
                 </li>
-              </ul>
+              </ul> */}
             </nav>
           </Box>
 
@@ -178,7 +192,7 @@ export default function Navbar() {
 
           <Box sx={{ flexGrow: 2 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link href={"/AddCart"}>
+            <Link href={"/cart/Cart"}>
               <IconButton
                 size="large"
                 aria-label="show 4 new mails"
@@ -214,7 +228,15 @@ export default function Navbar() {
             >
               <AccountCircle />
             </IconButton>
+
+            {/* mobail icons  */}
+            <Box>
+              <CloseIcon />
+              <ArticleIcon />
+            </Box>
+            {/* mobail icons  */}
           </Box>
+
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"

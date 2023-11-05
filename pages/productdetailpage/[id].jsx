@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Box,
   Button,
@@ -11,6 +9,7 @@ import {
   Rating,
   IconButton,
 } from "@mui/material";
+import Styles from "@/pages/productdetailpage/product.module.css";
 
 import React, { useEffect, useState, useContext } from "react";
 
@@ -24,6 +23,86 @@ import { useProductContext } from "@/context/productContext";
 import { useRouter } from "next/router";
 import { HandymanOutlined } from "@mui/icons-material";
 import Link from "next/link";
+import ProductCerousel from "./productCerousel";
+
+import { Autoplay, Pagination, Scrollbar, Navigation } from "swiper/modules";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+
+import Image from "next/image";
+import RelatedProduct from "./RelatedProduct";
+
+const productImage = [
+  {
+    id: 1,
+
+    bannerImg: "/banner3.png",
+    name: "Product Name",
+    price: 2.4,
+  },
+  {
+    id: 2,
+
+    bannerImg: "/banner3.png",
+    name: "Product Name",
+    price: 2.4,
+  },
+  {
+    id: 3,
+
+    bannerImg: "/banner3.png",
+    name: "Product Name",
+    price: 2.4,
+  },
+  {
+    id: 4,
+
+    bannerImg: "/banner3.png",
+    name: "Product Name",
+    price: 2.4,
+  },
+  {
+    id: 5,
+
+    bannerImg: "/banner3.png",
+    name: "Product Name",
+    price: 2.4,
+  },
+  {
+    id: 6,
+
+    bannerImg: "/banner3.png",
+    name: "Product Name",
+    price: 2.4,
+  },
+  {
+    id: 7,
+
+    bannerImg: "/banner3.png",
+    name: "Product Name",
+    price: 2.4,
+  },
+  {
+    id: 8,
+
+    bannerImg: "/banner3.png",
+    name: "Product Name",
+    price: 2.4,
+  },
+  {
+    id: 9,
+
+    bannerImg: "/banner3.png",
+    name: "Product Name",
+    price: 2.4,
+  },
+];
 
 const ProductDetails = () => {
   const [books, setBooks] = useState([]);
@@ -68,9 +147,11 @@ const ProductDetails = () => {
     <Box maxWidth="1654px" mx="auto" sx={{}}>
       {/* Upper section  */}
       {/* {books?.cartItems?.map((cartItem) => ( */}
-      <Grid container spacing={5} sx={{ marginTop: 5 }}>
-        <Grid item xs={12} sm={6} md={6}>
-          <CardMedia>
+      <Box className={Styles.productdetail} spacing={5} sx={{ marginTop: 5 }}>
+        {/* left start  */}
+        <Box className={Styles.productCarousel} item xs={12} sm={6} md={6}>
+          <ProductCerousel />
+          {/* <CardMedia>
             <Box
               width={400}
               height={400}
@@ -93,141 +174,144 @@ const ProductDetails = () => {
                 }}
               />
             </Box>
-          </CardMedia>
-        </Grid>
+          </CardMedia> */}
+        </Box>
 
-        <Grid item xs={12} sm={6} md={6}>
-          <Box
-            sx={{
-              position: "relative",
-              top: "50%",
-              left: "35%",
-              transform: "translate(-50%,-50%)",
-            }}
-          >
-            <Box>
-              <Typography variant="h4" fontWeight={700}>
-                {detail?.attributes.name}
-              </Typography>
-              <Box sx={{ marginTop: 2, marginBottom: 2 }}>
-                <Typography variant="p">
-                  {detail?.attributes.authorname}
-                </Typography>
-              </Box>
-              <Box>
-                <Typography variant="p" fontWeight={700} marginBottom={2}>
-                  {detail?.attributes.createdAt}
-                </Typography>
-              </Box>
-              <Box>
-                <Typography variant="p" fontWeight={700} marginBottom={2}>
-                  {detail?.attributes.rating}
-                </Typography>
-              </Box>
-              <Box>
-                <Typography variant="p" fontWeight={700} marginBottom={2}>
-                  {detail?.attributes.price}
-                </Typography>
-              </Box>
+        {/* left end */}
 
-              <Typography variant="p" width={50}>
-                {" "}
-                {detail?.attributes.description}
-              </Typography>
+        {/* right start  */}
+        <Box className={Styles.productCarousel}>
+          <Box sx={{ marginTop: 2, marginBottom: 2 }}>
+            <Typography variant="p">
+              {detail?.attributes.name}
+              proshanto saha
+            </Typography>
+          </Box>
 
-              <Box>
-                <Typography variant="p" fontWeight={700} marginBottom={2}>
-                  {detail?.attributes.stock}
-                </Typography>
-              </Box>
-            </Box>
+          <Box sx={{ marginTop: 2, marginBottom: 2 }}>
+            <Typography variant="p">
+              {detail?.attributes.name}
+              saha
+            </Typography>
+          </Box>
+          <Box sx={{ marginTop: 2, marginBottom: 2 }}>
+            <Typography variant="p">
+              {detail?.attributes.authorname}
+              boss proshanto
+            </Typography>
+          </Box>
+          <Box sx={{ marginTop: 2, marginBottom: 2 }}>
+            <Typography variant="p">
+              {detail?.attributes.rating}
+              ****
+            </Typography>
+          </Box>
+          <Box sx={{ marginTop: 2, marginBottom: 2 }}>
+            <Typography variant="p">
+              {detail?.attributes.price}
+              4.00
+            </Typography>
+          </Box>
+          <Box>
+            <Typography variant="p" fontWeight={700} marginBottom={2}>
+              {detail?.attributes.stock}
+            </Typography>
+          </Box>
 
-            {/* Cart Section */}
-            <Box
-              sx={{
-                marginTop: "20px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-around",
-              }}
-            >
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={decreaseCount}
-                  sx={{ marginRight: "10px" }}
-                  disabled={count === 0}
-                >
-                  <RemoveIcon />
-                </Button>
-                <Typography variant="body1">{count}</Typography>
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={increaseCount}
-                  sx={{ marginLeft: "10px" }}
-                >
-                  <AddIcon />
-                </Button>
-              </Box>
-              <Box>
-                <Link href={`../../components/PopularBooks/cart.jsx`}>
-                  <Button
-                    variant="contained"
-                    startIcon={<ShoppingCartIcon />}
-                    onClick={() => addToCart(id, amount, product)}
-                    sx={{
-                      background: "white",
-                      color: "green",
-                      borderRadius: "30px",
-                      "&:hover": {
-                        background: "green",
-                        color: "white",
-                      },
-                    }}
-                  >
-                    Add to Cart
-                  </Button>
-                </Link>
-              </Box>
-            </Box>
-            <hr
-              style={{
-                height: 2,
-                marginTop: 30,
-                background: "grey",
-                borderRadius: "15px",
-                marginBottom: 30,
-              }}
-            />
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-around",
-              }}
-            >
-              <Box>
-                <Typography variant="h6" fontWeight={600} fontSize={19}>
-                  Category
-                </Typography>
-                <Typography variant="p" color={"grey"}>
-                  comics
-                </Typography>
-              </Box>
-              <Box>
-                <Typography variant="h6" fontWeight={600} fontSize={19}>
-                  Tags
-                </Typography>
-                <Typography variant="p" color={"grey"}>
-                  Special Edition
-                </Typography>
-              </Box>
+          {/* product variant  */}
+          <Box>
+            {" "}
+            <div>product variant</div>
+          </Box>
+
+          <Box>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={decreaseCount}
+                sx={{ marginRight: "10px" }}
+                disabled={count === 0}
+              >
+                <RemoveIcon />
+              </Button>
+              <Typography variant="body1">{count}</Typography>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={increaseCount}
+                sx={{ marginLeft: "10px" }}
+              >
+                <AddIcon />
+              </Button>
             </Box>
           </Box>
-        </Grid>
-      </Grid>
+
+          <Box>
+            <Box>
+              <Link href={`../../components/PopularBooks/cart.jsx`}>
+                <Button
+                  variant="contained"
+                  startIcon={<ShoppingCartIcon />}
+                  onClick={() => addToCart(id, amount, product)}
+                  sx={{
+                    background: "white",
+                    color: "green",
+                    borderRadius: "30px",
+                    "&:hover": {
+                      background: "green",
+                      color: "white",
+                    },
+                  }}
+                >
+                  Add to Cart
+                </Button>
+              </Link>
+            </Box>
+            <Box>
+              <Link href={`../../components/PopularBooks/cart.jsx`}>
+                <Button
+                  variant="contained"
+                  startIcon={<FavoriteBorderIcon />}
+                  onClick={() => addToCart(id, amount, product)}
+                  sx={{
+                    background: "white",
+                    color: "green",
+                    borderRadius: "30px",
+                    "&:hover": {
+                      background: "green",
+                      color: "white",
+                    },
+                  }}
+                >
+                  WistList
+                </Button>
+              </Link>
+            </Box>
+          </Box>
+
+          <Box>
+            <Box> product details</Box>
+            <Box variant="p" width={500}>
+              {detail?.attributes.description}
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+              mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+              voluptatum laborum numquam blanditiis harum quisquam eius sed odit
+              fugiat iusto fuga
+            </Box>
+            <Box variant="p" width={500}>
+              {detail?.attributes.description}
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+              mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+              voluptatum laborum numquam blanditiis harum quisquam eius sed odit
+              fugiat iusto fuga
+            </Box>
+          </Box>
+        </Box>
+
+        {/* right end  */}
+      </Box>
+
       {/* // ))} */}
       {/* lower section  */}
       <Box>
@@ -256,6 +340,7 @@ const ProductDetails = () => {
           <span style={{ color: "grey" }}> Publisher will be here</span>
         </Box>
       </Box>
+
       {/* Related Product section  */}
       <Box sx={{ marginTop: 4 }}>
         <Box>
@@ -264,82 +349,47 @@ const ProductDetails = () => {
           </Typography>
         </Box>
       </Box>
-      {/* nicher related card egula */}
-      {/* <Grid container spacing={3}>
-        {books.map((book, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
-            <Card sx={{ background: "#F3FCFF", minHeight: "100%" }}>
-              <CardMedia
-                component="img"
-                height="400px" // Set height to "auto"
-                objectFit="cover" // Maintain aspect ratio and fit
-                image={book.Image}
-                alt={book.title}
-              />
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {book.title}
-                </Typography>
-                <Typography color="text.secondary">
-                  by {book.authorname}
-                </Typography>
-                <Typography>
-                  <Rating
-                    style={{ maxWidth: 180 }}
-                    value={book.rating}
-                    precision={0.5}
-                    readOnly
+
+      <Box>
+        <Swiper
+          modules={[Pagination, Scrollbar, Autoplay, Navigation]}
+          spaceBetween={0}
+          slidesPerView={4}
+          // pagination={{ clickable: true }}
+          speed={500}
+          loop={true}
+          // navigation={true}
+          autoplay={{
+            delay: 2000,
+            disableOnInteraction: false,
+          }}
+          touchRatio={1.5}
+          effect={"flip"}
+          // className={classes.mySwiper}
+        >
+          {productImage?.map((banner) => (
+            // console.log(banner.title);
+            <SwiperSlide>
+              <div key={banner.id}>
+                <div>
+                  <Image
+                    src={banner.bannerImg}
+                    alt="Next.js Logo"
+                    width={200}
+                    height={200}
+                    priority
                   />
-                </Typography>
-                <Typography variant="p">{book.stock}</Typography>
-                <Typography variant="h6" color="green" fontWeight="700">
-                  ${book.price}
-                </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    mt: 3,
-                    "& button": {
-                      background: "white",
-                      fontWeight: 700,
-                      border: "1px solid grey",
-                      borderRadius: 25,
-                      color: "green",
-                      transition: "background 0.3s, color 0.3s",
-                      "&:hover": {
-                        background: "green",
-                        color: "white",
-                      },
-                    },
-                  }}
-                >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<ShoppingCartIcon />}
-                    sx={{ background: "white", color: "green" }}
-                  >
-                    Add to Cart
-                  </Button>
-                  <Typography>
-                    <IconButton
-                      color={isFavorite[index] ? "secondary" : "default"}
-                      onClick={() => handleFavoriteToggle(index)}
-                    >
-                      {isFavorite[index] ? (
-                        <FavoriteIcon style={{ color: "red" }} />
-                      ) : (
-                        <FavoriteBorderIcon />
-                      )}
-                    </IconButton>
-                  </Typography>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid> */}
+                </div>
+                <div>
+                  {banner.name}
+                  {banner.price}
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Box>
+      {/* <RelatedProduct /> */}
     </Box>
   );
 };
