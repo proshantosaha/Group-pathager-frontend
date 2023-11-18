@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { styled, alpha } from "@mui/material/styles";
@@ -18,18 +20,11 @@ import {
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import Link from "next/link";
+import Image from "next/image";
+import { getDiscountedPricePercentage } from "@/utils/helper";
 
-const Cards = ({
-  index,
-  title,
-  price,
-  authorname,
-  stock,
-  rating,
-  addToCartHandler,
-  addItemDetailPage,
-  booksData,
-}) => {
+const Cards = ({ id, product }) => {
   // console.log(booksData);
   const [isFavorite, setIsFavorite] = useState([]);
 
@@ -43,58 +38,78 @@ const Cards = ({
   };
 
   return (
-    <Box>
-      <Grid item>
-        <Card
-          // onClick={() => addToCartHandler(book)}
-          sx={{ background: "#F3FCFF", minHeight: "100%" }}
-        >
-          <Box height="400px">
-            <img
-              component="img"
-              // Set height to "auto"
-              objectFit="cover" // Maintain aspect ratio and fit
-              src={Image}
-              alt={title}
-            />
-          </Box>
-          <CardContent>
-            <Typography variant="h5" component="div">
-              {title}
-            </Typography>
-            <Typography color="text.secondary">by {authorname}</Typography>
-            <Typography>
-              <Rating
-                style={{ maxWidth: 180 }}
-                rating={rating}
-                precision={0.5}
-                readOnly
+    <Link key={id} href={`/products/${product.slug}`}>
+      <Box>
+        <Grid item>
+          <Card
+            // onClick={() => addToCartHandler(book)}
+            sx={{ background: "#F3FCFF", minHeight: "100%" }}
+          >
+            <Box height="400px">
+              <Image
+                component="img"
+                // Set height to "auto"
+                objectFit="cover" // Maintain aspect ratio and fit
+                src={
+                  product?.thumbnail?.data?.attributes?.formats.thumbnail.url
+                }
+                alt={product.name}
+                width="300"
+                height="500"
               />
-            </Typography>
-            <Typography variant="p">{stock}</Typography>
-            <Typography variant="h6" color="green" fontWeight="700">
-              ${price}
-            </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                mt: 3,
-                "& button": {
-                  background: "white",
-                  fontWeight: 700,
-                  border: "1px solid grey",
-                  borderRadius: 25,
-                  color: "green",
-                  transition: "background 0.3s, color 0.3s",
-                  "&:hover": {
-                    background: "green",
-                    color: "white",
+            </Box>
+            <CardContent>
+              <Typography variant="h5" component="div">
+                {product.name}
+              </Typography>
+              <Typography color="text.secondary">
+                by {product.authorname}
+              </Typography>
+              <Typography>
+                <Rating
+                  style={{ maxWidth: 180 }}
+                  rating={product.rating}
+                  precision={0.5}
+                  readOnly
+                />
+              </Typography>
+              <Typography variant="p">{product.stock}</Typography>
+              <Typography variant="h6" color="green" fontWeight="700">
+                <p>${product.price}</p>
+
+                {product.original_price && (
+                  <>
+                    <p>{product.original_price}</p>
+                    <p>
+                      {getDiscountedPricePercentage(
+                        product.original_price,
+                        product.price
+                      )}
+                      % off
+                    </p>
+                  </>
+                )}
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  mt: 3,
+                  "& button": {
+                    background: "white",
+                    fontWeight: 700,
+                    border: "1px solid grey",
+                    borderRadius: 25,
+                    color: "green",
+                    transition: "background 0.3s, color 0.3s",
+                    "&:hover": {
+                      background: "green",
+                      color: "white",
+                    },
                   },
-                },
-              }}
-            >
-              {/* <Button
+                }}
+              >
+                {/* <Button
                 variant="contained"
                 color="primary"
                 startIcon={<ShoppingCartIcon />}
@@ -103,24 +118,25 @@ const Cards = ({
               >
                 detail page
               </Button> */}
-
-              <Typography>
-                <IconButton
-                  color={isFavorite[index] ? "secondary" : "default"}
-                  onClick={() => handleFavoriteToggle(index)}
-                >
-                  {isFavorite[index] ? (
-                    <FavoriteIcon style={{ color: "red" }} />
-                  ) : (
-                    <FavoriteBorderIcon />
-                  )}
-                </IconButton>
-              </Typography>
-            </Box>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Box>
+                {/* 
+                <Typography>
+                  <IconButton
+                    color={isFavorite[index] ? "secondary" : "default"}
+                    onClick={() => handleFavoriteToggle(index)}
+                  >
+                    {isFavorite[index] ? (
+                      <FavoriteIcon style={{ color: "red" }} />
+                    ) : (
+                      <FavoriteBorderIcon />
+                    )}
+                  </IconButton>
+                </Typography> */}
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Box>
+    </Link>
   );
 };
 

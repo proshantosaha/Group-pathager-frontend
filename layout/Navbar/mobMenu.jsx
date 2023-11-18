@@ -9,9 +9,9 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 const data = [
   { id: 1, name: "Home", url: "/" },
   { id: 2, name: "About", url: "/" },
-  { id: 3, name: "Shop", url: "/Shop" },
+  { id: 3, name: "Shop", url: "/" },
   { id: 4, name: "Category", subMenu: true },
-  { id: 5, name: "Contact", url: "/Contact" },
+  { id: 5, name: "Contact", url: "/" },
 ];
 
 // const subMenuData = [
@@ -25,12 +25,13 @@ const data = [
 const MenuBar = ({ showCatMenu, setShowCatMenu, categories }) => {
   return (
     <div>
-      <ul className={Styles.navigationMenu}>
+      <ul className={Styles.mobMenu}>
         {data.map((item) => {
           return (
             <div key={item.id}>
               {!!item?.subMenu ? (
                 <li
+                  className={Styles.mobMenuLi}
                   onMouseEnter={() => setShowCatMenu(true)}
                   onMouseLeave={() => setShowCatMenu(false)}
                 >
@@ -42,7 +43,7 @@ const MenuBar = ({ showCatMenu, setShowCatMenu, categories }) => {
                         return (
                           <Link
                             key={id}
-                            href={`/category/${item.slug}`}
+                            href={`/category/${c.slug}`}
                             onClick={() => setShowCatMenu(false)}
                           >
                             <li className={Styles.subcatmenu}>

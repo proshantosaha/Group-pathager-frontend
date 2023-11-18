@@ -5,7 +5,7 @@ import CartContext from "@/context/CartContext";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import PaginationPage from "../PaginationPage";
+// import PaginationPage from "../PaginationPage";
 import SearchIcon from "@mui/icons-material/Search";
 import { PaginationStyle } from "@/styles/paginationStyle";
 import {
@@ -29,14 +29,39 @@ import {
 } from "@/styles/cardStyle";
 import Cards from "./cards";
 import Link from "next/link";
+import { fetcher } from "@/utils/api";
+import PaginationPage from "@/components/PaginationPage";
 
-const BooksCart = () => {
+export default function BooksCart() {
+  const { products, setProducts } = useProductContext();
+  // {
+  //   console.log(data);
+  // }
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const getProducts = async () => {
+    const { data } = await fetcher(`/api/products?populate=*`);
+
+    setProducts(data);
+  };
+
+  // const [data, setData] = useState(null);
+
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
+
+  // const fetchProducts = async () => {
+  // const { data } = await fetcher("/api/products");
+  //   setData(data);
+  // };
+
   // { strapiData }
   // console.log(bookCart);
-  const { data } = useProductContext();
-  {
-    console.log(data);
-  }
+  // const { data } = useProductContext();
 
   const [books, setBooks] = useState([]);
   const [navSearch, setNavSearch] = useState([]);
@@ -106,6 +131,7 @@ const BooksCart = () => {
 
   return (
     <Box bgcolor="red" p="20px" my="20px" borderRadius="20px">
+      {/* <h1>{products?.data?.[0]?.attributes?.name}</h1> */}
       <Search>
         <SearchIconWrapper>
           <SearchIcon />
@@ -135,20 +161,23 @@ const BooksCart = () => {
         </div>
       </Box>
       <Grid container spacing={3}>
-        {console.log(data)}
+        {/* {console.log(data)} */}
 
-        {data?.map((item) => (
+        {products?.map((item) => (
           <Grid item xs={12} sm={6} md={3}>
-            <Link href={`/productdetailpage/[id]${item.id}`} key={item.id}>
+            <Link href={`/products/${item.id}`}>
               <Cards
-                index={item.index}
+                key={item.id}
+                product={item.attributes}
+                id={item.id}
+                // index={item.index}
                 // {...item}
-                title={item.attributes.name}
-                price={item.attributes.price}
-                authorname={item.attributes.authorname}
-                stock={item.attributes.stock}
-                rating={item.attributes.rating}
-                book={item}
+                // title={item.attributes.name}
+                // price={item.attributes.price}
+                // authorname={item.attributes.authorname}
+                // stock={item.attributes.stock}
+                // rating={item.attributes.rating}
+                // book={item}
               />
             </Link>
           </Grid>
@@ -167,18 +196,21 @@ const BooksCart = () => {
       </Box>
     </Box>
   );
-};
+}
 
-export default BooksCart;
+// export async function getStaticProps() {
+//   const products = await fetcher("/api/products");
+
+//   return {
+//     props: { products },
+//   };
+// }
 
 // export const getServerSideProps = async () => {
-//   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-//   const booksResponse = await res.json();
-//   console.log(booksResponse);
+//   const products = await fetcher("/api/products");
+
 //   return {
-//     props: {
-//       booksData: booksResponse,
-//     },
+//     props: { products },
 //   };
 // };
 

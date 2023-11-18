@@ -8,8 +8,9 @@ import Advertise from "@/components/Advertise";
 import Cagoris from "@/components/categories";
 import Box from "@mui/material/Box";
 
-import BooksCart from "@/components/PopularBooks/booksCart";
+// import BooksCart from "@/components/PopularBooks/booksCart";
 import ListView from "./Shop/listView";
+import BooksCart from "../components/PopularBooks/booksCart";
 
 const inter = Inter({ subsets: ["latin"] });
 

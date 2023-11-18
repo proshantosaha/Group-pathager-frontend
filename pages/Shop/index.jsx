@@ -455,14 +455,20 @@ export default function Shop() {
                 <Grid container sx={{ flexGrow: 1 }}>
                   {displayedBooks.map((item) => (
                     <Cards
-                      index={item.index}
+                      key={item.id}
+                      product={item.attributes}
+                      id={item.id}
+
+                      // index={item.index}
+
                       // {...item}
-                      title={item.attributes.name}
-                      price={item.attributes.price}
-                      authorname={item.attributes.authorname}
-                      stock={item.attributes.stock}
-                      rating={item.attributes.rating}
-                      book={item}
+
+                      // title={item.attributes.name}
+                      // price={item.attributes.price}
+                      // authorname={item.attributes.authorname}
+                      // stock={item.attributes.stock}
+                      // rating={item.attributes.rating}
+                      // book={item}
                     />
                   ))}
                 </Grid>

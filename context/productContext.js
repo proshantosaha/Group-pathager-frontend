@@ -6,6 +6,7 @@ import {
   useEffect,
   useContext,
   useReducer,
+  useState,
 } from "react";
 
 import reducer from "../reducer/productReducer";
@@ -14,7 +15,8 @@ import { fetcher } from "@/utils/api";
 
 const AppContext = createContext();
 
-const API = "http://localhost:1337/api/products";
+const API = "http://localhost:1337/api/products?populate=*";
+// const API = fetcher("/api/products");
 
 // export const STRAPI_API_TOKEN = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
 
@@ -23,22 +25,39 @@ const API = "http://localhost:1337/api/products";
 const initialState = {
   loading: true,
   error: "",
-  data: [],
+  products: [],
 };
 
 const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  // const [state, dispatch] = useReducer(reducer, initialState);
+  const [categories, setCategories] = useState();
+  const [products, setProducts] = useState();
 
-  useEffect(() => {
-    fetch(API)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({ type: "SET_LOADING", result: data.data });
-      })
-      .catch(() => {
-        dispatch({ type: "ERROR" });
-      });
-  }, []);
+  // console.log(state);
+
+  // const [products, setProducts] = useState(null);
+
+  // console.log(products);
+
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
+
+  // const fetchProducts = async () => {
+  //   const { products } = await fetcher("/api/products");
+  //   setProducts(products);
+  // };
+
+  // useEffect(() => {
+  //   fetch(API)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       dispatch({ type: "SET_LOADING", result: data.data });
+  //     })
+  //     .catch(() => {
+  //       dispatch({ type: "ERROR" });
+  //     });
+  // }, []);
 
   // its data set utils api
 
@@ -52,7 +71,11 @@ const AppProvider = ({ children }) => {
   // };
 
   return (
-    <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
+    <AppContext.Provider
+      value={{ products, setProducts, categories, setCategories }}
+    >
+      {children}
+    </AppContext.Provider>
   );
 };
 export default AppProvider;

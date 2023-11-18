@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import CagorisSingleCard from "../card";
@@ -11,6 +13,8 @@ import Link from "next/link";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
+import { fetcher } from "@/utils/api";
+// import Category from "@/pages/[category]";
 
 const bookCategoris = [
   {
@@ -226,6 +230,17 @@ const bookCategoris = [
 ];
 
 const FullCard = () => {
+  const [categories, setCategories] = useState(null);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    const { data } = await fetcher("/api/categories?populate=*");
+
+    setCategories(data);
+  };
   return (
     <>
       <Swiper
@@ -235,8 +250,8 @@ const FullCard = () => {
         className="mySwiper"
       >
         <Box className={styles.fullCard}>
-          {bookCategoris?.map((categori) => (
-            <SwiperSlide key={categori.id}>
+          {categories?.map((item) => (
+            <SwiperSlide key={item.id}>
               <Box
                 sx={{
                   bgcolor: "#072470",
@@ -252,10 +267,10 @@ const FullCard = () => {
                   textAlign="center"
                   className={styles.hcolor}
                 >
-                  {categori.bookCategori}
+                  {item.attributes.name}
                 </Typography>
 
-                <CagorisSingleCard bookCard={categori.categoriBook} />
+                <CagorisSingleCard data={item.attributes.products.data} />
 
                 <Box
                   bgcolor="#fff"
@@ -264,8 +279,16 @@ const FullCard = () => {
                   padding="10px"
                 >
                   <Stack direction="row" spacing={2}>
-                    <Link href={"/CategoryDetails"}>
-                      <Button variant="contained">View all</Button>
+                    <Link
+                      href={{
+                        pathname: `/category/${item?.attributes?.slug}`,
+                        query: {},
+                      }}
+                    >
+                      <Button variant="contained" onClick={() => {}}>
+                        {/* <Category data={item.attributes.products.data} /> */}
+                        View all
+                      </Button>
                     </Link>
                   </Stack>
                 </Box>
@@ -279,3 +302,17 @@ const FullCard = () => {
 };
 
 export default FullCard;
+
+export async function getStaticPaths() {
+  const category = await fetcher("/api/categories?populate=*");
+  const paths = category.data.map((c) => ({
+    params: {
+      slug: c.attributes.slug,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}

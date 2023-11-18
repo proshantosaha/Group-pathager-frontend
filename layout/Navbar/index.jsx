@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import CartContext from "@/context/CartContext";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -19,15 +19,31 @@ import { Search, SearchIconWrapper, StyledInputBase } from "@/styles/cardStyle";
 import MenuBar from "./Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import ArticleIcon from "@mui/icons-material/Article";
+import { fetcher } from "@/utils/api";
+import { useProductContext } from "@/context/productContext";
+import Category from "@/pages/category/[slug]";
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const { data } = useProductContext();
+
+  const [categories, setCategories] = useState(null);
 
   const [showCatMenu, setShowCatMenu] = useState(false);
   // const { cart } = useContext(CartContext);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    const { data } = await fetcher("/api/categories?populate=*");
+
+    setCategories(data);
+  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -63,8 +79,15 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>login</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Register</MenuItem>
+      <Link href={"/Login"}>
+        {" "}
+        <MenuItem onClick={handleMenuClose}>login</MenuItem>
+      </Link>
+
+      <Link href={"/Register"}>
+        {" "}
+        <MenuItem onClick={handleMenuClose}>Register</MenuItem>
+      </Link>
     </Menu>
   );
 
@@ -161,7 +184,9 @@ export default function Navbar() {
               <MenuBar
                 showCatMenu={showCatMenu}
                 setShowCatMenu={setShowCatMenu}
+                categories={categories}
               />
+
               {/* <ul className={Styles.navigationMenu}>
                 <li className={Styles.navigationMenuLi}>
                   <Link href="/">Home</Link>
@@ -217,6 +242,7 @@ export default function Navbar() {
                 <FavoriteIcon />
               </Badge>
             </IconButton>
+
             <IconButton
               size="large"
               edge="end"

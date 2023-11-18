@@ -10,7 +10,8 @@ import { Box } from "@mui/material";
 
 import styles from "../categoris.module.css";
 
-export default function CagorisSingleCard({ bookCard }) {
+export default function CagorisSingleCard({ data }) {
+  console.log(data);
   return (
     <Box
       sx={{
@@ -23,7 +24,7 @@ export default function CagorisSingleCard({ bookCard }) {
         // width: 500,
       }}
     >
-      {bookCard?.map((book, index) => (
+      {data?.map((book, index) => (
         <div className={styles.cards} key={book.id}>
           <Box
             sx={{
@@ -46,7 +47,7 @@ export default function CagorisSingleCard({ bookCard }) {
               className={styles.mleft}
             />
             <Box>
-              <h5 className={styles.mleft}>{book.bookName}</h5>
+              <h5 className={styles.mleft}>{book.attributes.name}</h5>
               <h6 className={styles.mleft}>{book.authorName}</h6>
               <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
               {/* </Stack> */}

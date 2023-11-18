@@ -22,7 +22,7 @@
 }
 
 .subMenuUl{
-    background-color: #fff;
+    background-color: #f3e2e2;
     position: absolute;
     top: 3.5rem;
     left: 0;
@@ -31,10 +31,8 @@
     padding-right: 9px;
     padding-left: 8px;
     margin-left: 350px;
-    color: black;
-
-
-
+    /* color: black; */
+    /* overflow: hidden; */
 
 }
 
@@ -48,14 +46,35 @@
     opacity: 0.03;
     border-radius: 25px;
     overflow: hidden;
+/* color: black; */
    
 }
-.subcatmenu li{
+/* .subMenuUl .subcatmenu Link{
     color: black;
-}
+} */
 .subcatmenu:hover{
-    background-color: black;
+    background-color: rgb(253, 9, 9);
 }
 
 
 
+.mobMenu{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    position: absolute;
+    background-color: #fff;
+    color: black;
+
+}
+
+.mobMenuLi{
+    cursor: pointer;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 5;
+    padding-right: 5px;
+    position: relative;
+    flex-direction: column;
+
+}

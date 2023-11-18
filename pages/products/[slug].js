@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Box,
   Button,
@@ -9,7 +11,9 @@ import {
   Rating,
   IconButton,
 } from "@mui/material";
-import Styles from "@/pages/productdetailpage/product.module.css";
+// import { useRouter } from "next/router";
+
+import Styles from "@/pages/products/product.module.css";
 
 import React, { useEffect, useState, useContext } from "react";
 
@@ -23,7 +27,7 @@ import { useProductContext } from "@/context/productContext";
 import { useRouter } from "next/router";
 import { HandymanOutlined } from "@mui/icons-material";
 import Link from "next/link";
-import ProductCerousel from "./productCerousel";
+import ProductCerousel from "@/pages/products/productCerousel";
 
 import { Autoplay, Pagination, Scrollbar, Navigation } from "swiper/modules";
 
@@ -36,7 +40,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 import Image from "next/image";
-import RelatedProduct from "./RelatedProduct";
+import RelatedProduct from "@/pages/products/RelatedProduct";
 
 const productImage = [
   {
@@ -104,16 +108,19 @@ const productImage = [
   },
 ];
 
-const ProductDetails = () => {
+const pages = () => {
   const [books, setBooks] = useState([]);
   const [isFavorite, setIsFavorite] = useState([]);
-  const { data } = useProductContext();
-
+  // const { data } = useProductContext();
   const router = useRouter();
+  const slug = router.query.slug;
+  console.log(slug);
+
+  // const router = useRouter();
 
   // console.log(cart);
 
-  const detail = data?.find((e) => e.id === Number(router?.query.id));
+  // const detail = data?.find((e) => e.id === Number(router?.query.slug));
 
   // useEffect(() => {
   //   // Fetch the JSON data from your file
@@ -147,7 +154,12 @@ const ProductDetails = () => {
     <Box maxWidth="1654px" mx="auto" sx={{}}>
       {/* Upper section  */}
       {/* {books?.cartItems?.map((cartItem) => ( */}
-      <Box className={Styles.productdetail} spacing={5} sx={{ marginTop: 5 }}>
+      <Box
+        key={slug}
+        className={Styles.productdetail}
+        spacing={5}
+        sx={{ marginTop: 5 }}
+      >
         {/* left start  */}
         <Box className={Styles.productCarousel} item xs={12} sm={6} md={6}>
           <ProductCerousel />
@@ -183,38 +195,39 @@ const ProductDetails = () => {
         <Box className={Styles.productCarousel}>
           <Box sx={{ marginTop: 2, marginBottom: 2 }}>
             <Typography variant="p">
-              {detail?.attributes.name}
+              {/* {slug?.name} */}
+              {slug}
               proshanto saha
             </Typography>
           </Box>
 
           <Box sx={{ marginTop: 2, marginBottom: 2 }}>
             <Typography variant="p">
-              {detail?.attributes.name}
+              {/* {slug?.name} */}
               saha
             </Typography>
           </Box>
           <Box sx={{ marginTop: 2, marginBottom: 2 }}>
             <Typography variant="p">
-              {detail?.attributes.authorname}
+              {/* {detail?.attributes.authorname} */}
               boss proshanto
             </Typography>
           </Box>
           <Box sx={{ marginTop: 2, marginBottom: 2 }}>
             <Typography variant="p">
-              {detail?.attributes.rating}
+              {/* {detail?.attributes.rating} */}
               ****
             </Typography>
           </Box>
           <Box sx={{ marginTop: 2, marginBottom: 2 }}>
             <Typography variant="p">
-              {detail?.attributes.price}
+              {/* {detail?.attributes.price} */}
               4.00
             </Typography>
           </Box>
           <Box>
             <Typography variant="p" fontWeight={700} marginBottom={2}>
-              {detail?.attributes.stock}
+              {/* {detail?.attributes.stock} */}
             </Typography>
           </Box>
 
@@ -293,14 +306,14 @@ const ProductDetails = () => {
           <Box>
             <Box> product details</Box>
             <Box variant="p" width={500}>
-              {detail?.attributes.description}
+              {/* {detail?.attributes.description} */}
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
               mollitia, molestiae quas vel sint commodi repudiandae consequuntur
               voluptatum laborum numquam blanditiis harum quisquam eius sed odit
               fugiat iusto fuga
             </Box>
             <Box variant="p" width={500}>
-              {detail?.attributes.description}
+              {/* {detail?.attributes.description} */}
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
               mollitia, molestiae quas vel sint commodi repudiandae consequuntur
               voluptatum laborum numquam blanditiis harum quisquam eius sed odit
@@ -394,4 +407,30 @@ const ProductDetails = () => {
   );
 };
 
-export default ProductDetails;
+export default pages;
+
+// // import { useProductContext } from "@/context/productContext";
+// import { useRouter } from "next/router";
+
+// const pages = () => {
+// const router = useRouter();
+// const slug = router.query.slug;
+//   // const { products, setProducts } = useProductContext();
+//   // {
+//   //   console.log(data);
+//   // }
+
+//   // useEffect(() => {
+//   //   getProducts();
+//   // }, []);
+
+//   // const getProducts = async () => {
+//   //   // const { data } = await fetcher(`/api/products?populate=*[products][slug]`);
+
+//   //   setProducts(data);
+//   // };
+//   // console.log(products);
+//   return <div>{slug}</div>;
+// };
+
+// export default pages;
