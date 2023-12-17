@@ -1,5 +1,6 @@
 "use client";
 
+import { fetcher } from "@/utils/api";
 import {
   createContext,
   // useState,
@@ -9,13 +10,11 @@ import {
   useState,
 } from "react";
 
-import reducer from "../reducer/productReducer";
-
-import { fetcher } from "@/utils/api";
+// import reducer from "../reducer/productReducer";
 
 const AppContext = createContext();
 
-const API = "http://localhost:1337/api/products?populate=*";
+// const API = "http://localhost:1337/api/products?populate=*";
 // const API = fetcher("/api/products");
 
 // export const STRAPI_API_TOKEN = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -33,7 +32,7 @@ const AppProvider = ({ children }) => {
   const [categories, setCategories] = useState();
   const [products, setProducts] = useState();
 
-  // console.log(state);
+  console.log(categories);
 
   // const [products, setProducts] = useState(null);
 
@@ -44,9 +43,23 @@ const AppProvider = ({ children }) => {
   // }, []);
 
   // const fetchProducts = async () => {
-  //   const { products } = await fetcher("/api/products");
-  //   setProducts(products);
+  //   const { data } = await fetcher("/api/products");
+  //   setCategories(data);
   // };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const { data } = await fetcher(`/api/categories?populate=*}`);
+      setCategories(data);
+      setLoading(false);
+    } catch (error) {
+      // console.log("error:", error);
+    }
+  };
 
   // useEffect(() => {
   //   fetch(API)

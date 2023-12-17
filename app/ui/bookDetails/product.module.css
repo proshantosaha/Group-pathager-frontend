@@ -1,0 +1,9 @@
+.productdetail{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.productCarousel{
+    width: 50%;
+}
