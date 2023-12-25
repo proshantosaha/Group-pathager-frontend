@@ -23,7 +23,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 // import CartContext from "@/context/CartContext";
-import { useProductContext } from "@/context/productContext";
 import { useRouter } from "next/router";
 import { HandymanOutlined } from "@mui/icons-material";
 import Link from "next/link";
@@ -40,9 +39,9 @@ import "swiper/css/thumbs";
 
 import Image from "next/image";
 // import RelatedProduct from "@/pages/products/RelatedProduct";
-import ProductCerousel from "@/app/ui/bookDetails/productCerousel";
-import RelatedProduct from "@/app/ui/bookDetails/RelatedProduct";
-import { useCart } from "@/context/cartContext";
+import { useUser } from "@clerk/nextjs";
+import { useCart } from "../../../../context/cartContext";
+import RelatedProduct from "../../../ui/bookDetails/RelatedProduct";
 
 const productImage = [
   {
@@ -114,6 +113,8 @@ const BookDetail = ({ params }) => {
   const [books, setBooks] = useState([]);
   const [isFavorite, setIsFavorite] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const { user } = useUser();
+
   // const { data } = useProductContext();
   // const router = useRouter();
   // const slug = router.query.slug;
@@ -167,8 +168,8 @@ const BookDetail = ({ params }) => {
       >
         {/* left start  */}
         <Box className={Styles.productCarousel} item xs={12} sm={6} md={6}>
-          <ProductCerousel images={product?.thumbnail} />
-          {/* <CardMedia>
+          {/* <ProductCerousel image={product?.attributes?.thumbnail} /> */}
+          <CardMedia>
             <Box
               width={400}
               height={400}
@@ -181,7 +182,7 @@ const BookDetail = ({ params }) => {
               }}
             >
               <img
-                src=""
+                src={product?.attributes?.thumbnail?.data?.attributes?.url}
                 alt="Image"
                 style={{
                   width: "60%",
@@ -191,7 +192,7 @@ const BookDetail = ({ params }) => {
                 }}
               />
             </Box>
-          </CardMedia> */}
+          </CardMedia>
         </Box>
 
         {/* left end */}
@@ -256,11 +257,13 @@ const BookDetail = ({ params }) => {
           </Box>
 
           <Box>
+            {/*  user && ( <button ) korle button log in korle thake log out korle thake na */}
+
             <Box>
               <Button
                 variant="contained"
                 startIcon={<ShoppingCartIcon />}
-                onClick={() => handleAddToCart()}
+                onClick={() => addToCart(product.attributes)}
                 sx={{
                   background: "white",
                   color: "green",
@@ -274,6 +277,7 @@ const BookDetail = ({ params }) => {
                 Add to Cart
               </Button>
             </Box>
+
             {/* <Box>
               <Link href={`../../components/PopularBooks/cart.jsx`}>
                 <Button
@@ -350,8 +354,8 @@ const BookDetail = ({ params }) => {
 
       <Box>
         <RelatedProduct
-        // productdId={id}
-        // categoryId={products.categories.data[0].id}
+          // productdId={id}
+          categoryId={products?.attributes?.categories?.data[0]?.id}
         />
       </Box>
       {/* <RelatedProduct /> */}

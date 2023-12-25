@@ -36,10 +36,10 @@ import { imageConfigDefault } from "next/dist/shared/lib/image-config";
 //   },
 // ];
 
-const ProductCerousel = ({ images }) => {
+const ProductCerousel = ({ image }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  
-  console.log(images);
+
+  // console.log(images);
 
   return (
     <Box>
@@ -52,13 +52,13 @@ const ProductCerousel = ({ images }) => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        {images?.map((item) => (
+        {image?.map((item) => (
           // console.log(banner.title);
           <SwiperSlide>
             <div key={item.id}>
               <div>
                 <Image
-                  src={item?.data?.attributes?.url}
+                  src={item?.attributes?.url}
                   alt={item?.attributes.name}
                   key={item?.id}
                   width={849}
@@ -81,7 +81,7 @@ const ProductCerousel = ({ images }) => {
         className="mySwiper"
         height={100}
       >
-        {images?.map((item) => (
+        {image?.map((item) => (
           // console.log(banner.title);
           <SwiperSlide>
             <div key={item.id}>

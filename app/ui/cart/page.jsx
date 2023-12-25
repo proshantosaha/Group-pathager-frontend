@@ -6,13 +6,35 @@ import { Box, Button } from "@mui/material";
 import Link from "next/link";
 // import CartItem from "@/pages/cart/cartItem/CartItem";
 import Image from "next/image";
+import { useCart } from "../../../context/cartContext";
 import CartItem from "./cartItem/CartItem";
-import { useCart } from "@/context/cartContext";
+// stripe
+import { loadStripe } from "@stripe/stripe-js";
+import { makePaymentRequest } from "@/utils/api";
+import { useState } from "react";
+
 const Cart = () => {
   const { cart, deletFromCart } = useCart();
-  console.log(cart);
-
+  const [loading, setLoading] = useState(false);
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHER_KEY
+  );
+  const handlePayment = async () => {
+    try {
+      setLoading(true);
+      const stripe = await stripePromise;
+      const res = await makePaymentRequest("/api/orders", {
+        products: cart,
+      });
+      await stripe.redirectToCheckout({
+        sessionId: res.data.sripeSession.id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Box maxWidth="1654px" mx="auto">
@@ -51,7 +73,8 @@ const Cart = () => {
               <Button
                 variant="contained"
                 // startIcon={<ShoppingCartIcon />}
-                onClick={() => addToCart(id, amount, product)}
+                onClick={handlePayment}
+                href="/checkout"
                 sx={{
                   background: "white",
                   color: "green",
@@ -63,6 +86,7 @@ const Cart = () => {
                 }}
               >
                 Checkout
+                {loading && <img src="/spinner.svg" />}
               </Button>
               {/* </Link> */}
             </Box>

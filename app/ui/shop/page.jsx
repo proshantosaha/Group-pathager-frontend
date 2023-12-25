@@ -36,8 +36,9 @@ import Image from "next/image";
 // import Cards from "@/components/PopularBooks/cards";
 import Cards from "../Cards/page";
 import ListView from "./listView/page";
-import { PaginationStyle } from "@/app/components/styles/paginationStyle";
-import PaginationPage from "@/app/components/PaginationPage";
+import { PaginationStyle } from "../../components/styles/paginationStyle";
+import PaginationPage from "../../components/PaginationPage";
+
 // import { useFilterContext } from "@/context/filterContext";
 // import { productionBrowserSourceMaps } from "@/next.config";
 

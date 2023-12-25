@@ -2,10 +2,9 @@ import Image from "next/image";
 import React from "react";
 import Styles from "./cartItem.module.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { useCart } from "@/context/cartContext";
+import { useCart } from "../../../../context/cartContext";
 
 const CartItem = ({ data }) => {
-  console.log(data);
   const { deletFromCart } = useCart();
   return (
     <div className={Styles.CartItem}>

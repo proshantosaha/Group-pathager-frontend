@@ -22,7 +22,12 @@ const data = [
 //   { id: 5, name: "Contact" },
 // ];
 
-const MenuBar = ({ showCatMenu, setShowCatMenu, categories }) => {
+const MenuMobile = ({
+  showCatMenu,
+  setShowCatMenu,
+  categories,
+  setMobileMenu,
+}) => {
   return (
     <div>
       <ul className={Styles.mobMenu}>
@@ -32,11 +37,13 @@ const MenuBar = ({ showCatMenu, setShowCatMenu, categories }) => {
               {!!item?.subMenu ? (
                 <li
                   className={Styles.mobMenuLi}
-                  onMouseEnter={() => setShowCatMenu(true)}
-                  onMouseLeave={() => setShowCatMenu(false)}
+                  onMouseEnter={() => setShowCatMenu(!showCatMenu)}
                 >
-                  {item.name}
-                  <ArrowDropDownIcon />
+                  <div>
+                    {item.name}
+                    <ArrowDropDownIcon />
+                  </div>
+
                   {showCatMenu && (
                     <ul className={Styles.subMenuUl}>
                       {categories?.map(({ attributes: c, id }) => {
@@ -44,7 +51,10 @@ const MenuBar = ({ showCatMenu, setShowCatMenu, categories }) => {
                           <Link
                             key={id}
                             href={`/category/${c.slug}`}
-                            onClick={() => setShowCatMenu(false)}
+                            onClick={() => {
+                              setShowCatMenu(false);
+                              setMobileMenu(false);
+                            }}
                           >
                             <li className={Styles.subcatmenu}>
                               {c.name}
@@ -58,7 +68,12 @@ const MenuBar = ({ showCatMenu, setShowCatMenu, categories }) => {
                 </li>
               ) : (
                 <Link href={item.url}>
-                  <li className={Styles.navigationMenuLi}>{item.name}</li>
+                  <li
+                    className={Styles.mobNavigationMenuLi}
+                    onClick={() => setMobileMenu(false)}
+                  >
+                    {item.name}
+                  </li>
                 </Link>
               )}
             </div>
@@ -69,4 +84,4 @@ const MenuBar = ({ showCatMenu, setShowCatMenu, categories }) => {
   );
 };
 
-export default MenuBar;
+export default MenuMobile;

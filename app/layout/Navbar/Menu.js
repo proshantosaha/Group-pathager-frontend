@@ -52,7 +52,7 @@ const MenuBar = ({ showCatMenu, setShowCatMenu, categories }) => {
                             }
                           >
                             {/* <Link> */}
-                            <li className={Styles.subcatmenu}>
+                            <li className={Styles.subcatmenuLi}>
                               {c.name}
                               <span>{`(${c?.products?.data?.length})`}</span>
                             </li>
@@ -64,8 +64,8 @@ const MenuBar = ({ showCatMenu, setShowCatMenu, categories }) => {
                   )}
                 </li>
               ) : (
-                <Link href={item.url}>
-                  <li className={Styles.navigationMenuLi}>{item.name}</li>
+                <Link className={Styles.navigationMenuLi} href={item.url}>
+                  <li>{item.name}</li>
                 </Link>
               )}
             </div>

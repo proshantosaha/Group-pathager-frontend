@@ -25,9 +25,7 @@ import {
 // import { useFetchData } from "@/hooks/useFetchData";
 // import PaginationPage from "@/components/PaginationPage";
 import Image from "next/image";
-import { PaginationStyle } from "@/app/components/styles/paginationStyle";
-import PaginationPage from "@/app/components/PaginationPage";
-import { WraperButton } from "@/app/components/styles/cardStyle";
+import { WraperButton } from "../../../components/styles/cardStyle";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",

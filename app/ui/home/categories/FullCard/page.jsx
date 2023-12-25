@@ -13,7 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import CagorisSingleCard from "../card/page";
-import { fetcher } from "@/utils/api";
+import { fetcher } from "../../../../../utils/api";
 // import Category from "@/pages/[category]";
 
 // const bookCategoris = [

@@ -61,7 +61,9 @@ const productImage = [
   },
 ];
 
-const RelatedProduct = (categoryId) => {
+const RelatedProduct = ({ categoryId }) => {
+  console.log(categoryId);
+
   return (
     <>
       {" "}
@@ -89,9 +91,9 @@ const RelatedProduct = (categoryId) => {
           effect={"flip"}
           // className={classes.mySwiper}
         >
-          {categoryId?.map((banner) => (
-            // console.log(banner.title);
+          {productImage?.map((banner) => (
             <SwiperSlide>
+              {console.log(banner.title)}
               <div key={banner.id}>
                 <div>
                   <Image

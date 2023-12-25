@@ -17,14 +17,17 @@ import {
   IconButton,
   Select,
   MenuItem,
+  CardActions,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Link from "next/link";
 import Image from "next/image";
-import { getDiscountedPricePercentage } from "@/utils/helper";
+// import { getDiscountedPricePercentage } from "@/utils/helper";
 import { useRouter } from "next/navigation";
-import { useCart } from "@/context/cartContext";
+import { getDiscountedPricePercentage } from "../../../utils/helper";
+import { useCart } from "../../../context/cartContext";
+import styles from "./cards.module.css";
 
 const Cards = ({ slug, id, product }) => {
   // console.log(booksData);
@@ -43,35 +46,58 @@ const Cards = ({ slug, id, product }) => {
 
   return (
     // <Link key={id} href={`/products/${product.slug}`}>
-    <Box>
-      <Grid item>
+    <Box sx={{ width: "300px" }}>
+      <Grid className={styles.cardsWrap} item>
         <Card
           // onClick={() => addToCartHandler(book)}
-          sx={{ background: "#F3FCFF", minHeight: "100%" }}
+
+          sx={{}}
         >
-          <CardContent>
-            <div onClick={() => router.push(`/components/products/${id}`)}>
-              <Box height="400px">
-                <Image
-                  component="img"
-                  // Set height to "auto"
-                  objectFit="cover" // Maintain aspect ratio and fit
-                  src={
-                    product?.thumbnail?.data?.attributes?.formats.thumbnail.url
-                  }
-                  // src={product?.thumbnail?.data?.attributes?.url}
+          <div
+            className={styles.cards}
+            onClick={() => router.push(`/components/products/${id}`)}
+          >
+            <CardMedia
+              component="img"
+              // Set height to "auto"
+              objectFit="cover" // Maintain aspect ratio and fit
+              src={product?.thumbnail?.data?.attributes?.formats.thumbnail.url}
+              // src={product?.thumbnail?.data?.attributes?.url}
 
-                  alt={product?.name}
-                  width="300"
-                  height="500"
-                />
-              </Box>
+              alt={product?.name}
+              // width="200"
+              height="250px"
+            />
 
+            <CardContent>
               <Typography variant="h5" component="div">
                 {product?.name}
               </Typography>
-              <Typography color="text.secondary">
+              <Typography color="text.secondary" variant="h5" component="div">
                 by {product?.authorname}
+              </Typography>
+
+              <Typography variant="p">{product?.stock}</Typography>
+
+              <Typography variant="p" color="green" fontWeight="700">
+                <Typography>${product?.price}</Typography>
+
+                {product?.original_price && (
+                  <Box display="flex" justifyContent="space-between">
+                    <Typography variant="p">
+                      {" "}
+                      ${product?.original_price}
+                    </Typography>
+                    <br />
+                    <Typography variant="p">
+                      {getDiscountedPricePercentage(
+                        product?.original_price,
+                        product?.price
+                      )}
+                      % off
+                    </Typography>
+                  </Box>
+                )}
               </Typography>
               <Typography>
                 <Rating
@@ -81,31 +107,13 @@ const Cards = ({ slug, id, product }) => {
                   readOnly
                 />
               </Typography>
-              <Typography variant="p">{product?.stock}</Typography>
-
-              <Typography variant="h6" color="green" fontWeight="700">
-                <p>${product?.price}</p>
-
-                {product?.original_price && (
-                  <>
-                    <p>{product?.original_price}</p>
-                    <p>
-                      {getDiscountedPricePercentage(
-                        product?.original_price,
-                        product?.price
-                      )}
-                      % off
-                    </p>
-                  </>
-                )}
-              </Typography>
-            </div>
-
-            <Box
+            </CardContent>
+            <CardActions
+              className={styles.carAnimaion}
               sx={{
                 display: "flex",
-                justifyContent: "space-between",
-                mt: 3,
+                justifyContent: "space-evenly",
+
                 "& button": {
                   background: "white",
                   fontWeight: 700,
@@ -126,24 +134,35 @@ const Cards = ({ slug, id, product }) => {
                 startIcon={<ShoppingCartIcon />}
                 // sx={{ background: "white", color: "green" }}
                 onClick={() => addToCart(product)}
+                className={styles.cartButton}
               >
                 add to cart
               </Button>
-              {/* 
-                <Typography>
-                  <IconButton
-                    color={isFavorite[index] ? "secondary" : "default"}
-                    onClick={() => handleFavoriteToggle(index)}
-                  >
-                    {isFavorite[index] ? (
-                      <FavoriteIcon style={{ color: "red" }} />
-                    ) : (
-                      <FavoriteBorderIcon />
-                    )}
-                  </IconButton>
-                </Typography> */}
-            </Box>
-          </CardContent>
+
+              <Typography>
+                <IconButton
+                // color={isFavorite[index] ? "secondary" : "default"}
+                // onClick={() => handleFavoriteToggle(index)}
+                >
+                  {/* {isFavorite[index] ? (
+                    <FavoriteIcon style={{ color: "red" }} />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )} */}
+                  <FavoriteBorderIcon />
+                </IconButton>
+              </Typography>
+            </CardActions>
+            <CardActions className={styles.carDetail}>
+              <Button
+                color="primary"
+                // sx={{ background: "white", color: "green" }}
+                onClick={() => router.push(`/components/products/${id}`)}
+              >
+                <Typography component="div"> View Details</Typography>
+              </Button>
+            </CardActions>
+          </div>
         </Card>
       </Grid>
     </Box>
@@ -152,13 +171,3 @@ const Cards = ({ slug, id, product }) => {
 };
 
 export default Cards;
-
-// export const getServerSideProps = async () => {
-//   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-//   const booksResponse = await res.json();
-//   return {
-//     props: {
-//       booksData: booksResponse,
-//     },
-//   };
-// };

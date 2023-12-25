@@ -15,10 +15,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css";
-import { useCart } from "@/context/cartContext";
 import { Typography } from "@mui/material";
-import { getDiscountedPricePercentage } from "@/app/components/utils/helper";
-// import { getDiscountedPricePercentage } from "@/utils/helper";
+import { useCart } from "../../../../context/cartContext";
+import { getDiscountedPricePercentage } from "../../../../utils/helper";
 
 const bannerData = [
   {

@@ -38,7 +38,7 @@ const Category = ({ params }) => {
   const cateId = params.slug;
   console.log(cateId);
 
-  const catedetail = categories?.find((e) => e.slug === cateId);
+  const catedetail = categories?.filter((e) => e.slug === cateId);
   console.log(catedetail);
 
   // useEffect(() => {

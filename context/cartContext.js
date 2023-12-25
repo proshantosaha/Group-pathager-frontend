@@ -1,15 +1,20 @@
 "use client";
 
-import { fetcher } from "@/utils/api";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { createContext, useState, useEffect, useContext } from "react";
 import toast from "react-hot-toast";
+import { fetcher } from "../utils/api";
 //1)  create  the context
 export const CartContext = createContext();
 
 // 2) create the provider
 export const CartProvider = ({ children }) => {
+  const router = useRouter();
   const [products, setProducts] = useState([]);
   // console.log(cart);
+  const [isLogin, setIsLogin] = useState();
+  const { user } = useUser();
 
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
@@ -54,17 +59,24 @@ export const CartProvider = ({ children }) => {
     toast.success("Successfully item delet to addtocart ");
   };
 
-  // const addToCart = (product) => {
-  //   setCart((prevCart) => [...prevCart, product]);
+  // log out thakle ekta alert dekhabe
+  const addToCart = (product) => {
+    if (!user) {
+      router.push("/sign-in");
+      window.alert(" please log in");
+      // <Link href={"/sign-in"}/>
+    } else {
+      setCart((prevCart) => [...prevCart, product]);
+      toast.success("Successfully item added to addtocart ");
+    }
 
-  //   toast.success("Successfully item added to addtocart ");
-  //   // localStorage.setItem("cart", JSON.stringify(cart));
-  // };
+    // localStorage.setItem("cart", JSON.stringify(cart));
+  };
 
-  // const deletFromCart = (slug) => {
-  //   setCart((prevCart) => prevCart?.filter((item) => item?.slug !== slug));
-  //   toast.success("Successfully item delet to addtocart ");
-  // };
+  const deletFromCart = (slug) => {
+    setCart((prevCart) => prevCart?.filter((item) => item?.slug !== slug));
+    toast.success("Successfully item delet to addtocart ");
+  };
 
   // const setCartToState = () => {
   //   setCart(
@@ -124,14 +136,16 @@ export const CartProvider = ({ children }) => {
         products,
         cart,
         loading,
-        // addToCart,
-        // deletFromCart,
+        addToCart,
+        deletFromCart,
         cartCount,
         setCartCouny,
         cartSubTotal,
         setCartSubTotal,
         handleDeletFromCart,
         handleAddToCart,
+        isLogin,
+        setIsLogin,
         // addItemToCart,
         // deleteItemFromCart,
       }}

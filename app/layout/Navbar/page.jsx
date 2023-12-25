@@ -1,4 +1,5 @@
 "use client";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 import React, { useState, useContext, useEffect } from "react";
 // import CartContext from "@/context/CartContext";
@@ -16,7 +17,6 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Link from "next/link";
-import Styles from "./NavbarStyles.module.css";
 
 import MenuBar from "./Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -25,18 +25,32 @@ import {
   Search,
   SearchIconWrapper,
   StyledInputBase,
-} from "@/app/components/styles/cardStyle";
-import { useCart } from "@/context/cartContext";
-import { fetcher } from "@/app/components/utils/api";
+} from "../../components/styles/cardStyle";
+// import { fetcher } from "@/app/components/utils/api";
+import { useCart } from "../../../context/cartContext";
+import { fetcher } from "../../../utils/api";
+import Styles from "./NavbarStyles.module.css";
+import MenuMobile from "./mobMenu";
 
 // import { useProductContext } from "@/context/productContext";
 // import Category from "@/pages/category/[slug]";
 
 export default function Navbar() {
+  const { user } = useUser();
+  const [mobileMenu, setMobileMenu] = useState();
+
+  // its
+
+  const [isLogin, setIsLogin] = useState();
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const [show, setShow] = useState("translate-y-0");
+  const [lastScrolly, setLastScrolly] = useState(0);
+
   // const { data } = useProductContext();
   const { cart } = useCart();
 
@@ -44,6 +58,20 @@ export default function Navbar() {
 
   const [showCatMenu, setShowCatMenu] = useState(false);
   // const { cart } = useContext(CartContext);
+
+  const controlNavbar = () => {
+    if (window.scrollY > 200) {
+    } else {
+      setShow("translate-y-0");
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", controlNavbar);
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, []);
 
   useEffect(() => {
     fetchCategories();
@@ -73,6 +101,7 @@ export default function Navbar() {
   };
 
   const menuId = "primary-search-account-menu";
+
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -89,12 +118,12 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Link href={"/ui/login"}>
+      <Link href={"/sign-in"}>
         {" "}
-        <MenuItem onClick={handleMenuClose}>login</MenuItem>
+        <MenuItem>login</MenuItem>
       </Link>
 
-      <Link href={"/ui/rasister"}>
+      <Link href={"sign-up"}>
         {" "}
         <MenuItem onClick={handleMenuClose}>Register</MenuItem>
       </Link>
@@ -146,26 +175,37 @@ export default function Navbar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <UserButton afterSignOutUrl="/" />
         </IconButton>
         <p>Profile</p>
       </MenuItem>
     </Menu>
   );
 
+  // user login nav bar show logic
+  // console.log(window.location.href.toString().includes("sing-in"));
+
+  useEffect(() => {
+    setIsLogin(window.location.href.toString().includes("sign-up"));
+
+    setIsLogin(window.location.href.toString().includes("sign-in"));
+  }, []);
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        sx={{
-          maxWidth: "1654px",
-          bgcolor: "#6DCEF5",
-          mx: "auto",
-          borderRadius: "5px",
-        }}
-      >
-        <Toolbar>
-          {/* <IconButton
+    !isLogin && (
+      <>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar
+            position="static"
+            sx={{
+              maxWidth: "1654px",
+              bgcolor: "#6DCEF5",
+              mx: "auto",
+              borderRadius: "5px",
+            }}
+          >
+            <Toolbar>
+              {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -174,30 +214,41 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton> */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            Pathagar
-          </Typography>
+              <Typography
+                variant="h6"
+                component="div"
+                sx={{ display: { xs: "none", sm: "block" } }}
+              >
+                <Link className={Styles.siteTitle} href={"/#"}>
+                  {" "}
+                  Pathagar
+                </Link>
+              </Typography>
 
-          <Box>
-            {/* sx={{ display: { xs: "none", sm: "block" } }} */}
+              <Box>
+                {/* sx={{ display: { xs: "none", sm: "block" } }} */}
 
-            {/* <MenuBar
+                {/* <MenuBar
               showCatMenu={showCatMenu}
               setShowCatMenu={setShowCatMenu}
             /> */}
-            <nav>
-              <MenuBar
-                showCatMenu={showCatMenu}
-                setShowCatMenu={setShowCatMenu}
-                categories={categories}
-              />
+                <nav>
+                  <MenuBar
+                    showCatMenu={showCatMenu}
+                    setShowCatMenu={setShowCatMenu}
+                    categories={categories}
+                    // MenuMobile={MenuMobile}
+                  />
+                  {mobileMenu && (
+                    <MenuMobile
+                      showCatMenu={showCatMenu}
+                      setShowCatMenu={setShowCatMenu}
+                      setMobileMenu={setMobileMenu}
+                      categories={categories}
+                    />
+                  )}
 
-              {/* <ul className={Styles.navigationMenu}>
+                  {/* <ul className={Styles.navigationMenu}>
                 <li className={Styles.navigationMenuLi}>
                   <Link href="/">Home</Link>
                 </li>
@@ -211,81 +262,91 @@ export default function Navbar() {
                   <Link href={"/Contact"}>Contact</Link>
                 </li>
               </ul> */}
-            </nav>
-          </Box>
+                </nav>
+              </Box>
 
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              className={Styles.search}
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  className={Styles.search}
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </Search>
 
-          <Box sx={{ flexGrow: 2 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <Link href={"/ui/cart"}>
-              <IconButton
-                size="large"
-                aria-label="show 4 new mails"
-                color="inherit"
-              >
-                {
-                  <Badge badgeContent={cart?.length || "0"} color="error">
-                    <LocalMallIcon />
+              <Box sx={{ flexGrow: 2 }} />
+              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <Link href={"/ui/cart"}>
+                  <IconButton
+                    size="large"
+                    aria-label="show 4 new mails"
+                    color="inherit"
+                  >
+                    {
+                      <Badge badgeContent={cart?.length || "0"} color="error">
+                        <LocalMallIcon />
+                      </Badge>
+                    }
+                  </IconButton>
+                </Link>
+                <IconButton
+                  size="large"
+                  aria-label="show 17 new notifications"
+                  color="inherit"
+                >
+                  <Badge badgeContent={17} color="error">
+                    <FavoriteIcon />
                   </Badge>
-                }
-              </IconButton>
-            </Link>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <FavoriteIcon />
-              </Badge>
-            </IconButton>
+                </IconButton>
 
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-controls={menuId}
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
+                  color="inherit"
+                >
+                  {!user ? (
+                    <AccountCircle />
+                  ) : (
+                    <UserButton afterSignOutUrl="/" />
+                  )}
+                </IconButton>
 
-            {/* mobail icons  */}
-            <Box>
-              <CloseIcon />
-              <ArticleIcon />
-            </Box>
-            {/* mobail icons  */}
-          </Box>
+                {/* mobail icons  */}
+                <div className={Styles.mobileMenu}>
+                  {mobileMenu ? (
+                    <CloseIcon onClick={() => setMobileMenu(false)} />
+                  ) : (
+                    <ArticleIcon onClick={() => setMobileMenu(true)} />
+                  )}
+                </div>
+                {/* mobail icons  */}
+              </Box>
 
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
+              <Box sx={{ display: { xs: "flex", md: "none" } }}>
+                <IconButton
+                  size="large"
+                  aria-label="show more"
+                  aria-controls={mobileMenuId}
+                  aria-haspopup="true"
+                  onClick={handleMobileMenuOpen}
+                  color="inherit"
+                >
+                  <MoreIcon />
+                </IconButton>
+              </Box>
+            </Toolbar>
+          </AppBar>
+          {renderMobileMenu}
+          {!user && renderMenu}
+          {/* {!isLogin ? <UserButton afterSignOutUrl="/" /> : renderMenu} */}
+        </Box>
+      </>
+    )
   );
 }

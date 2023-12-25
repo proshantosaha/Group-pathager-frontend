@@ -1,0 +1,66 @@
+.cards{
+height: 420px;
+cursor: pointer;
+
+}
+.cardsWrap{
+ position: relative;
+ overflow: hidden;
+
+}
+.addToCart{
+    display: flex;
+    justify-content: space-evenly;
+}
+.detail{
+    top: 200px;  
+}
+.cardsWrap:hover .carAnimaion{
+    visibility: visible;
+}
+
+.cardsWrap:hover .carDetail{
+    visibility: visible;
+}
+
+.carAnimaion{
+   position: absolute;
+   top: 0px;
+   left: 0px;
+   background-color: rgb(234, 238, 227);
+   width: 285px;
+   height: 405px;
+   display: flex;
+   align-items: center;
+   opacity: .6;
+   visibility: hidden;
+   transition: .5s ease;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+
+   
+}
+.cartButton{
+   color:#FFAD33;
+
+}
+
+
+
+
+.carDetail{
+    position: absolute;
+    top: 375px;
+    left: 0px;
+    width: 100%;
+    background-color:#37AAF7;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    visibility: hidden;
+    transition: .5s ease;
+}
+/* .cards:hover .carAnimaion{
+    height: 100%;
+} */
+

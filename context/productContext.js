@@ -1,6 +1,5 @@
 "use client";
 
-import { fetcher } from "@/utils/api";
 import {
   createContext,
   // useState,
@@ -9,6 +8,7 @@ import {
   useReducer,
   useState,
 } from "react";
+import { fetcher } from "../utils/api";
 
 // import reducer from "../reducer/productReducer";
 
