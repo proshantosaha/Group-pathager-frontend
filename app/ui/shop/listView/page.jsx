@@ -26,6 +26,9 @@ import {
 // import PaginationPage from "@/components/PaginationPage";
 import Image from "next/image";
 import { WraperButton } from "../../../components/styles/cardStyle";
+import { PaginationStyle } from "@/app/components/styles/paginationStyle";
+import PaginationPage from "@/app/components/PaginationPage";
+import { useCart } from "@/context/cartContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -116,6 +119,8 @@ const view2 = {
 };
 
 export default function ListView() {
+  const { products, loading, addToCart, cart, navSearch, setNavSearch } =
+    useCart();
   const [sort, setSort] = useState("");
   const [filter, setFilter] = useState("");
   const [publisher, setPublisher] = useState("");
@@ -123,9 +128,9 @@ export default function ListView() {
   const [language, setLanguage] = useState("");
   const [isFavorite, setIsFavorite] = useState([]);
   const [books, setBooks] = useState([]);
-  const [navSearch, setNavSearch] = useState([]);
+  // const [navSearch, setNavSearch] = useState([]);
   const [page, setPage] = useState(1);
-  const [cardsPerPage] = useState(8);
+  const [cardsPerPage] = useState(3);
 
   // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   // const openMobileMenu = () => setIsMobileMenuOpen(true);
@@ -135,21 +140,21 @@ export default function ListView() {
 
   // console.log(sort,filter,publisher,price,language)
 
-  useEffect(() => {
-    fetch("http://localhost:1337/api/products?populate=*")
-      .then((response) => response.json())
-      .then((data) => {
-        setBooks(data?.data);
-        setNavSearch(data?.data);
+  // useEffect(() => {
+  //   fetch("http://localhost:1337/api/products?populate=*")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setBooks(data?.data);
+  //       setNavSearch(data?.data);
 
-        setIsFavorite(new Array(data.length).fill(false));
-      });
-  }, []);
+  //       setIsFavorite(new Array(data.length).fill(false));
+  //     });
+  // }, []);
 
   //pagination
   const endIndex = page * cardsPerPage;
   const startIndex = endIndex - cardsPerPage;
-  const displayedBooks = navSearch?.slice(startIndex, endIndex);
+  const displayedBooks = products?.slice(startIndex, endIndex);
 
   //pagination handle
   const handlePageChange = (pageNumber) => {
@@ -164,7 +169,7 @@ export default function ListView() {
 
   return (
     <Box>
-      <Box sx={{ width: "100%" }}>
+      <Box marginLeft={"150px"} sx={{ width: "100%" }}>
         <Grid container>
           <Grid item xs={12} sm={6} md={9}>
             {/* <button onClick={closeMobileMenu}> grid</button>{" "}
@@ -178,16 +183,22 @@ export default function ListView() {
                       width="900px"
                       mx="auto"
                       justifyContent="space-around"
-                      backgroundColor="red"
+                      backgroundColor="#F3F3F3"
+                      padding="5px"
+
                       // className={isMobileMenuOpen ? { view } : { view2 }}
                     >
                       <Image
                         component="img"
                         width="200"
+                        height="250"
                         // height="300" // Set height to "auto"
                         objectFit="cover" // Maintain aspect ratio and fit
-                        image={book.attributes.images?.data?.attributes.url}
-                        alt={book.attributes.images?.data?.attributes.name}
+                        src={
+                          book?.attributes?.thumbnail?.data?.attributes?.formats
+                            .thumbnail.url
+                        }
+                        alt={book?.attributes?.image?.data?.attributes?.name}
                       />
                       <CardContent>
                         <Typography variant="h5" component="div">
@@ -250,13 +261,13 @@ export default function ListView() {
                 </Grid>
               ))}
             </Grid>
-            {/* <PaginationStyle>
+            <PaginationStyle>
               <PaginationPage
-                totalBooks={books?.length}
+                totalBooks={products?.length}
                 cardsPerPage={cardsPerPage}
                 handlePageChange={handlePageChange}
               />
-            </PaginationStyle> */}
+            </PaginationStyle>
           </Grid>
         </Grid>
       </Box>

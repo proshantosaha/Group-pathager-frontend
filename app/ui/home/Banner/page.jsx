@@ -146,8 +146,7 @@ const Banner = () => {
                   />
                 </div>
               </div>
-            </div>
-            //{" "}
+            </div>{" "}
           </SwiperSlide>
         ))}
       </Swiper>

@@ -12,7 +12,7 @@ const PopularAuthorCard = () => {
       margin="10px 0"
       borderRadius="10px"
       sx={{
-        bgcolor: "#fff",
+        bgcolor: "#b9f4f3",
         padding: "60px 0",
       }}
     >

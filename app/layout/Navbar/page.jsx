@@ -199,7 +199,7 @@ export default function Navbar() {
             position="static"
             sx={{
               maxWidth: "1654px",
-              bgcolor: "#6DCEF5",
+              bgcolor: "#b9f4f3",
               mx: "auto",
               borderRadius: "5px",
             }}

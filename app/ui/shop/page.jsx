@@ -37,7 +37,8 @@ import Image from "next/image";
 import Cards from "../Cards/page";
 import ListView from "./listView/page";
 import { PaginationStyle } from "../../components/styles/paginationStyle";
-import PaginationPage from "../../components/PaginationPage";
+import PaginationPage from "@/app/components/PaginationPage";
+import { useCart } from "@/context/cartContext";
 
 // import { useFilterContext } from "@/context/filterContext";
 // import { productionBrowserSourceMaps } from "@/next.config";
@@ -109,10 +110,10 @@ const Separator = styled("div")(
 `
 );
 
-const initialValue = {
-  grid_view: true,
-  list_view: false,
-};
+// const initialValue = {
+//   grid_view: true,
+//   list_view: false,
+// };
 
 export default function Shop() {
   // const [sort, setSort] = useState("");
@@ -121,28 +122,17 @@ export default function Shop() {
   // const [price, setPrice] = useState([0, 650]);
   // const [language, setLanguage] = useState("");
   // const [isFavorite, setIsFavorite] = useState([]);
+  const { products, loading, addToCart, cart, navSearch, setNavSearch } =
+    useCart();
   const [books, setBooks] = useState([]);
-  const [navSearch, setNavSearch] = useState([]);
+  // const [navSearch, setNavSearch] = useState([]);
   const [page, setPage] = useState(1);
-  const [cardsPerPage] = useState(8);
+  const [cardsPerPage] = useState(6);
   // console.log(sort,filter,publisher,price,language)
 
   const [view, setView] = useState(false);
 
   // const { sorting } = useFilterContext();
-
-  useEffect(() => {
-    fetch("http://localhost:1337/api/products?populate=*")
-      .then((response) => response.json())
-      .then((data) => {
-        setBooks(data?.data);
-        setNavSearch(data?.data);
-        // setGridView(data?.data);
-        // setListView(data?.data);
-
-        setIsFavorite(new Array(data.length).fill(false));
-      });
-  }, []);
 
   // price sorting
 
@@ -154,7 +144,7 @@ export default function Shop() {
 
   const handleChangeNav = (e) => {
     const searchText = e.target.value;
-    const matchedBooks = books?.filter((book) =>
+    const matchedBooks = products?.filter((book) =>
       book?.authorname?.toLowerCase().includes(searchText.toLowerCase())
     );
 
@@ -165,11 +155,12 @@ export default function Shop() {
   const endIndex = page * cardsPerPage;
   const startIndex = endIndex - cardsPerPage;
   const displayedBooks = navSearch?.slice(startIndex, endIndex);
-
+  //pagination
   //pagination handle
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
   };
+  //pagination handle
 
   const handleFavoriteToggle = (index) => {
     const updatedFavorites = [...isFavorite];
@@ -203,6 +194,7 @@ export default function Shop() {
               <p>Reset Sort</p>
             </Box>
 
+            {/* pricing sort start */}
             <Box
               style={{
                 border: "1px solid black",
@@ -242,6 +234,7 @@ export default function Shop() {
                 </RadioGroup>
               </FormControl>
             </Box>
+            {/* pricing sort end */}
           </Grid>
           <Grid item xs={12} sm={6} md={9} sx={{ padding: 2 }}>
             <Card>
@@ -260,6 +253,8 @@ export default function Shop() {
       <Box sx={{ width: "100%" }}>
         <Grid container>
           <Grid item xs={12} sm={6} md={3}>
+            {/* author sort start */}
+
             <Box sx={{ color: "#000000", padding: 2 }}>
               <Box
                 style={{
@@ -274,6 +269,7 @@ export default function Shop() {
                 <p>Filter</p>
                 <p>Reset Filter</p>
               </Box>
+              {/* author sort start */}
 
               <Box
                 border="1px solid black"
@@ -307,7 +303,10 @@ export default function Shop() {
                   </RadioGroup>
                 </FormControl>
               </Box>
+              {/* author sort end */}
+
               <Separator />
+              {/* publist sort start */}
 
               <Box
                 border="1px solid black"
@@ -339,7 +338,10 @@ export default function Shop() {
                   </RadioGroup>
                 </FormControl>
               </Box>
+              {/* publist sort end */}
+
               <Separator />
+              {/* scle sort start */}
 
               <Box sx={{ padding: 3, border: 1, borderRadius: 2 }}>
                 <Slider
@@ -354,7 +356,10 @@ export default function Shop() {
                   max={2600}
                 />
               </Box>
+              {/* scle sort end */}
+
               <Separator />
+              {/* language sort start */}
 
               <Box
                 border="1px solid black"
@@ -398,11 +403,13 @@ export default function Shop() {
                   </RadioGroup>
                 </FormControl>
               </Box>
+              {/* language sort start */}
+
               <Separator />
             </Box>
           </Grid>
 
-          <Grid item xs={12} sm={6} md={9}>
+          <Grid item xs={3} md={8}>
             <Box display="flex" justifyContent="space-between">
               <Box>
                 {view === true ? (
@@ -425,7 +432,8 @@ export default function Shop() {
                   </>
                 )}
               </Box>
-              <Box>
+              {/* dekhi eta ki korajay */}
+              {/* <Box>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Age</InputLabel>
                   <Select
@@ -445,7 +453,7 @@ export default function Shop() {
                     </MenuItem>
                   </Select>
                 </FormControl>
-              </Box>
+              </Box> */}
             </Box>
 
             {view === true ? (
@@ -456,36 +464,29 @@ export default function Shop() {
             ) : (
               <>
                 {" "}
-                <Grid container sx={{ flexGrow: 1 }}>
+                <Grid container sx={{ flexGrow: 1, marginLeft: 10 }}>
                   {displayedBooks.map((item) => (
-                    <Cards
-                      key={item.id}
-                      product={item.attributes}
-                      id={item.id}
-
-                      // index={item.index}
-
-                      // {...item}
-
-                      // title={item.attributes.name}
-                      // price={item.attributes.price}
-                      // authorname={item.attributes.authorname}
-                      // stock={item.attributes.stock}
-                      // rating={item.attributes.rating}
-                      // book={item}
-                    />
+                    <Box margin="20px 30px">
+                      <Cards
+                        key={item.id}
+                        product={item.attributes}
+                        id={item.id}
+                      />
+                    </Box>
                   ))}
                 </Grid>
               </>
             )}
 
-            <PaginationStyle>
-              <PaginationPage
-                totalBooks={books?.length}
-                cardsPerPage={cardsPerPage}
-                handlePageChange={handlePageChange}
-              />
-            </PaginationStyle>
+            {!view && (
+              <PaginationStyle>
+                <PaginationPage
+                  totalBooks={products?.length}
+                  cardsPerPage={cardsPerPage}
+                  handlePageChange={handlePageChange}
+                />
+              </PaginationStyle>
+            )}
           </Grid>
         </Grid>
       </Box>

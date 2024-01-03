@@ -11,6 +11,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/autoplay";
 
 import { Autoplay, Scrollbar, Navigation } from "swiper/modules";
+import { useCart } from "@/context/cartContext";
 
 const authorData = [
   {
@@ -105,25 +106,27 @@ const theme = createTheme({
 });
 
 export default function AuthorCard() {
+  const { products } = useCart();
   return (
     <ThemeProvider theme={theme}>
       <Swiper
         modules={[Scrollbar, Autoplay, Navigation]}
         spaceBetween={0}
-        slidesPerView={5}
+        slidesPerView={6}
         // pagination={{ clickable: true }}
         navigation={true}
-        speed={1000}
+        // speed={1000}
         loop={true}
-        autoplay={{
-          delay: 1000,
-          disableOnInteraction: false,
-        }}
+        // autoplay={{
+        //   delay: 1000,
+        //   disableOnInteraction: false,
+        // }}
         touchRatio={1.5}
         effect={"flip"}
         // className={classes.mySwiper}
       >
-        {authorData.map((item) => (
+        {console.log(products)}
+        {products.map((item) => (
           <SwiperSlide>
             <Box
               sx={{
@@ -139,14 +142,18 @@ export default function AuthorCard() {
                   fontWeight: "medium",
                 }}
               >
-                <Image src={item?.authorImg} width={200} height={200} />
+                <Image
+                  src={item?.attributes?.authimage?.data?.attributes?.url}
+                  width={200}
+                  height={200}
+                />
               </Box>
 
               <Box
                 className={styles.marginbottom}
-                sx={{ color: "text.secondary", fontSize: 14, marginLeft: 8 }}
+                sx={{ color: "text.secondary", fontSize: 14, marginLeft: 5 }}
               >
-                {item.title}
+                {item.attributes.author}
               </Box>
             </Box>
           </SwiperSlide>

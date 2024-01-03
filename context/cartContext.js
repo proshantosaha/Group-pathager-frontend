@@ -20,6 +20,7 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [cartCount, setCartCouny] = useState(0);
   const [cartSubTotal, setCartSubTotal] = useState(0);
+  const [navSearch, setNavSearch] = useState([]);
 
   useEffect(() => {
     getProducts();
@@ -29,6 +30,7 @@ export const CartProvider = ({ children }) => {
     try {
       const { data } = await fetcher(`/api/products?populate=*`);
       setProducts(data);
+      setNavSearch(data);
       setLoading(false);
     } catch (error) {
       // console.log("error:", error);
@@ -134,6 +136,8 @@ export const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         products,
+        navSearch,
+        setNavSearch,
         cart,
         loading,
         addToCart,

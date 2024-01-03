@@ -74,7 +74,7 @@ const Cards = ({ slug, id, product }) => {
                 {product?.name}
               </Typography>
               <Typography color="text.secondary" variant="h5" component="div">
-                by {product?.authorname}
+                by {product?.author}
               </Typography>
 
               <Typography variant="p">{product?.stock}</Typography>
@@ -84,11 +84,14 @@ const Cards = ({ slug, id, product }) => {
 
                 {product?.original_price && (
                   <Box display="flex" justifyContent="space-between">
-                    <Typography variant="p">
-                      {" "}
-                      ${product?.original_price}
-                    </Typography>
+                    <del>
+                      <Typography variant="p">
+                        {" "}
+                        ${product?.original_price}
+                      </Typography>
+                    </del>
                     <br />
+
                     <Typography variant="p">
                       {getDiscountedPricePercentage(
                         product?.original_price,
