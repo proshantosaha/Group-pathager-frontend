@@ -35,11 +35,11 @@ const Category = ({ params }) => {
   const { categories } = useProductContext();
   console.log(categories);
 
-  const cateId = params.slug;
-  console.log(cateId);
+  // const cateId = params.slug;
+  // console.log(cateId);
 
-  const catedetail = categories?.filter((e) => e.slug === cateId);
-  console.log(catedetail);
+  // const catedetail = categories?.filter((e) => e.slug === cateId);
+  // console.log(catedetail);
 
   // useEffect(() => {
   //   getCategories();

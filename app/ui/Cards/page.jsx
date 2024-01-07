@@ -28,8 +28,10 @@ import { useRouter } from "next/navigation";
 import { getDiscountedPricePercentage } from "../../../utils/helper";
 import { useCart } from "../../../context/cartContext";
 import styles from "./cards.module.css";
+import { useUser } from "@clerk/nextjs";
 
 const Cards = ({ slug, id, product }) => {
+  const { user } = useUser();
   // console.log(booksData);
   const [isFavorite, setIsFavorite] = useState([]);
   const router = useRouter();
@@ -44,6 +46,18 @@ const Cards = ({ slug, id, product }) => {
     setIsFavorite(updatedFavorites);
   };
 
+  const detailButton = () => {
+    if (!user) {
+      router.push("/sign-in");
+      window.alert(" please log in");
+      // <Link href={"/sign-in"}/>
+    } else {
+      router.push(`/components/products/${id}`);
+    }
+
+    // localStorage.setItem("cart", JSON.stringify(cart));
+  };
+
   return (
     // <Link key={id} href={`/products/${product.slug}`}>
     <Box sx={{ width: "300px" }}>
@@ -55,7 +69,7 @@ const Cards = ({ slug, id, product }) => {
         >
           <div
             className={styles.cards}
-            onClick={() => router.push(`/components/products/${id}`)}
+            // onClick={() => router.push(`/components/products/${id}`)}
           >
             <CardMedia
               component="img"
@@ -160,7 +174,7 @@ const Cards = ({ slug, id, product }) => {
               <Button
                 color="primary"
                 // sx={{ background: "white", color: "green" }}
-                onClick={() => router.push(`/components/products/${id}`)}
+                onClick={detailButton}
               >
                 <Typography component="div"> View Details</Typography>
               </Button>
